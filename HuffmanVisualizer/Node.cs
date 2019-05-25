@@ -13,10 +13,10 @@ namespace HuffmanVisualizer
             if (this is Leaf)
                 return (char)((Leaf)this).Character;
 
-            if (path[0] == 0)
-                return ((ParentNode)this).GetCharacterFromPath(path.Substring(1));
+            if (path[0] == '0')
+                return ((ParentNode)this).Left.GetCharacterFromPath(path.Substring(1)); // 0
             else
-                return ((ParentNode)this).GetCharacterFromPath(path.Substring(1));
+                return ((ParentNode)this).Right.GetCharacterFromPath(path.Substring(1)); // 1
         }
     }
 }

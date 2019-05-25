@@ -8,7 +8,7 @@
         
         public int Weight { get; }
 
-        public ParentNode(ParentNode left, int weight, ParentNode right) 
+        public ParentNode(Node left, int weight, Node right) 
         {
             Left = left;
             Weight = weight;
