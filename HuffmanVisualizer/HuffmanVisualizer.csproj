@@ -52,7 +52,9 @@
       <DependentUpon>FormVisualizer.cs</DependentUpon>
     </Compile>
     <Compile Include="HuffmanAlgorithm.cs" />
+    <Compile Include="Leaf.cs" />
     <Compile Include="Node.cs" />
+    <Compile Include="ParentNode.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormVisualizer.resx">
