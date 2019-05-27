@@ -4,28 +4,30 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace HuffmanVisualizer
+namespace VisualizadorHuffman
 {
     static class Program
     {
-        /// <summary>
-        /// Ponto de entrada principal para o aplicativo.
-        /// </summary>
         [STAThread]
         static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FormVisualizer());
+            //Application.Run(new FormVisualizer());
 
-            // Console Test
-            Leaf leaf = new Leaf('a', 2);
-            Leaf leaf2 = new Leaf('b', 3);
-            ParentNode parentNode = new ParentNode(leaf, leaf.Frequency + leaf2.Frequency, leaf2);
-            Console.WriteLine(leaf.Frequency);
-            Console.WriteLine(parentNode.Weight);
-            Console.WriteLine(parentNode.GetCharacterFromPath("1"));
-            Console.WriteLine(parentNode.GetCharacterFromPath("0"));
+            // Debug no Console
+            Folha a = new Folha('a', 1);
+            Folha b = new Folha('b', 2);
+            Folha c = new Folha('c', 3);
+            NoPai p1 = new NoPai(a, b);
+            NoPai p2 = new NoPai(p1, c);
+            Console.WriteLine("Leaf f: a: " + a.Frequencia + " b: " + b.Frequencia + " c: " + c.Frequencia);
+            Console.WriteLine("PNode w: p1: " + p1.Peso + " p2: " + p2.Peso);
+            Console.WriteLine("p1 path 0: " + p1.GetCaractereDoCaminho("0") + "\n");
+            Console.WriteLine("p1 path 1: " + p1.GetCaractereDoCaminho("1") + "\n");
+            Console.WriteLine("p2 path 01: " + p2.GetCaractereDoCaminho("01") + "\n");
+            Console.WriteLine("p2 path 00: " + p2.GetCaractereDoCaminho("00") + "\n");
+            Console.WriteLine("p2 path 1: " + p2.GetCaractereDoCaminho("1") + "\n");
         }
     }
 }

@@ -5,9 +5,9 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0F43375D-2DF4-4555-BD37-1285B24E9136}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>HuffmanVisualizer</RootNamespace>
-    <AssemblyName>HuffmanVisualizer</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>VisualizadorHuffman</RootNamespace>
+    <AssemblyName>VisualizadorHuffman</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -51,10 +54,9 @@
     <Compile Include="FormVisualizer.Designer.cs">
       <DependentUpon>FormVisualizer.cs</DependentUpon>
     </Compile>
-    <Compile Include="HuffmanAlgorithm.cs" />
-    <Compile Include="Leaf.cs" />
-    <Compile Include="Node.cs" />
-    <Compile Include="ParentNode.cs" />
+    <Compile Include="Folha.cs" />
+    <Compile Include="No.cs" />
+    <Compile Include="NoPai.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormVisualizer.resx">
@@ -68,6 +70,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
