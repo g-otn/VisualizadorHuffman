@@ -1,2 +1,2 @@
-# HuffmanVisualizer
-See step-by-step process and representation of the Huffman Algorithm with given data
+# Visualizador Huffman
+See step-by-step process and representation of the Huffman Algorithm compression
