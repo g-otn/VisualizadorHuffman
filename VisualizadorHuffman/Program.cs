@@ -13,7 +13,7 @@ namespace VisualizadorHuffman
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new FormVisualizer());
+            Application.Run(new FormVisualizador());
 
             // Debug no Console
             Folha a = new Folha('a', 1);
