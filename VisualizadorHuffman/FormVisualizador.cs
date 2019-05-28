@@ -15,24 +15,7 @@ namespace VisualizadorHuffman
         public FormVisualizador()
         {
             InitializeComponent();
-        }
-
-        private void FormVisualizer_Load(object sender, EventArgs e)
-        {
-           
-        }
-
-        private void opt_Archive_CheckedChanged(object sender, EventArgs e)
-        {
-            gpbArquivo.Visible = true;
-            gpbAndamento.Visible = true;
-        }
-
-        private void opt_Text_CheckedChanged(object sender, EventArgs e)
-        {
-            gpbAndamento.Visible = true;
-            gpbArquivo.Visible = false;
-
+            this.ActiveControl = txtEntrada;
         }
 
         private void btn_OpenArchive_Click(object sender, EventArgs e)
@@ -40,19 +23,23 @@ namespace VisualizadorHuffman
             openFile.ShowDialog();
         }
 
-        private void btn_start_Click(object sender, EventArgs e)
+        private void btnIniciarParar_Click(object sender, EventArgs e)
         {
             if (btnIniciarParar.Text == "Iniciar")
             {
+                // Iniciar
                 btnIniciarParar.Text = "Parar";
+                Comprimir();
             }
             else
             {
+                // Parar
                 btnIniciarParar.Text = "Iniciar";
+                // limpar timer
             }
         }
 
-        private void btn_pause_Click(object sender, EventArgs e)
+        private void btnPausarContinuar_Click(object sender, EventArgs e)
         {
             if (btnPausarContinuar.Text == "Pausar")
             {
@@ -65,9 +52,42 @@ namespace VisualizadorHuffman
             
         }
 
-        private void trackBar1_Scroll(object sender, EventArgs e)
+        private void RdbTexto_CheckedChanged(object sender, EventArgs e)
         {
+            txtCaminhoArquivo.Enabled = false;
+            btnAbrirArquivo.Enabled = true;
+        }
 
+        private void TxtEntrada_Enter(object sender, EventArgs e)
+        {
+            if (txtEntrada.ForeColor == SystemColors.GrayText && txtEntrada.Text == "Digite alguma coisa...")
+            {
+                txtEntrada.Clear();
+                txtEntrada.ForeColor = SystemColors.WindowText;
+            }
+        }
+
+        private void TxtEntrada_Leave(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtEntrada.Text))
+            {
+                txtEntrada.Text = "Digite alguma coisa...";
+                txtEntrada.ForeColor = SystemColors.GrayText;
+            }
+        }
+
+        private void Comprimir()
+        {
+            // Declarar variáveis
+
+            // Limpar controles
+
+
+            // Preparar Controles
+            txtEntrada.ReadOnly = true; // Evita edição durante a seleção pelo programa
+
+            // Iniciar compressão
+                // set timeout do Timer
         }
     }
 }
