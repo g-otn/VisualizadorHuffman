@@ -24,14 +24,14 @@ namespace VisualizadorHuffman
 
         private void opt_Archive_CheckedChanged(object sender, EventArgs e)
         {
-            grp_Archive.Visible = true;
-            grp_Progress.Visible = true;
+            gpbArquivo.Visible = true;
+            gpbAndamento.Visible = true;
         }
 
         private void opt_Text_CheckedChanged(object sender, EventArgs e)
         {
-            grp_Progress.Visible = true;
-            grp_Archive.Visible = false;
+            gpbAndamento.Visible = true;
+            gpbArquivo.Visible = false;
 
         }
 
@@ -42,25 +42,25 @@ namespace VisualizadorHuffman
 
         private void btn_start_Click(object sender, EventArgs e)
         {
-            if (btn_start.Text == "Iniciar")
+            if (btnIniciarParar.Text == "Iniciar")
             {
-                btn_start.Text = "Parar";
+                btnIniciarParar.Text = "Parar";
             }
             else
             {
-                btn_start.Text = "Iniciar";
+                btnIniciarParar.Text = "Iniciar";
             }
         }
 
         private void btn_pause_Click(object sender, EventArgs e)
         {
-            if (btn_pause.Text == "Pausar")
+            if (btnPausarContinuar.Text == "Pausar")
             {
-                btn_pause.Text = "Continuar";
+                btnPausarContinuar.Text = "Continuar";
             }
             else
             {
-                btn_pause.Text = "Pausar";
+                btnPausarContinuar.Text = "Pausar";
             }
             
         }

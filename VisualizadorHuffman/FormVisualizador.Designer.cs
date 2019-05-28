@@ -28,40 +28,40 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Node0");
-            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Node1");
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Node2");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Node3");
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Node0");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Node1");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Node2");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Node3");
             this.rdbArquivo = new System.Windows.Forms.RadioButton();
             this.rdbTexto = new System.Windows.Forms.RadioButton();
             this.gpbOpcoes = new System.Windows.Forms.GroupBox();
-            this.grp_Progress = new System.Windows.Forms.GroupBox();
-            this.btn_next = new System.Windows.Forms.Button();
-            this.btn_pause = new System.Windows.Forms.Button();
-            this.btn_start = new System.Windows.Forms.Button();
+            this.gpbAndamento = new System.Windows.Forms.GroupBox();
+            this.btnProximoPasso = new System.Windows.Forms.Button();
+            this.btnPausarContinuar = new System.Windows.Forms.Button();
+            this.btnIniciarParar = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.richTextBox2 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.rtbSaida = new System.Windows.Forms.RichTextBox();
+            this.rtbEntrada = new System.Windows.Forms.RichTextBox();
             this.txt_ArchivePath = new System.Windows.Forms.TextBox();
             this.btn_OpenArchive = new System.Windows.Forms.Button();
-            this.grp_Archive = new System.Windows.Forms.GroupBox();
+            this.gpbArquivo = new System.Windows.Forms.GroupBox();
             this.openFile = new System.Windows.Forms.OpenFileDialog();
-            this.trck_Interval = new System.Windows.Forms.TrackBar();
-            this.grp_Interval = new System.Windows.Forms.GroupBox();
-            this.grp_Steps = new System.Windows.Forms.GroupBox();
-            this.dtg_Steps = new System.Windows.Forms.DataGridView();
+            this.tkbIntervaloPassos = new System.Windows.Forms.TrackBar();
+            this.gpbIntervalo = new System.Windows.Forms.GroupBox();
+            this.gpbPassos = new System.Windows.Forms.GroupBox();
+            this.dgvCaracteres = new System.Windows.Forms.DataGridView();
             this.txt_code = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.txt_caractere = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nmb_Frequency = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.treeView1 = new System.Windows.Forms.TreeView();
+            this.trvArvore = new System.Windows.Forms.TreeView();
             this.gpbOpcoes.SuspendLayout();
-            this.grp_Progress.SuspendLayout();
-            this.grp_Archive.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trck_Interval)).BeginInit();
-            this.grp_Interval.SuspendLayout();
-            this.grp_Steps.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dtg_Steps)).BeginInit();
+            this.gpbAndamento.SuspendLayout();
+            this.gpbArquivo.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tkbIntervaloPassos)).BeginInit();
+            this.gpbIntervalo.SuspendLayout();
+            this.gpbPassos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCaracteres)).BeginInit();
             this.SuspendLayout();
             // 
             // rdbArquivo
@@ -99,51 +99,51 @@
             this.gpbOpcoes.TabStop = false;
             this.gpbOpcoes.Text = "Opções";
             // 
-            // grp_Progress
+            // gpbAndamento
             // 
-            this.grp_Progress.Controls.Add(this.btn_next);
-            this.grp_Progress.Controls.Add(this.btn_pause);
-            this.grp_Progress.Controls.Add(this.btn_start);
-            this.grp_Progress.Controls.Add(this.label2);
-            this.grp_Progress.Controls.Add(this.label1);
-            this.grp_Progress.Controls.Add(this.richTextBox2);
-            this.grp_Progress.Controls.Add(this.richTextBox1);
-            this.grp_Progress.Location = new System.Drawing.Point(62, 174);
-            this.grp_Progress.Name = "grp_Progress";
-            this.grp_Progress.Size = new System.Drawing.Size(654, 132);
-            this.grp_Progress.TabIndex = 3;
-            this.grp_Progress.TabStop = false;
-            this.grp_Progress.Text = "Andamento";
-            this.grp_Progress.Visible = false;
+            this.gpbAndamento.Controls.Add(this.btnProximoPasso);
+            this.gpbAndamento.Controls.Add(this.btnPausarContinuar);
+            this.gpbAndamento.Controls.Add(this.btnIniciarParar);
+            this.gpbAndamento.Controls.Add(this.label2);
+            this.gpbAndamento.Controls.Add(this.label1);
+            this.gpbAndamento.Controls.Add(this.rtbSaida);
+            this.gpbAndamento.Controls.Add(this.rtbEntrada);
+            this.gpbAndamento.Location = new System.Drawing.Point(62, 174);
+            this.gpbAndamento.Name = "gpbAndamento";
+            this.gpbAndamento.Size = new System.Drawing.Size(654, 132);
+            this.gpbAndamento.TabIndex = 3;
+            this.gpbAndamento.TabStop = false;
+            this.gpbAndamento.Text = "Andamento";
+            this.gpbAndamento.Visible = false;
             // 
-            // btn_next
+            // btnProximoPasso
             // 
-            this.btn_next.Location = new System.Drawing.Point(274, 102);
-            this.btn_next.Name = "btn_next";
-            this.btn_next.Size = new System.Drawing.Size(94, 23);
-            this.btn_next.TabIndex = 10;
-            this.btn_next.Text = "Próximo Passo";
-            this.btn_next.UseVisualStyleBackColor = true;
+            this.btnProximoPasso.Location = new System.Drawing.Point(274, 102);
+            this.btnProximoPasso.Name = "btnProximoPasso";
+            this.btnProximoPasso.Size = new System.Drawing.Size(94, 23);
+            this.btnProximoPasso.TabIndex = 10;
+            this.btnProximoPasso.Text = "Próximo Passo";
+            this.btnProximoPasso.UseVisualStyleBackColor = true;
             // 
-            // btn_pause
+            // btnPausarContinuar
             // 
-            this.btn_pause.Location = new System.Drawing.Point(274, 66);
-            this.btn_pause.Name = "btn_pause";
-            this.btn_pause.Size = new System.Drawing.Size(94, 23);
-            this.btn_pause.TabIndex = 9;
-            this.btn_pause.Text = "Pausar";
-            this.btn_pause.UseVisualStyleBackColor = true;
-            this.btn_pause.Click += new System.EventHandler(this.btn_pause_Click);
+            this.btnPausarContinuar.Location = new System.Drawing.Point(274, 66);
+            this.btnPausarContinuar.Name = "btnPausarContinuar";
+            this.btnPausarContinuar.Size = new System.Drawing.Size(94, 23);
+            this.btnPausarContinuar.TabIndex = 9;
+            this.btnPausarContinuar.Text = "Pausar";
+            this.btnPausarContinuar.UseVisualStyleBackColor = true;
+            this.btnPausarContinuar.Click += new System.EventHandler(this.btn_pause_Click);
             // 
-            // btn_start
+            // btnIniciarParar
             // 
-            this.btn_start.Location = new System.Drawing.Point(274, 30);
-            this.btn_start.Name = "btn_start";
-            this.btn_start.Size = new System.Drawing.Size(94, 23);
-            this.btn_start.TabIndex = 8;
-            this.btn_start.Text = "Iniciar";
-            this.btn_start.UseVisualStyleBackColor = true;
-            this.btn_start.Click += new System.EventHandler(this.btn_start_Click);
+            this.btnIniciarParar.Location = new System.Drawing.Point(274, 30);
+            this.btnIniciarParar.Name = "btnIniciarParar";
+            this.btnIniciarParar.Size = new System.Drawing.Size(94, 23);
+            this.btnIniciarParar.TabIndex = 8;
+            this.btnIniciarParar.Text = "Iniciar";
+            this.btnIniciarParar.UseVisualStyleBackColor = true;
+            this.btnIniciarParar.Click += new System.EventHandler(this.btn_start_Click);
             // 
             // label2
             // 
@@ -163,24 +163,24 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Conteúdo  Do Arquivo";
             // 
-            // richTextBox2
+            // rtbSaida
             // 
-            this.richTextBox2.Location = new System.Drawing.Point(374, 30);
-            this.richTextBox2.Name = "richTextBox2";
-            this.richTextBox2.ReadOnly = true;
-            this.richTextBox2.ShowSelectionMargin = true;
-            this.richTextBox2.Size = new System.Drawing.Size(233, 96);
-            this.richTextBox2.TabIndex = 5;
-            this.richTextBox2.Text = "";
+            this.rtbSaida.Location = new System.Drawing.Point(374, 30);
+            this.rtbSaida.Name = "rtbSaida";
+            this.rtbSaida.ReadOnly = true;
+            this.rtbSaida.ShowSelectionMargin = true;
+            this.rtbSaida.Size = new System.Drawing.Size(233, 96);
+            this.rtbSaida.TabIndex = 5;
+            this.rtbSaida.Text = "";
             // 
-            // richTextBox1
+            // rtbEntrada
             // 
-            this.richTextBox1.Location = new System.Drawing.Point(35, 30);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.ShowSelectionMargin = true;
-            this.richTextBox1.Size = new System.Drawing.Size(233, 96);
-            this.richTextBox1.TabIndex = 4;
-            this.richTextBox1.Text = "";
+            this.rtbEntrada.Location = new System.Drawing.Point(35, 30);
+            this.rtbEntrada.Name = "rtbEntrada";
+            this.rtbEntrada.ShowSelectionMargin = true;
+            this.rtbEntrada.Size = new System.Drawing.Size(233, 96);
+            this.rtbEntrada.TabIndex = 4;
+            this.rtbEntrada.Text = "";
             // 
             // txt_ArchivePath
             // 
@@ -199,61 +199,61 @@
             this.btn_OpenArchive.UseVisualStyleBackColor = true;
             this.btn_OpenArchive.Click += new System.EventHandler(this.btn_OpenArchive_Click);
             // 
-            // grp_Archive
+            // gpbArquivo
             // 
-            this.grp_Archive.Controls.Add(this.btn_OpenArchive);
-            this.grp_Archive.Controls.Add(this.txt_ArchivePath);
-            this.grp_Archive.Location = new System.Drawing.Point(150, 12);
-            this.grp_Archive.Name = "grp_Archive";
-            this.grp_Archive.Size = new System.Drawing.Size(486, 78);
-            this.grp_Archive.TabIndex = 6;
-            this.grp_Archive.TabStop = false;
-            this.grp_Archive.Text = "Arquivo";
-            this.grp_Archive.Visible = false;
+            this.gpbArquivo.Controls.Add(this.btn_OpenArchive);
+            this.gpbArquivo.Controls.Add(this.txt_ArchivePath);
+            this.gpbArquivo.Location = new System.Drawing.Point(150, 12);
+            this.gpbArquivo.Name = "gpbArquivo";
+            this.gpbArquivo.Size = new System.Drawing.Size(486, 78);
+            this.gpbArquivo.TabIndex = 6;
+            this.gpbArquivo.TabStop = false;
+            this.gpbArquivo.Text = "Arquivo";
+            this.gpbArquivo.Visible = false;
             // 
-            // trck_Interval
+            // tkbIntervaloPassos
             // 
-            this.trck_Interval.Location = new System.Drawing.Point(6, 19);
-            this.trck_Interval.Name = "trck_Interval";
-            this.trck_Interval.Size = new System.Drawing.Size(225, 45);
-            this.trck_Interval.TabIndex = 7;
-            this.trck_Interval.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            this.tkbIntervaloPassos.Location = new System.Drawing.Point(6, 19);
+            this.tkbIntervaloPassos.Name = "tkbIntervaloPassos";
+            this.tkbIntervaloPassos.Size = new System.Drawing.Size(225, 45);
+            this.tkbIntervaloPassos.TabIndex = 7;
+            this.tkbIntervaloPassos.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
-            // grp_Interval
+            // gpbIntervalo
             // 
-            this.grp_Interval.Controls.Add(this.trck_Interval);
-            this.grp_Interval.Location = new System.Drawing.Point(286, 312);
-            this.grp_Interval.Name = "grp_Interval";
-            this.grp_Interval.Size = new System.Drawing.Size(237, 72);
-            this.grp_Interval.TabIndex = 8;
-            this.grp_Interval.TabStop = false;
-            this.grp_Interval.Text = "Inervalo Entre  Passos";
+            this.gpbIntervalo.Controls.Add(this.tkbIntervaloPassos);
+            this.gpbIntervalo.Location = new System.Drawing.Point(286, 312);
+            this.gpbIntervalo.Name = "gpbIntervalo";
+            this.gpbIntervalo.Size = new System.Drawing.Size(237, 72);
+            this.gpbIntervalo.TabIndex = 8;
+            this.gpbIntervalo.TabStop = false;
+            this.gpbIntervalo.Text = "Inervalo Entre  Passos";
             // 
-            // grp_Steps
+            // gpbPassos
             // 
-            this.grp_Steps.Controls.Add(this.dtg_Steps);
-            this.grp_Steps.Controls.Add(this.treeView1);
-            this.grp_Steps.Location = new System.Drawing.Point(62, 390);
-            this.grp_Steps.Name = "grp_Steps";
-            this.grp_Steps.Size = new System.Drawing.Size(654, 153);
-            this.grp_Steps.TabIndex = 9;
-            this.grp_Steps.TabStop = false;
-            this.grp_Steps.Text = "Passos Da Compressão";
+            this.gpbPassos.Controls.Add(this.dgvCaracteres);
+            this.gpbPassos.Controls.Add(this.trvArvore);
+            this.gpbPassos.Location = new System.Drawing.Point(62, 390);
+            this.gpbPassos.Name = "gpbPassos";
+            this.gpbPassos.Size = new System.Drawing.Size(654, 153);
+            this.gpbPassos.TabIndex = 9;
+            this.gpbPassos.TabStop = false;
+            this.gpbPassos.Text = "Passos Da Compressão";
             // 
-            // dtg_Steps
+            // dgvCaracteres
             // 
-            this.dtg_Steps.AllowUserToDeleteRows = false;
-            this.dtg_Steps.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dtg_Steps.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvCaracteres.AllowUserToDeleteRows = false;
+            this.dgvCaracteres.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvCaracteres.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.txt_code,
             this.txt_caractere,
             this.nmb_Frequency});
-            this.dtg_Steps.Location = new System.Drawing.Point(297, 19);
-            this.dtg_Steps.Name = "dtg_Steps";
-            this.dtg_Steps.ReadOnly = true;
-            this.dtg_Steps.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.dtg_Steps.Size = new System.Drawing.Size(342, 128);
-            this.dtg_Steps.TabIndex = 10;
+            this.dgvCaracteres.Location = new System.Drawing.Point(297, 19);
+            this.dgvCaracteres.Name = "dgvCaracteres";
+            this.dgvCaracteres.ReadOnly = true;
+            this.dgvCaracteres.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dgvCaracteres.Size = new System.Drawing.Size(342, 128);
+            this.dgvCaracteres.TabIndex = 10;
             // 
             // txt_code
             // 
@@ -273,50 +273,50 @@
             this.nmb_Frequency.Name = "nmb_Frequency";
             this.nmb_Frequency.ReadOnly = true;
             // 
-            // treeView1
+            // trvArvore
             // 
-            this.treeView1.Location = new System.Drawing.Point(35, 19);
-            this.treeView1.Name = "treeView1";
-            treeNode5.Name = "Node0";
-            treeNode5.Text = "Node0";
-            treeNode6.Name = "Node1";
-            treeNode6.Text = "Node1";
-            treeNode7.Name = "Node2";
-            treeNode7.Text = "Node2";
-            treeNode8.Name = "Node3";
-            treeNode8.Text = "Node3";
-            this.treeView1.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode5,
-            treeNode6,
-            treeNode7,
-            treeNode8});
-            this.treeView1.Size = new System.Drawing.Size(233, 128);
-            this.treeView1.TabIndex = 0;
+            this.trvArvore.Location = new System.Drawing.Point(35, 19);
+            this.trvArvore.Name = "trvArvore";
+            treeNode1.Name = "Node0";
+            treeNode1.Text = "Node0";
+            treeNode2.Name = "Node1";
+            treeNode2.Text = "Node1";
+            treeNode3.Name = "Node2";
+            treeNode3.Text = "Node2";
+            treeNode4.Name = "Node3";
+            treeNode4.Text = "Node3";
+            this.trvArvore.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4});
+            this.trvArvore.Size = new System.Drawing.Size(233, 128);
+            this.trvArvore.TabIndex = 0;
             // 
             // FormVisualizador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 572);
-            this.Controls.Add(this.grp_Steps);
-            this.Controls.Add(this.grp_Interval);
-            this.Controls.Add(this.grp_Archive);
-            this.Controls.Add(this.grp_Progress);
+            this.Controls.Add(this.gpbPassos);
+            this.Controls.Add(this.gpbIntervalo);
+            this.Controls.Add(this.gpbArquivo);
+            this.Controls.Add(this.gpbAndamento);
             this.Controls.Add(this.gpbOpcoes);
             this.Name = "FormVisualizador";
             this.Text = "Visualizador Huffman";
             this.Load += new System.EventHandler(this.FormVisualizer_Load);
             this.gpbOpcoes.ResumeLayout(false);
             this.gpbOpcoes.PerformLayout();
-            this.grp_Progress.ResumeLayout(false);
-            this.grp_Progress.PerformLayout();
-            this.grp_Archive.ResumeLayout(false);
-            this.grp_Archive.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trck_Interval)).EndInit();
-            this.grp_Interval.ResumeLayout(false);
-            this.grp_Interval.PerformLayout();
-            this.grp_Steps.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dtg_Steps)).EndInit();
+            this.gpbAndamento.ResumeLayout(false);
+            this.gpbAndamento.PerformLayout();
+            this.gpbArquivo.ResumeLayout(false);
+            this.gpbArquivo.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.tkbIntervaloPassos)).EndInit();
+            this.gpbIntervalo.ResumeLayout(false);
+            this.gpbIntervalo.PerformLayout();
+            this.gpbPassos.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvCaracteres)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -326,23 +326,23 @@
         private System.Windows.Forms.RadioButton rdbArquivo;
         private System.Windows.Forms.RadioButton rdbTexto;
         private System.Windows.Forms.GroupBox gpbOpcoes;
-        private System.Windows.Forms.GroupBox grp_Progress;
+        private System.Windows.Forms.GroupBox gpbAndamento;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.RichTextBox richTextBox2;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox rtbSaida;
+        private System.Windows.Forms.RichTextBox rtbEntrada;
         private System.Windows.Forms.TextBox txt_ArchivePath;
         private System.Windows.Forms.Button btn_OpenArchive;
-        private System.Windows.Forms.GroupBox grp_Archive;
-        private System.Windows.Forms.Button btn_next;
-        private System.Windows.Forms.Button btn_pause;
-        private System.Windows.Forms.Button btn_start;
+        private System.Windows.Forms.GroupBox gpbArquivo;
+        private System.Windows.Forms.Button btnProximoPasso;
+        private System.Windows.Forms.Button btnPausarContinuar;
+        private System.Windows.Forms.Button btnIniciarParar;
         private System.Windows.Forms.OpenFileDialog openFile;
-        private System.Windows.Forms.TrackBar trck_Interval;
-        private System.Windows.Forms.GroupBox grp_Interval;
-        private System.Windows.Forms.GroupBox grp_Steps;
-        private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.DataGridView dtg_Steps;
+        private System.Windows.Forms.TrackBar tkbIntervaloPassos;
+        private System.Windows.Forms.GroupBox gpbIntervalo;
+        private System.Windows.Forms.GroupBox gpbPassos;
+        private System.Windows.Forms.TreeView trvArvore;
+        private System.Windows.Forms.DataGridView dgvCaracteres;
         private System.Windows.Forms.DataGridViewTextBoxColumn txt_code;
         private System.Windows.Forms.DataGridViewTextBoxColumn txt_caractere;
         private System.Windows.Forms.DataGridViewTextBoxColumn nmb_Frequency;
