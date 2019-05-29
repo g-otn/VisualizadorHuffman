@@ -76,7 +76,8 @@ namespace VisualizadorHuffman
                 // Reiniciar controles
                 btnIniciarParar.Text = "Parar";
                 btnPausarContinuar.Text = "Pausar";
-                tkbIntervaloPassos.Value = 750;
+                tkbIntervaloPassos.Value = 500;
+                tkbIntervaloPassos_Scroll(null, null); // Atualiza timerPasso.Interval
 
                 trvArvore.Nodes.Clear();
                 dgvCaracteres.Rows.Clear();
@@ -165,16 +166,9 @@ namespace VisualizadorHuffman
 
         private void tkbIntervaloPassos_Scroll(object sender, EventArgs e)
         {
-            timerPasso.Interval = 1 + tkbIntervaloPassos.Maximum - tkbIntervaloPassos.Value;
+            timerPasso.Interval = tkbIntervaloPassos.Maximum + 25 - tkbIntervaloPassos.Value;
+            lblVelocidade.Text = "Velocidade:\n" + timerPasso.Interval + "ms / caractere";
         }
-
-        #endregion
-
-
-
-        #region Eventos dos controles dos passos
-
-
 
         #endregion
 
@@ -197,6 +191,19 @@ namespace VisualizadorHuffman
 
         private void LerEntrada(object sender, EventArgs e)
         {
+            // Termina o loop de chamada ao LerEntrada
+            if (indiceSelecao == rtbEntrada.Text.Length)
+            {
+                timerPasso.Tick -= LerEntrada;
+                timerPasso.Stop();
+
+                // Limpa seleção do última caractere
+                rtbEntrada.Select(indiceSelecao - 1, 1);
+                rtbEntrada.SelectionColor = SystemColors.ControlText;
+                rtbEntrada.SelectionBackColor = SystemColors.Window;
+                return; // Todos os caracteres já foram analizados
+            }
+
             try
             {
                 LockWindowUpdate(rtbEntrada.Handle); // Impede flickering no rtbEntrada
@@ -219,27 +226,33 @@ namespace VisualizadorHuffman
             {
                 LockWindowUpdate(IntPtr.Zero);
 
-                indiceSelecao++;
-                lblInfoDiferenca.Text = rtbEntrada.SelectionStart.ToString();
+                // Adiciona caracteres ao dgvCaracteres
+                string caractere = rtbEntrada.Text[indiceSelecao].ToString();
+                int i;
+                for (i = 0; i < dgvCaracteres.RowCount; i++)
+                {
+                    if (caractere == dgvCaracteres.Rows[i].Cells[0].Tag.ToString())
+                    {
+                        dgvCaracteres.Rows[i].Cells[1].Value = Convert.ToInt16(dgvCaracteres.Rows[i].Cells[1].Value) + 1;
+                        break;
+                    }
+                }
 
-                // Cria ou modifica a linha do caractere no dgvCaracteres
+                if (i == dgvCaracteres.RowCount)
+                {
+                    dgvCaracteres.Rows.Add(rtbEntrada.Text[indiceSelecao], 1);
+                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Tag = rtbEntrada.Text[indiceSelecao];
+                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = rtbEntrada.Text[indiceSelecao];
+                }
 
+                DataGridViewColumn frequencias = dgvCaracteres.Columns[1];
+                dgvCaracteres.Sort(frequencias, ListSortDirection.Descending);
 
                 // Cria ou modifica a representação da folha no trvArvore
 
 
 
-                // quando ler tudo remover por aqui esse evento
-                if (indiceSelecao == rtbEntrada.Text.Length)
-                {
-                    timerPasso.Tick -= LerEntrada;
-                    timerPasso.Stop();
-
-                    // Limpa seleção do última caractere
-                    rtbEntrada.Select(indiceSelecao - 1, 1);
-                    rtbEntrada.SelectionColor = SystemColors.ControlText;
-                    rtbEntrada.SelectionBackColor = SystemColors.Window;
-                }
+                indiceSelecao++;
             }
         }
 
