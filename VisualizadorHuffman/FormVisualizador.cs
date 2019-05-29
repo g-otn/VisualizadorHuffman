@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,11 +17,17 @@ namespace VisualizadorHuffman
         {
             InitializeComponent();
             this.ActiveControl = txtEntrada;
+            rtbSaidaBinario.ReadOnly = true;
+            rtbSaidaBytes.ReadOnly = true;
         }
 
-        private void btn_OpenArchive_Click(object sender, EventArgs e)
+        private void btnAbrirArquivo_Click(object sender, EventArgs e)
         {
-            openFile.ShowDialog();
+            if (ofdArquivoEntrada.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+            txtEntrada.Text = File.ReadAllText(ofdArquivoEntrada.FileName, Encoding.GetEncoding(1252));
         }
 
         private void btnIniciarParar_Click(object sender, EventArgs e)
@@ -78,10 +85,14 @@ namespace VisualizadorHuffman
 
         private void Comprimir()
         {
+            // Reiniciar controles
+            btnIniciarParar.Text = "Parar";
+            btnPausarContinuar.Text = "Pausar";
+            tkbIntervaloPassos.Value = 1000;
+
+
             // Declarar variáveis
-
-            // Limpar controles
-
+            string texto = txtEntrada.Text;
 
             // Preparar Controles
             txtEntrada.ReadOnly = true; // Evita edição durante a seleção pelo programa
