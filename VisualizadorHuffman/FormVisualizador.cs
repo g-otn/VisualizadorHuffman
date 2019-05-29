@@ -76,8 +76,7 @@ namespace VisualizadorHuffman
                 // Reiniciar controles
                 btnIniciarParar.Text = "Parar";
                 btnPausarContinuar.Text = "Pausar";
-                tkbIntervaloPassos.Value = 500;
-                tkbIntervaloPassos_Scroll(null, null); // Atualiza timerPasso.Interval
+                tkbIntervaloPassos_Scroll(null, null); // Atualiza timerPasso.Interval e lblVelocidade.Text
 
                 trvArvore.Nodes.Clear();
                 dgvCaracteres.Rows.Clear();
@@ -110,7 +109,6 @@ namespace VisualizadorHuffman
 
                 btnIniciarParar.Text = "Iniciar";
                 btnPausarContinuar.Text = "Pausar";
-                tkbIntervaloPassos.Value = 1000;
             }
         }
 
@@ -201,12 +199,14 @@ namespace VisualizadorHuffman
                 rtbEntrada.Select(indiceSelecao - 1, 1);
                 rtbEntrada.SelectionColor = SystemColors.ControlText;
                 rtbEntrada.SelectionBackColor = SystemColors.Window;
+
+                dgvCaracteres.ClearSelection();
                 return; // Todos os caracteres já foram analizados
             }
 
             try
             {
-                LockWindowUpdate(rtbEntrada.Handle); // Impede flickering no rtbEntrada
+                LockWindowUpdate(rtbEntrada.Handle);
 
                 // Remove o destaque do caractere anterior
                 if (indiceSelecao != 0)
@@ -226,7 +226,7 @@ namespace VisualizadorHuffman
             {
                 LockWindowUpdate(IntPtr.Zero);
 
-                // Adiciona caracteres ao dgvCaracteres
+                // Adiciona os caracteres da rtbEntrada as linhas do dgvCaracteres e aos Nodes do TreeView
                 string caractere = rtbEntrada.Text[indiceSelecao].ToString();
                 int i;
                 for (i = 0; i < dgvCaracteres.RowCount; i++)
@@ -234,6 +234,7 @@ namespace VisualizadorHuffman
                     if (caractere == dgvCaracteres.Rows[i].Cells[0].Tag.ToString())
                     {
                         dgvCaracteres.Rows[i].Cells[1].Value = Convert.ToInt16(dgvCaracteres.Rows[i].Cells[1].Value) + 1;
+                        dgvCaracteres.Rows[i].Selected = true;
                         break;
                     }
                 }
@@ -243,6 +244,7 @@ namespace VisualizadorHuffman
                     dgvCaracteres.Rows.Add(rtbEntrada.Text[indiceSelecao], 1);
                     dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Tag = rtbEntrada.Text[indiceSelecao];
                     dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = rtbEntrada.Text[indiceSelecao];
+                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Selected = true;
                 }
 
                 DataGridViewColumn frequencias = dgvCaracteres.Columns[1];
@@ -267,6 +269,7 @@ namespace VisualizadorHuffman
             System.Diagnostics.Process.Start("https://github.com/g-otn/VisualizadorHuffman");
         }
 
+        // Impede a maior parte do flickering no rtbEntrada
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern bool LockWindowUpdate(IntPtr windowLock);
 
