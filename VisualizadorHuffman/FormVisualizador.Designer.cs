@@ -29,15 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Nó0");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Node0", new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Node1");
-            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Node2");
-            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Node3");
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Nó0");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Node0", new System.Windows.Forms.TreeNode[] {
+            treeNode6});
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Node1");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Node2");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Node3");
             this.gpbEntrada = new System.Windows.Forms.GroupBox();
-            this.txtEntrada = new System.Windows.Forms.TextBox();
             this.btnAbrirArquivo = new System.Windows.Forms.Button();
             this.txtCaminhoArquivo = new System.Windows.Forms.TextBox();
             this.gpbControle = new System.Windows.Forms.GroupBox();
@@ -65,6 +64,7 @@
             this.lblCreditos = new System.Windows.Forms.Label();
             this.lnkGitHubLink = new System.Windows.Forms.LinkLabel();
             this.timerPasso = new System.Windows.Forms.Timer(this.components);
+            this.rtbEntrada = new System.Windows.Forms.RichTextBox();
             this.gpbEntrada.SuspendLayout();
             this.gpbControle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tkbIntervaloPassos)).BeginInit();
@@ -76,7 +76,7 @@
             // 
             // gpbEntrada
             // 
-            this.gpbEntrada.Controls.Add(this.txtEntrada);
+            this.gpbEntrada.Controls.Add(this.rtbEntrada);
             this.gpbEntrada.Controls.Add(this.btnAbrirArquivo);
             this.gpbEntrada.Controls.Add(this.txtCaminhoArquivo);
             this.gpbEntrada.Location = new System.Drawing.Point(12, 12);
@@ -86,22 +86,6 @@
             this.gpbEntrada.TabIndex = 2;
             this.gpbEntrada.TabStop = false;
             this.gpbEntrada.Text = "Entrada";
-            // 
-            // txtEntrada
-            // 
-            this.txtEntrada.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.txtEntrada.ForeColor = System.Drawing.SystemColors.GrayText;
-            this.txtEntrada.Location = new System.Drawing.Point(9, 51);
-            this.txtEntrada.Multiline = true;
-            this.txtEntrada.Name = "txtEntrada";
-            this.txtEntrada.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtEntrada.Size = new System.Drawing.Size(415, 90);
-            this.txtEntrada.TabIndex = 6;
-            this.txtEntrada.Text = "Digite alguma coisa...";
-            this.txtEntrada.Enter += new System.EventHandler(this.TxtEntrada_Enter);
-            this.txtEntrada.Leave += new System.EventHandler(this.TxtEntrada_Leave);
             // 
             // btnAbrirArquivo
             // 
@@ -156,7 +140,7 @@
             this.tkbIntervaloPassos.AutoSize = false;
             this.tkbIntervaloPassos.Location = new System.Drawing.Point(384, 19);
             this.tkbIntervaloPassos.Maximum = 3000;
-            this.tkbIntervaloPassos.Minimum = 50;
+            this.tkbIntervaloPassos.Minimum = 100;
             this.tkbIntervaloPassos.Name = "tkbIntervaloPassos";
             this.tkbIntervaloPassos.Size = new System.Drawing.Size(149, 26);
             this.tkbIntervaloPassos.TabIndex = 11;
@@ -208,12 +192,13 @@
             this.rtbSaidaBinario.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtbSaidaBinario.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbSaidaBinario.Location = new System.Drawing.Point(9, 35);
             this.rtbSaidaBinario.Name = "rtbSaidaBinario";
             this.rtbSaidaBinario.ReadOnly = true;
             this.rtbSaidaBinario.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.rtbSaidaBinario.ShowSelectionMargin = true;
-            this.rtbSaidaBinario.Size = new System.Drawing.Size(415, 130);
+            this.rtbSaidaBinario.Size = new System.Drawing.Size(415, 140);
             this.rtbSaidaBinario.TabIndex = 5;
             this.rtbSaidaBinario.TabStop = false;
             this.rtbSaidaBinario.Text = "";
@@ -243,14 +228,14 @@
             this.dgvCaracteres.AllowUserToDeleteRows = false;
             this.dgvCaracteres.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCaracteres.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCaracteres.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCaracteres.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCaracteres.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.txtCaractere,
@@ -266,7 +251,7 @@
             this.dgvCaracteres.ShowCellToolTips = false;
             this.dgvCaracteres.ShowEditingIcon = false;
             this.dgvCaracteres.ShowRowErrors = false;
-            this.dgvCaracteres.Size = new System.Drawing.Size(228, 319);
+            this.dgvCaracteres.Size = new System.Drawing.Size(228, 329);
             this.dgvCaracteres.TabIndex = 10;
             // 
             // txtCaractere
@@ -301,22 +286,22 @@
             this.trvArvore.Indent = 40;
             this.trvArvore.Location = new System.Drawing.Point(243, 22);
             this.trvArvore.Name = "trvArvore";
-            treeNode1.Name = "Nó0";
-            treeNode1.Text = "Nó0";
-            treeNode2.Name = "Node0";
-            treeNode2.Text = "Node0";
-            treeNode3.Name = "Node1";
-            treeNode3.Text = "Node1";
-            treeNode4.Name = "Node2";
-            treeNode4.Text = "Node2";
-            treeNode5.Name = "Node3";
-            treeNode5.Text = "Node3";
+            treeNode6.Name = "Nó0";
+            treeNode6.Text = "Nó0";
+            treeNode7.Name = "Node0";
+            treeNode7.Text = "Node0";
+            treeNode8.Name = "Node1";
+            treeNode8.Text = "Node1";
+            treeNode9.Name = "Node2";
+            treeNode9.Text = "Node2";
+            treeNode10.Name = "Node3";
+            treeNode10.Text = "Node3";
             this.trvArvore.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode3,
-            treeNode4,
-            treeNode5});
-            this.trvArvore.Size = new System.Drawing.Size(287, 319);
+            treeNode7,
+            treeNode8,
+            treeNode9,
+            treeNode10});
+            this.trvArvore.Size = new System.Drawing.Size(287, 329);
             this.trvArvore.TabIndex = 0;
             // 
             // gpbSaida
@@ -341,7 +326,7 @@
             // 
             this.lblBinarioParaByte.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblBinarioParaByte.AutoSize = true;
-            this.lblBinarioParaByte.Location = new System.Drawing.Point(9, 168);
+            this.lblBinarioParaByte.Location = new System.Drawing.Point(9, 178);
             this.lblBinarioParaByte.Name = "lblBinarioParaByte";
             this.lblBinarioParaByte.Size = new System.Drawing.Size(85, 13);
             this.lblBinarioParaByte.TabIndex = 8;
@@ -351,7 +336,8 @@
             // 
             this.rtbSaidaBytes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.rtbSaidaBytes.Location = new System.Drawing.Point(9, 184);
+            this.rtbSaidaBytes.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSaidaBytes.Location = new System.Drawing.Point(9, 194);
             this.rtbSaidaBytes.Name = "rtbSaidaBytes";
             this.rtbSaidaBytes.ReadOnly = true;
             this.rtbSaidaBytes.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
@@ -368,7 +354,7 @@
             this.panInformacoes.Controls.Add(this.lblInfoSaida);
             this.panInformacoes.Controls.Add(this.lblInfoDiferenca);
             this.panInformacoes.Controls.Add(this.lblInfoEntrada);
-            this.panInformacoes.Location = new System.Drawing.Point(245, 184);
+            this.panInformacoes.Location = new System.Drawing.Point(245, 194);
             this.panInformacoes.Name = "panInformacoes";
             this.panInformacoes.Size = new System.Drawing.Size(179, 64);
             this.panInformacoes.TabIndex = 10;
@@ -395,9 +381,11 @@
             // 
             // lblInfoEntrada
             // 
+            this.lblInfoEntrada.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lblInfoEntrada.Location = new System.Drawing.Point(3, 3);
             this.lblInfoEntrada.Name = "lblInfoEntrada";
-            this.lblInfoEntrada.Size = new System.Drawing.Size(157, 13);
+            this.lblInfoEntrada.Size = new System.Drawing.Size(173, 13);
             this.lblInfoEntrada.TabIndex = 0;
             this.lblInfoEntrada.Text = "Entrada:";
             // 
@@ -428,6 +416,22 @@
             // timerPasso
             // 
             this.timerPasso.Interval = 1000;
+            // 
+            // rtbEntrada
+            // 
+            this.rtbEntrada.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtbEntrada.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbEntrada.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.rtbEntrada.Location = new System.Drawing.Point(9, 51);
+            this.rtbEntrada.Name = "rtbEntrada";
+            this.rtbEntrada.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.rtbEntrada.Size = new System.Drawing.Size(415, 90);
+            this.rtbEntrada.TabIndex = 7;
+            this.rtbEntrada.Text = "Digite alguma coisa...";
+            this.rtbEntrada.Enter += new System.EventHandler(this.rtbEntrada_Enter);
+            this.rtbEntrada.Leave += new System.EventHandler(this.rtbEntrada_Leave);
             // 
             // FormVisualizador
             // 
@@ -474,7 +478,6 @@
         private System.Windows.Forms.GroupBox gpbPassos;
         private System.Windows.Forms.TreeView trvArvore;
         private System.Windows.Forms.DataGridView dgvCaracteres;
-        private System.Windows.Forms.TextBox txtEntrada;
         private System.Windows.Forms.TrackBar tkbIntervaloPassos;
         private System.Windows.Forms.GroupBox gpbSaida;
         private System.Windows.Forms.DataGridViewTextBoxColumn txtCaractere;
@@ -490,5 +493,6 @@
         private System.Windows.Forms.Label lblCreditos;
         private System.Windows.Forms.LinkLabel lnkGitHubLink;
         private System.Windows.Forms.Timer timerPasso;
+        private System.Windows.Forms.RichTextBox rtbEntrada;
     }
 }

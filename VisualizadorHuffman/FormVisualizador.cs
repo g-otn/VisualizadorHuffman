@@ -13,10 +13,13 @@ namespace VisualizadorHuffman
 {
     public partial class FormVisualizador : Form
     {
+        private int indiceSelecao = 0;
+
+
         public FormVisualizador()
         {
             InitializeComponent();
-            this.ActiveControl = txtEntrada;
+            this.ActiveControl = rtbEntrada;
             timerPasso.Start();
         }
 
@@ -30,9 +33,9 @@ namespace VisualizadorHuffman
             {
                 txtCaminhoArquivo.ForeColor = SystemColors.ControlText;
                 txtCaminhoArquivo.Text = ofdArquivoEntrada.FileName;
-                txtEntrada.ForeColor = SystemColors.ControlText;
-                txtEntrada.Text = File.ReadAllText(ofdArquivoEntrada.FileName, Encoding.GetEncoding(1252));
-                lblInfoEntrada.Text = $"Entrada: {txtEntrada.Text.Length} bytes, {txtEntrada.Text.Length * 8} bits";
+                rtbEntrada.ForeColor = SystemColors.ControlText;
+                rtbEntrada.Text = File.ReadAllText(ofdArquivoEntrada.FileName);
+                lblInfoEntrada.Text = $"Entrada: {rtbEntrada.Text.Length} bytes, {rtbEntrada.Text.Length * 8} bits";
             }
         }
 
@@ -42,9 +45,9 @@ namespace VisualizadorHuffman
             {
                 try
                 {
-                    txtEntrada.Text = File.ReadAllText(txtCaminhoArquivo.Text, Encoding.GetEncoding(1252));
+                    rtbEntrada.Text = File.ReadAllText(txtCaminhoArquivo.Text);
                     txtCaminhoArquivo.ForeColor = SystemColors.ControlText;
-                    lblInfoEntrada.Text = $"Entrada: {txtEntrada.Text.Length} bytes, {txtEntrada.Text.Length * 8} bits";
+                    lblInfoEntrada.Text = $"Entrada: {rtbEntrada.Text.Length} bytes, {rtbEntrada.Text.Length * 8} bits";
                 }
                 catch
                 {
@@ -61,11 +64,10 @@ namespace VisualizadorHuffman
 
         private void btnIniciarParar_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("aa");
             if (btnIniciarParar.Text == "Iniciar") // Iniciar
             {
                 // Iniciar
-                if (txtEntrada.ForeColor == SystemColors.GrayText)
+                if (rtbEntrada.ForeColor == SystemColors.GrayText)
                 {
                     MessageBox.Show("Digite algo na caixa de texto de entrada!");
                     return;
@@ -82,27 +84,32 @@ namespace VisualizadorHuffman
                 // Preparar controles
                 btnAbrirArquivo.Enabled = false;
                 txtCaminhoArquivo.ReadOnly = true;
-                txtEntrada.ReadOnly = true;
-                txtEntrada.SelectionStart = 0;
-                txtEntrada.SelectionLength = 1;
+                rtbEntrada.ReadOnly = true;
+                rtbEntrada.SelectionStart = 0;
+                rtbEntrada.SelectionLength = 1;
 
 
                 Comprimir();
             }
             else                                    // Parar
             {
+                indiceSelecao = 0;
+
                 // Reiniciar controles
+                timerPasso.Tick -= LerEntrada;
+                //timerPasso.Tick -= ;
+                //timerPasso.Tick -= ;
                 timerPasso.Stop();
 
                 btnAbrirArquivo.Enabled = true;
                 txtCaminhoArquivo.ReadOnly = false;
-                txtEntrada.ReadOnly = false;
+                rtbEntrada.ReadOnly = false;
+                rtbEntrada.SelectAll();
+                rtbEntrada.SelectionBackColor = SystemColors.Window;
 
                 btnIniciarParar.Text = "Iniciar";
                 btnPausarContinuar.Text = "Pausar";
                 tkbIntervaloPassos.Value = 1000;
-
-                // limpar timer
             }
         }
 
@@ -138,21 +145,21 @@ namespace VisualizadorHuffman
             timerPasso.Stop();
         }
 
-        private void TxtEntrada_Enter(object sender, EventArgs e)
+        private void rtbEntrada_Enter(object sender, EventArgs e)
         {
-            if (txtEntrada.ForeColor == SystemColors.GrayText && txtEntrada.Text == "Digite alguma coisa...")
+            if (rtbEntrada.ForeColor == SystemColors.GrayText && rtbEntrada.Text == "Digite alguma coisa...")
             {
-                txtEntrada.Clear();
-                txtEntrada.ForeColor = SystemColors.WindowText;
+                rtbEntrada.Clear();
+                rtbEntrada.ForeColor = SystemColors.WindowText;
             }
         }
 
-        private void TxtEntrada_Leave(object sender, EventArgs e)
+        private void rtbEntrada_Leave(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txtEntrada.Text))
+            if (string.IsNullOrEmpty(rtbEntrada.Text))
             {
-                txtEntrada.Text = "Digite alguma coisa...";
-                txtEntrada.ForeColor = SystemColors.GrayText;
+                rtbEntrada.Text = "Digite alguma coisa...";
+                rtbEntrada.ForeColor = SystemColors.GrayText;
             }
         }
 
@@ -178,7 +185,7 @@ namespace VisualizadorHuffman
         private void Comprimir()
         {
             // Timer
-            timerPasso.Tick += new System.EventHandler(lerEntrada);
+            timerPasso.Tick += new System.EventHandler(LerEntrada);
             timerPasso.Start();
 
             //timerPasso.Tick -= evento1;
@@ -188,24 +195,56 @@ namespace VisualizadorHuffman
             //timerPasso.Stop();
         }
 
-        private void lerEntrada(object sender, EventArgs e)
+        private void LerEntrada(object sender, EventArgs e)
         {
-            // Destaca o caractere atual no txtEntrada
-            txtEntrada.Focus();
-            txtEntrada.SelectionStart++;// txtEntrada.SelectionStart = variavel da posição;
-            txtEntrada.ScrollToCaret();
-            lblInfoDiferenca.Text = txtEntrada.SelectionStart.ToString();
+            try
+            {
+                LockWindowUpdate(rtbEntrada.Handle); // Impede flickering no rtbEntrada
 
-            // Cria ou modifica a linha do caractere no dgvCaracteres
+                // Remove o destaque do caractere anterior
+                if (indiceSelecao != 0)
+                {
+                    rtbEntrada.Select(indiceSelecao - 1, 1);
+                    rtbEntrada.SelectionColor = SystemColors.ControlText;
+                    rtbEntrada.SelectionBackColor = SystemColors.Window;
+                }
+
+                // Destaca o caractere atual no rtbEntrada
+                rtbEntrada.Select(indiceSelecao, 1);
+                rtbEntrada.SelectionColor = SystemColors.HighlightText;
+                rtbEntrada.SelectionBackColor = Color.LightSeaGreen;
+
+                rtbEntrada.ScrollToCaret();
+            } finally
+            {
+                LockWindowUpdate(IntPtr.Zero);
+
+                indiceSelecao++;
+                lblInfoDiferenca.Text = rtbEntrada.SelectionStart.ToString();
+
+                // Cria ou modifica a linha do caractere no dgvCaracteres
 
 
-            // Cria ou modifica a representação da folha no trvArvore
+                // Cria ou modifica a representação da folha no trvArvore
 
 
-            // quando ler tudo remover por aqui esse evento
+
+                // quando ler tudo remover por aqui esse evento
+                if (indiceSelecao == rtbEntrada.Text.Length)
+                {
+                    timerPasso.Tick -= LerEntrada;
+                    timerPasso.Stop();
+
+                    // Limpa seleção do última caractere
+                    rtbEntrada.Select(indiceSelecao - 1, 1);
+                    rtbEntrada.SelectionColor = SystemColors.ControlText;
+                    rtbEntrada.SelectionBackColor = SystemColors.Window;
+                }
+            }
         }
 
         #endregion
+
 
 
         #region Outros Métodos
@@ -214,6 +253,9 @@ namespace VisualizadorHuffman
         {
             System.Diagnostics.Process.Start("https://github.com/g-otn/VisualizadorHuffman");
         }
+
+        [System.Runtime.InteropServices.DllImport("user32.dll")]
+        public static extern bool LockWindowUpdate(IntPtr windowLock);
 
         #endregion
     }
