@@ -13,14 +13,15 @@ namespace VisualizadorHuffman
 {
     public partial class FormVisualizador : Form
     {
-        private int indiceSelecao = 0;
+        private int caractereAtual;
+        private enum EstadoAlgoritmo { LendoEntrada, MontandoArvore, GerandoSaida };
+        private EstadoAlgoritmo estadoAtual;
 
 
         public FormVisualizador()
         {
             InitializeComponent();
             this.ActiveControl = rtbEntrada;
-            timerPasso.Start();
         }
 
 
@@ -34,7 +35,7 @@ namespace VisualizadorHuffman
                 txtCaminhoArquivo.ForeColor = SystemColors.ControlText;
                 txtCaminhoArquivo.Text = ofdArquivoEntrada.FileName;
                 rtbEntrada.ForeColor = SystemColors.ControlText;
-                rtbEntrada.Text = File.ReadAllText(ofdArquivoEntrada.FileName);
+                rtbEntrada.Text = File.ReadAllText(ofdArquivoEntrada.FileName, Encoding.GetEncoding(1252));
                 lblInfoEntrada.Text = $"Entrada: {rtbEntrada.Text.Length} bytes, {rtbEntrada.Text.Length * 8} bits";
             }
         }
@@ -45,7 +46,7 @@ namespace VisualizadorHuffman
             {
                 try
                 {
-                    rtbEntrada.Text = File.ReadAllText(txtCaminhoArquivo.Text);
+                    rtbEntrada.Text = File.ReadAllText(txtCaminhoArquivo.Text, Encoding.GetEncoding(1252));
                     txtCaminhoArquivo.ForeColor = SystemColors.ControlText;
                     lblInfoEntrada.Text = $"Entrada: {rtbEntrada.Text.Length} bytes, {rtbEntrada.Text.Length * 8} bits";
                 }
@@ -66,12 +67,15 @@ namespace VisualizadorHuffman
         {
             if (btnIniciarParar.Text == "Iniciar") // Iniciar
             {
-                // Iniciar
                 if (rtbEntrada.ForeColor == SystemColors.GrayText)
                 {
-                    MessageBox.Show("Digite algo na caixa de texto de entrada!");
+                    MessageBox.Show(this, "Digite algo na caixa de texto de entrada!", "Impossível iniciar algoritmo");
                     return;
                 }
+
+                // Reiniciar variáveis
+                caractereAtual = 0;
+                estadoAtual = EstadoAlgoritmo.LendoEntrada;
 
                 // Reiniciar controles
                 btnIniciarParar.Text = "Parar";
@@ -81,24 +85,24 @@ namespace VisualizadorHuffman
                 trvArvore.Nodes.Clear();
                 dgvCaracteres.Rows.Clear();
 
+                rtbSaidaBinario.Clear();
+                rtbSaidaBytes.Clear();
+                lblInfoDiferenca.Text = "";
+                lblInfoSaida.Text = "Saída: ";
+
                 // Preparar controles
                 btnAbrirArquivo.Enabled = false;
                 txtCaminhoArquivo.ReadOnly = true;
                 rtbEntrada.ReadOnly = true;
                 rtbEntrada.SelectionStart = 0;
-                rtbEntrada.SelectionLength = 1;
+                rtbEntrada.SelectionLength = 0;
 
-
-                Comprimir();
+                // Iniciar passos
+                timerPasso.Start();
             }
             else                                    // Parar
             {
-                indiceSelecao = 0;
-
                 // Reiniciar controles
-                timerPasso.Tick -= LerEntrada;
-                //timerPasso.Tick -= ;
-                //timerPasso.Tick -= ;
                 timerPasso.Stop();
 
                 btnAbrirArquivo.Enabled = true;
@@ -140,8 +144,10 @@ namespace VisualizadorHuffman
             {
                 return;
             }
+            
+            timerPasso.Stop();           // Pausar passos
+            timerPasso_Tick(null, null); // Realizar próximo passo
 
-            timerPasso.Stop();
         }
 
         private void rtbEntrada_Enter(object sender, EventArgs e)
@@ -174,33 +180,35 @@ namespace VisualizadorHuffman
 
         #region Métodos do algoritmo
 
-        private void Comprimir()
+        private void timerPasso_Tick(object sender, EventArgs e)
         {
-            // Timer
-            timerPasso.Tick += new System.EventHandler(LerEntrada);
-            timerPasso.Start();
-
-            //timerPasso.Tick -= evento1;
-            //timerPasso.Tick += new System.EventHandler(evento2);
-
-
-            //timerPasso.Stop();
+            switch (estadoAtual)
+            {
+                case EstadoAlgoritmo.LendoEntrada:
+                    LerEntrada();
+                    break;
+                case EstadoAlgoritmo.MontandoArvore:
+                    MontarArvore();
+                    break;
+                case EstadoAlgoritmo.GerandoSaida:
+                    break;
+            }
         }
 
-        private void LerEntrada(object sender, EventArgs e)
+        private void LerEntrada()
         {
-            // Termina o loop de chamada ao LerEntrada
-            if (indiceSelecao == rtbEntrada.Text.Length)
+            // Termina o estado atual (EstadoAlgoritmo.LendoEntrada) do algoritmo
+            if (caractereAtual == rtbEntrada.Text.Length)
             {
-                timerPasso.Tick -= LerEntrada;
-                timerPasso.Stop();
-
                 // Limpa seleção do última caractere
-                rtbEntrada.Select(indiceSelecao - 1, 1);
+                rtbEntrada.Select(caractereAtual - 1, 1);
                 rtbEntrada.SelectionColor = SystemColors.ControlText;
                 rtbEntrada.SelectionBackColor = SystemColors.Window;
-
                 dgvCaracteres.ClearSelection();
+
+                // Passa ao algoritmo para o próximo estado
+                estadoAtual = EstadoAlgoritmo.MontandoArvore;
+
                 return; // Todos os caracteres já foram analizados
             }
 
@@ -209,41 +217,54 @@ namespace VisualizadorHuffman
                 LockWindowUpdate(rtbEntrada.Handle);
 
                 // Remove o destaque do caractere anterior
-                if (indiceSelecao != 0)
+                if (caractereAtual != 0)
                 {
-                    rtbEntrada.Select(indiceSelecao - 1, 1);
+                    rtbEntrada.Select(caractereAtual - 1, 1);
                     rtbEntrada.SelectionColor = SystemColors.ControlText;
                     rtbEntrada.SelectionBackColor = SystemColors.Window;
                 }
 
                 // Destaca o caractere atual no rtbEntrada
-                rtbEntrada.Select(indiceSelecao, 1);
+                rtbEntrada.Select(caractereAtual, 1);
                 rtbEntrada.SelectionColor = SystemColors.HighlightText;
                 rtbEntrada.SelectionBackColor = Color.LightSeaGreen;
 
                 rtbEntrada.ScrollToCaret();
-            } finally
+            }
+            finally
             {
                 LockWindowUpdate(IntPtr.Zero);
 
                 // Adiciona os caracteres da rtbEntrada as linhas do dgvCaracteres e aos Nodes do TreeView
-                string caractere = rtbEntrada.Text[indiceSelecao].ToString();
+                char caractere = rtbEntrada.Text[caractereAtual];
                 int i;
                 for (i = 0; i < dgvCaracteres.RowCount; i++)
                 {
-                    if (caractere == dgvCaracteres.Rows[i].Cells[0].Tag.ToString())
+                    // Aumenta o valor da coluna frequência se o caractere já existe em uma linha
+                    if (caractere.ToString() == dgvCaracteres.Rows[i].Cells[0].Tag.ToString())
                     {
                         dgvCaracteres.Rows[i].Cells[1].Value = Convert.ToInt16(dgvCaracteres.Rows[i].Cells[1].Value) + 1;
                         dgvCaracteres.Rows[i].Selected = true;
                         break;
                     }
                 }
-
-                if (i == dgvCaracteres.RowCount)
+                if (i == dgvCaracteres.RowCount) // Caractere ainda não existe no dgvCaracteres
                 {
-                    dgvCaracteres.Rows.Add(rtbEntrada.Text[indiceSelecao], 1);
-                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Tag = rtbEntrada.Text[indiceSelecao];
-                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = rtbEntrada.Text[indiceSelecao];
+                    // Adiona uma linha com o novo caractere
+                    dgvCaracteres.Rows.Add(rtbEntrada.Text[caractereAtual], 1);
+                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Tag = caractere;
+                    if (caractere == '\n')
+                    {
+                        dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = "Nova Linha";
+                    }
+                    else if (caractere == ' ')
+                    {
+                        dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = "Espaço";
+                    }
+                    else
+                    {
+                        dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = rtbEntrada.Text[caractereAtual];
+                    }
                     dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Selected = true;
                 }
 
@@ -254,8 +275,13 @@ namespace VisualizadorHuffman
 
 
 
-                indiceSelecao++;
+                caractereAtual++;
             }
+        }
+
+        private void MontarArvore()
+        {
+
         }
 
         #endregion
