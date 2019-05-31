@@ -242,6 +242,7 @@ namespace VisualizadorHuffman
             try
             {
                 LockWindowUpdate(rtbEntrada.Handle);
+                LockWindowUpdate(trvArvore.Handle);
 
                 // Remove o destaque do caractere anterior
                 if (caractereAtual != 0)
@@ -262,9 +263,13 @@ namespace VisualizadorHuffman
             {
                 LockWindowUpdate(IntPtr.Zero);
 
-                // Adiciona os caracteres da rtbEntrada as linhas do dgvCaracteres e aos Nodes do TreeView
+                // Adiciona a linha do caractere ou incrementa a frequência
                 char caractere = rtbEntrada.Text[caractereAtual];
                 int i;
+
+//                TreeNode treeNode = new TreeNode();
+//                treeNode.Tag = new Folha(caractere, /*frequencia*/);
+
                 for (i = 0; i < dgvCaracteres.RowCount; i++)
                 {
                     // Aumenta o valor da coluna frequência se o caractere já existe em uma linha
@@ -275,10 +280,10 @@ namespace VisualizadorHuffman
                         break;
                     }
                 }
+
                 if (i == dgvCaracteres.RowCount) // Caractere ainda não existe no dgvCaracteres
                 {
-                    // Adiona uma linha com o novo caractere
-                    dgvCaracteres.Rows.Add(rtbEntrada.Text[caractereAtual], 1);
+                    dgvCaracteres.Rows.Add(rtbEntrada.Text[caractereAtual], 1); // Caractere, Frequência
                     dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Tag = (int)caractere;
                     if (caractere == '\n')
                     {
@@ -297,13 +302,12 @@ namespace VisualizadorHuffman
                         dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = rtbEntrada.Text[caractereAtual];
                     }
                     dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Selected = true;
+
+                    // Adiciona as folhas no trvArvore
                 }
 
                 DataGridViewColumn frequencias = dgvCaracteres.Columns[1];
                 dgvCaracteres.Sort(frequencias, ListSortDirection.Descending);
-
-                // Cria ou modifica a representação da folha no trvArvore
-
 
 
                 caractereAtual++;
