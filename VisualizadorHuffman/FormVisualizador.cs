@@ -22,10 +22,6 @@ namespace VisualizadorHuffman
         {
             InitializeComponent();
             this.ActiveControl = rtbEntrada;
-            string t = "";
-            for (int i = 1; i < 256; i++)
-                t += $"{i}: '{(char)i}'\t";
-            MessageBox.Show(t);
         }
 
 
@@ -101,7 +97,6 @@ namespace VisualizadorHuffman
                 rtbEntrada.ReadOnly = true;
                 rtbEntrada.SelectionStart = 0;
                 rtbEntrada.SelectionLength = 0;
-                TrocarCaracteresInválidosDaEntrada();
 
                 // Iniciar passos
                 timerPasso.Start();
@@ -171,10 +166,6 @@ namespace VisualizadorHuffman
             {
                 rtbEntrada.Text = "Digite alguma coisa...";
                 rtbEntrada.ForeColor = SystemColors.GrayText;
-            }
-            else
-            {
-                TrocarCaracteresInválidosDaEntrada();
             }
         }
 
@@ -273,9 +264,9 @@ namespace VisualizadorHuffman
                 for (i = 0; i < dgvCaracteres.RowCount; i++)
                 {
                     // Aumenta o valor da coluna frequência se o caractere já existe em uma linha
-                    if (caractere == (int)dgvCaracteres.Rows[i].Cells[0].Tag)
+                    if (caractere == (int)dgvCaracteres.Rows[i].Cells[1].Value)
                     {
-                        dgvCaracteres.Rows[i].Cells[1].Value = Convert.ToInt16(dgvCaracteres.Rows[i].Cells[1].Value) + 1;
+                        dgvCaracteres.Rows[i].Cells[2].Value = (int)dgvCaracteres.Rows[i].Cells[2].Value + 1;
                         dgvCaracteres.Rows[i].Selected = true;
                         break;
                     }
@@ -283,8 +274,7 @@ namespace VisualizadorHuffman
                 if (i == dgvCaracteres.RowCount) // Caractere ainda não existe no dgvCaracteres
                 {
                     // Adiona uma linha com o novo caractere
-                    dgvCaracteres.Rows.Add(rtbEntrada.Text[caractereAtual], 1);
-                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Tag = (int)caractere;
+                    dgvCaracteres.Rows.Add(rtbEntrada.Text[caractereAtual], (int)caractere, 1);
                     if (caractere == '\n')
                     {
                         dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = "Nova Linha";
@@ -293,19 +283,18 @@ namespace VisualizadorHuffman
                     {
                         dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = "Espaço";
                     }
-                    else if (Char.IsControl(caractere)) // Mostra caracteres que não são visíveis
+                    else if (char.IsControl(caractere)) // Mostra caracteres que não são visíveis
                     {
-                        dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = "(" + (int)caractere + ")";
+                        dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = $"({(int)caractere})";
                     }
                     else
                     {
                         dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = rtbEntrada.Text[caractereAtual];
                     }
-                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[2].Value = (int)caractere;
                     dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Selected = true;
                 }
 
-                DataGridViewColumn frequencias = dgvCaracteres.Columns[1];
+                DataGridViewColumn frequencias = dgvCaracteres.Columns[2];
                 dgvCaracteres.Sort(frequencias, ListSortDirection.Descending);
 
                 // Cria ou modifica a representação da folha no trvArvore
@@ -335,23 +324,6 @@ namespace VisualizadorHuffman
         // Impede a maior parte do flickering no rtbEntrada
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern bool LockWindowUpdate(IntPtr windowLock);
-
-        private void TrocarCaracteresInválidosDaEntrada()
-        {
-            string novaEntrada = "";
-            foreach (char caractere in rtbEntrada.Text)
-            {
-                if (caractere > 255)
-                {
-                    novaEntrada += '?';
-                }
-                else
-                {
-                    novaEntrada += caractere;
-                }
-            }
-            rtbEntrada.Text = novaEntrada;
-        }
 
         #endregion
     }

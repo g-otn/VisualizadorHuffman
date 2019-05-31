@@ -9,9 +9,9 @@ namespace VisualizadorHuffman
     class Folha : No
     {
         /// <summary>
-        /// O valor ANSI do caractere.
+        /// O caractere guardado na <see cref="Folha"/> da árvore.
         /// </summary>
-        public byte Caractere { get; set; } // 0-255 (Intervalo dos caracteres ANSI)
+        public char Caractere { get; set; }
 
         /// <summary>
         /// A frequência que o caractere aparece no texto.
@@ -25,12 +25,7 @@ namespace VisualizadorHuffman
         /// <param name="frequencia">A frequencia do caractere da Folha</param>
         public Folha(char caractere, int frequencia)
         {
-            // Converte qualquer caractere que não é ANSI (>255) para 63 ('?')
-            if (caractere > 255)
-                Caractere = (byte)'?';
-            else
-                Caractere = (byte)caractere;
-
+            Caractere = caractere;
             Frequencia = frequencia;
         }
     }
