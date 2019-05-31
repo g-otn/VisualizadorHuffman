@@ -14,14 +14,18 @@ namespace VisualizadorHuffman
     public partial class FormVisualizador : Form
     {
         private int caractereAtual;
-        private enum EstadoAlgoritmo { LendoEntrada, MontandoArvore, GerandoSaida };
-        private EstadoAlgoritmo estadoAtual;
+        private enum EstadoAlgoritmo { Parado, LendoEntrada, ConstruindoArvore, GerandoSaida };
+        private EstadoAlgoritmo estadoAtual = EstadoAlgoritmo.Parado;
 
 
         public FormVisualizador()
         {
             InitializeComponent();
             this.ActiveControl = rtbEntrada;
+            string t = "";
+            for (int i = 1; i < 256; i++)
+                t += $"{i}: '{(char)i}'\t";
+            MessageBox.Show(t);
         }
 
 
@@ -35,7 +39,7 @@ namespace VisualizadorHuffman
                 txtCaminhoArquivo.ForeColor = SystemColors.ControlText;
                 txtCaminhoArquivo.Text = ofdArquivoEntrada.FileName;
                 rtbEntrada.ForeColor = SystemColors.ControlText;
-                rtbEntrada.Text = File.ReadAllText(ofdArquivoEntrada.FileName, Encoding.GetEncoding(1252));
+                rtbEntrada.Text = File.ReadAllText(ofdArquivoEntrada.FileName);
                 lblInfoEntrada.Text = $"Entrada: {rtbEntrada.Text.Length} bytes, {rtbEntrada.Text.Length * 8} bits";
             }
         }
@@ -46,7 +50,7 @@ namespace VisualizadorHuffman
             {
                 try
                 {
-                    rtbEntrada.Text = File.ReadAllText(txtCaminhoArquivo.Text, Encoding.GetEncoding(1252));
+                    rtbEntrada.Text = File.ReadAllText(txtCaminhoArquivo.Text);
                     txtCaminhoArquivo.ForeColor = SystemColors.ControlText;
                     lblInfoEntrada.Text = $"Entrada: {rtbEntrada.Text.Length} bytes, {rtbEntrada.Text.Length * 8} bits";
                 }
@@ -75,7 +79,8 @@ namespace VisualizadorHuffman
 
                 // Reiniciar variáveis
                 caractereAtual = 0;
-                estadoAtual = EstadoAlgoritmo.LendoEntrada;
+                estadoAtual = EstadoAlgoritmo.Parado;
+                avancarEstadoDoAlgoritmo();
 
                 // Reiniciar controles
                 btnIniciarParar.Text = "Parar";
@@ -96,6 +101,7 @@ namespace VisualizadorHuffman
                 rtbEntrada.ReadOnly = true;
                 rtbEntrada.SelectionStart = 0;
                 rtbEntrada.SelectionLength = 0;
+                TrocarCaracteresInválidosDaEntrada();
 
                 // Iniciar passos
                 timerPasso.Start();
@@ -144,7 +150,7 @@ namespace VisualizadorHuffman
             {
                 return;
             }
-            
+
             timerPasso.Stop();           // Pausar passos
             timerPasso_Tick(null, null); // Realizar próximo passo
 
@@ -165,6 +171,10 @@ namespace VisualizadorHuffman
             {
                 rtbEntrada.Text = "Digite alguma coisa...";
                 rtbEntrada.ForeColor = SystemColors.GrayText;
+            }
+            else
+            {
+                TrocarCaracteresInválidosDaEntrada();
             }
         }
 
@@ -187,10 +197,33 @@ namespace VisualizadorHuffman
                 case EstadoAlgoritmo.LendoEntrada:
                     LerEntrada();
                     break;
-                case EstadoAlgoritmo.MontandoArvore:
-                    MontarArvore();
+                case EstadoAlgoritmo.ConstruindoArvore:
+                    ConstruirArvore();
                     break;
                 case EstadoAlgoritmo.GerandoSaida:
+                    break;
+            }
+        }
+
+        private void avancarEstadoDoAlgoritmo()
+        {
+            switch (estadoAtual)
+            {
+                case EstadoAlgoritmo.Parado:
+                    estadoAtual = EstadoAlgoritmo.LendoEntrada;
+                    lblEstado.Text = "Estado: Lendo entrada e contando frequência";
+                    break;
+                case EstadoAlgoritmo.LendoEntrada:
+                    estadoAtual = EstadoAlgoritmo.ConstruindoArvore;
+                    lblEstado.Text = "Estado: Construindo árvore";
+                    break;
+                case EstadoAlgoritmo.ConstruindoArvore:
+                    estadoAtual = EstadoAlgoritmo.GerandoSaida;
+                    lblEstado.Text = "Estado: Percorrendo árvore e gerando saída";
+                    break;
+                case EstadoAlgoritmo.GerandoSaida:
+                    estadoAtual = EstadoAlgoritmo.Parado;
+                    lblEstado.Text = "Estado: Saída gerada, fim do algoritmo";
                     break;
             }
         }
@@ -207,7 +240,6 @@ namespace VisualizadorHuffman
                 dgvCaracteres.ClearSelection();
 
                 // Passa ao algoritmo para o próximo estado
-                estadoAtual = EstadoAlgoritmo.MontandoArvore;
 
                 return; // Todos os caracteres já foram analizados
             }
@@ -241,7 +273,7 @@ namespace VisualizadorHuffman
                 for (i = 0; i < dgvCaracteres.RowCount; i++)
                 {
                     // Aumenta o valor da coluna frequência se o caractere já existe em uma linha
-                    if (caractere.ToString() == dgvCaracteres.Rows[i].Cells[0].Tag.ToString())
+                    if (caractere == (int)dgvCaracteres.Rows[i].Cells[0].Tag)
                     {
                         dgvCaracteres.Rows[i].Cells[1].Value = Convert.ToInt16(dgvCaracteres.Rows[i].Cells[1].Value) + 1;
                         dgvCaracteres.Rows[i].Selected = true;
@@ -252,7 +284,7 @@ namespace VisualizadorHuffman
                 {
                     // Adiona uma linha com o novo caractere
                     dgvCaracteres.Rows.Add(rtbEntrada.Text[caractereAtual], 1);
-                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Tag = caractere;
+                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Tag = (int)caractere;
                     if (caractere == '\n')
                     {
                         dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = "Nova Linha";
@@ -261,10 +293,15 @@ namespace VisualizadorHuffman
                     {
                         dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = "Espaço";
                     }
+                    else if (Char.IsControl(caractere)) // Mostra caracteres que não são visíveis
+                    {
+                        dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = "(" + (int)caractere + ")";
+                    }
                     else
                     {
                         dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = rtbEntrada.Text[caractereAtual];
                     }
+                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[2].Value = (int)caractere;
                     dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Selected = true;
                 }
 
@@ -279,7 +316,7 @@ namespace VisualizadorHuffman
             }
         }
 
-        private void MontarArvore()
+        private void ConstruirArvore()
         {
 
         }
@@ -298,6 +335,23 @@ namespace VisualizadorHuffman
         // Impede a maior parte do flickering no rtbEntrada
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern bool LockWindowUpdate(IntPtr windowLock);
+
+        private void TrocarCaracteresInválidosDaEntrada()
+        {
+            string novaEntrada = "";
+            foreach (char caractere in rtbEntrada.Text)
+            {
+                if (caractere > 255)
+                {
+                    novaEntrada += '?';
+                }
+                else
+                {
+                    novaEntrada += caractere;
+                }
+            }
+            rtbEntrada.Text = novaEntrada;
+        }
 
         #endregion
     }

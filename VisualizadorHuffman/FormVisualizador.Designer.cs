@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Nó0");
-            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Node0", new System.Windows.Forms.TreeNode[] {
-            treeNode7});
-            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Node1");
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Nó0");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Node0", new System.Windows.Forms.TreeNode[] {
+            treeNode4});
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Node1");
             this.gpbEntrada = new System.Windows.Forms.GroupBox();
             this.rtbEntrada = new System.Windows.Forms.RichTextBox();
             this.btnAbrirArquivo = new System.Windows.Forms.Button();
@@ -53,6 +53,9 @@
             this.ofdArquivoEntrada = new System.Windows.Forms.OpenFileDialog();
             this.gpbPassos = new System.Windows.Forms.GroupBox();
             this.dgvCaracteres = new System.Windows.Forms.DataGridView();
+            this.txtCaractere = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.nmb_Frequency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txt_code = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.trvArvore = new System.Windows.Forms.TreeView();
             this.gpbSaida = new System.Windows.Forms.GroupBox();
             this.lblBinarioParaByte = new System.Windows.Forms.Label();
@@ -65,9 +68,7 @@
             this.lnkGitHubLink = new System.Windows.Forms.LinkLabel();
             this.timerPasso = new System.Windows.Forms.Timer(this.components);
             this.ttpAvisoANSI = new System.Windows.Forms.ToolTip(this.components);
-            this.txtCaractere = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nmb_Frequency = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txt_code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.lblEstado = new System.Windows.Forms.Label();
             this.gpbEntrada.SuspendLayout();
             this.gpbControle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tkbIntervaloPassos)).BeginInit();
@@ -84,7 +85,7 @@
             this.gpbEntrada.Controls.Add(this.txtCaminhoArquivo);
             this.gpbEntrada.Location = new System.Drawing.Point(12, 12);
             this.gpbEntrada.Name = "gpbEntrada";
-            this.gpbEntrada.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.gpbEntrada.Padding = new System.Windows.Forms.Padding(6);
             this.gpbEntrada.Size = new System.Drawing.Size(433, 174);
             this.gpbEntrada.TabIndex = 2;
             this.gpbEntrada.TabStop = false;
@@ -242,7 +243,7 @@
             this.gpbPassos.Controls.Add(this.trvArvore);
             this.gpbPassos.Location = new System.Drawing.Point(451, 75);
             this.gpbPassos.Name = "gpbPassos";
-            this.gpbPassos.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.gpbPassos.Padding = new System.Windows.Forms.Padding(6);
             this.gpbPassos.Size = new System.Drawing.Size(537, 377);
             this.gpbPassos.TabIndex = 9;
             this.gpbPassos.TabStop = false;
@@ -252,19 +253,19 @@
             // 
             this.dgvCaracteres.AllowUserToAddRows = false;
             this.dgvCaracteres.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle11.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-            this.dgvCaracteres.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
+            this.dgvCaracteres.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvCaracteres.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvCaracteres.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle12.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCaracteres.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCaracteres.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvCaracteres.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCaracteres.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.txtCaractere,
@@ -285,6 +286,42 @@
             this.dgvCaracteres.Size = new System.Drawing.Size(228, 346);
             this.dgvCaracteres.TabIndex = 10;
             // 
+            // txtCaractere
+            // 
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
+            this.txtCaractere.DefaultCellStyle = dataGridViewCellStyle8;
+            this.txtCaractere.FillWeight = 90F;
+            this.txtCaractere.HeaderText = "Caractere";
+            this.txtCaractere.MinimumWidth = 20;
+            this.txtCaractere.Name = "txtCaractere";
+            this.txtCaractere.ReadOnly = true;
+            this.txtCaractere.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.txtCaractere.ToolTipText = "Os caracteres distintos presentes na entrada";
+            // 
+            // nmb_Frequency
+            // 
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
+            this.nmb_Frequency.DefaultCellStyle = dataGridViewCellStyle9;
+            this.nmb_Frequency.FillWeight = 80F;
+            this.nmb_Frequency.HeaderText = "Frequência";
+            this.nmb_Frequency.MinimumWidth = 20;
+            this.nmb_Frequency.Name = "nmb_Frequency";
+            this.nmb_Frequency.ReadOnly = true;
+            this.nmb_Frequency.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // txt_code
+            // 
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
+            this.txt_code.DefaultCellStyle = dataGridViewCellStyle10;
+            this.txt_code.HeaderText = "Código";
+            this.txt_code.MinimumWidth = 20;
+            this.txt_code.Name = "txt_code";
+            this.txt_code.ReadOnly = true;
+            this.txt_code.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // trvArvore
             // 
             this.trvArvore.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -293,15 +330,15 @@
             this.trvArvore.Indent = 40;
             this.trvArvore.Location = new System.Drawing.Point(243, 22);
             this.trvArvore.Name = "trvArvore";
-            treeNode7.Name = "Nó0";
-            treeNode7.Text = "Nó0";
-            treeNode8.Name = "Node0";
-            treeNode8.Text = "Node0";
-            treeNode9.Name = "Node1";
-            treeNode9.Text = "Node1";
+            treeNode4.Name = "Nó0";
+            treeNode4.Text = "Nó0";
+            treeNode5.Name = "Node0";
+            treeNode5.Text = "Node0";
+            treeNode6.Name = "Node1";
+            treeNode6.Text = "Node1";
             this.trvArvore.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode8,
-            treeNode9});
+            treeNode5,
+            treeNode6});
             this.trvArvore.Size = new System.Drawing.Size(285, 346);
             this.trvArvore.TabIndex = 0;
             // 
@@ -317,7 +354,7 @@
             this.gpbSaida.Location = new System.Drawing.Point(12, 192);
             this.gpbSaida.MinimumSize = new System.Drawing.Size(0, 150);
             this.gpbSaida.Name = "gpbSaida";
-            this.gpbSaida.Padding = new System.Windows.Forms.Padding(6, 6, 6, 6);
+            this.gpbSaida.Padding = new System.Windows.Forms.Padding(6);
             this.gpbSaida.Size = new System.Drawing.Size(433, 260);
             this.gpbSaida.TabIndex = 10;
             this.gpbSaida.TabStop = false;
@@ -394,10 +431,10 @@
             // lblCreditos
             // 
             this.lblCreditos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCreditos.Location = new System.Drawing.Point(10, 455);
+            this.lblCreditos.Location = new System.Drawing.Point(257, 455);
             this.lblCreditos.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.lblCreditos.Name = "lblCreditos";
-            this.lblCreditos.Size = new System.Drawing.Size(932, 13);
+            this.lblCreditos.Size = new System.Drawing.Size(685, 13);
             this.lblCreditos.TabIndex = 11;
             this.lblCreditos.Text = "Visualizador Huffman  -  2019  -  Gabriel Otani Pereira e Christopher Marques Cor" +
     "rêa\r\n";
@@ -426,47 +463,21 @@
             this.ttpAvisoANSI.ToolTipTitle = "Aviso de Codificação de Caracteres";
             this.ttpAvisoANSI.UseFading = false;
             // 
-            // txtCaractere
+            // lblEstado
             // 
-            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
-            this.txtCaractere.DefaultCellStyle = dataGridViewCellStyle13;
-            this.txtCaractere.FillWeight = 90F;
-            this.txtCaractere.HeaderText = "Caractere";
-            this.txtCaractere.MinimumWidth = 20;
-            this.txtCaractere.Name = "txtCaractere";
-            this.txtCaractere.ReadOnly = true;
-            this.txtCaractere.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.txtCaractere.ToolTipText = "Os caracteres distintos presentes na entrada";
-            // 
-            // nmb_Frequency
-            // 
-            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
-            this.nmb_Frequency.DefaultCellStyle = dataGridViewCellStyle14;
-            this.nmb_Frequency.FillWeight = 80F;
-            this.nmb_Frequency.HeaderText = "Frequência";
-            this.nmb_Frequency.MinimumWidth = 20;
-            this.nmb_Frequency.Name = "nmb_Frequency";
-            this.nmb_Frequency.ReadOnly = true;
-            this.nmb_Frequency.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // txt_code
-            // 
-            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
-            this.txt_code.DefaultCellStyle = dataGridViewCellStyle15;
-            this.txt_code.HeaderText = "Código";
-            this.txt_code.MinimumWidth = 20;
-            this.txt_code.Name = "txt_code";
-            this.txt_code.ReadOnly = true;
-            this.txt_code.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.lblEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblEstado.Location = new System.Drawing.Point(12, 455);
+            this.lblEstado.Name = "lblEstado";
+            this.lblEstado.Size = new System.Drawing.Size(239, 13);
+            this.lblEstado.TabIndex = 14;
+            this.lblEstado.Text = "Estado: Parado";
             // 
             // FormVisualizador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1000, 477);
+            this.Controls.Add(this.lblEstado);
             this.Controls.Add(this.lnkGitHubLink);
             this.Controls.Add(this.lblCreditos);
             this.Controls.Add(this.gpbSaida);
@@ -474,7 +485,7 @@
             this.Controls.Add(this.gpbControle);
             this.Controls.Add(this.gpbEntrada);
             this.Cursor = System.Windows.Forms.Cursors.Arrow;
-            this.MinimumSize = new System.Drawing.Size(930, 400);
+            this.MinimumSize = new System.Drawing.Size(930, 425);
             this.Name = "FormVisualizador";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Visualizador Huffman";
@@ -523,5 +534,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn txtCaractere;
         private System.Windows.Forms.DataGridViewTextBoxColumn nmb_Frequency;
         private System.Windows.Forms.DataGridViewTextBoxColumn txt_code;
+        private System.Windows.Forms.Label lblEstado;
     }
 }
