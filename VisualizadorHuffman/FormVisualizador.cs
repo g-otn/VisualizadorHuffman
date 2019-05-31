@@ -13,7 +13,7 @@ namespace VisualizadorHuffman
 {
     public partial class FormVisualizador : Form
     {
-        private int caractereAtual;
+        private int caractereAtual; // Guarda o progresso de leitura do rtbEntrada e inserção de folhas no trvArvore
         private enum EstadoAlgoritmo { Parado, LendoEntrada, ConstruindoArvore, GerandoSaida };
         private EstadoAlgoritmo estadoAtual = EstadoAlgoritmo.Parado;
 
@@ -81,6 +81,8 @@ namespace VisualizadorHuffman
                 // Reiniciar controles
                 btnIniciarParar.Text = "Parar";
                 btnPausarContinuar.Text = "Pausar";
+                btnPausarContinuar.Enabled = true;
+                btnProximoPasso.Enabled = true;
                 tkbIntervaloPassos_Scroll(null, null); // Atualiza timerPasso.Interval e lblVelocidade.Text
 
                 trvArvore.Nodes.Clear();
@@ -114,6 +116,8 @@ namespace VisualizadorHuffman
 
                 btnIniciarParar.Text = "Iniciar";
                 btnPausarContinuar.Text = "Pausar";
+                btnPausarContinuar.Enabled = false;
+                btnProximoPasso.Enabled = false;
             }
         }
 
@@ -264,9 +268,9 @@ namespace VisualizadorHuffman
                 for (i = 0; i < dgvCaracteres.RowCount; i++)
                 {
                     // Aumenta o valor da coluna frequência se o caractere já existe em uma linha
-                    if (caractere == (int)dgvCaracteres.Rows[i].Cells[1].Value)
+                    if (caractere == (int)dgvCaracteres.Rows[i].Cells[0].Tag)
                     {
-                        dgvCaracteres.Rows[i].Cells[2].Value = (int)dgvCaracteres.Rows[i].Cells[2].Value + 1;
+                        dgvCaracteres.Rows[i].Cells[1].Value = (int)dgvCaracteres.Rows[i].Cells[1].Value + 1;
                         dgvCaracteres.Rows[i].Selected = true;
                         break;
                     }
@@ -274,7 +278,8 @@ namespace VisualizadorHuffman
                 if (i == dgvCaracteres.RowCount) // Caractere ainda não existe no dgvCaracteres
                 {
                     // Adiona uma linha com o novo caractere
-                    dgvCaracteres.Rows.Add(rtbEntrada.Text[caractereAtual], (int)caractere, 1);
+                    dgvCaracteres.Rows.Add(rtbEntrada.Text[caractereAtual], 1);
+                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Tag = (int)caractere;
                     if (caractere == '\n')
                     {
                         dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = "Nova Linha";
@@ -294,7 +299,7 @@ namespace VisualizadorHuffman
                     dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Selected = true;
                 }
 
-                DataGridViewColumn frequencias = dgvCaracteres.Columns[2];
+                DataGridViewColumn frequencias = dgvCaracteres.Columns[1];
                 dgvCaracteres.Sort(frequencias, ListSortDirection.Descending);
 
                 // Cria ou modifica a representação da folha no trvArvore

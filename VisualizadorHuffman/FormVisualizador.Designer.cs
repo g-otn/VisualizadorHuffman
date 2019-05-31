@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Nó0");
-            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Node0", new System.Windows.Forms.TreeNode[] {
-            treeNode1});
-            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Node1");
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("Nó0");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Node0", new System.Windows.Forms.TreeNode[] {
+            treeNode4});
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Node1");
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gpbEntrada = new System.Windows.Forms.GroupBox();
             this.rtbEntrada = new System.Windows.Forms.RichTextBox();
             this.btnAbrirArquivo = new System.Windows.Forms.Button();
@@ -67,8 +67,8 @@
             this.ttpAvisoANSI = new System.Windows.Forms.ToolTip(this.components);
             this.lblEstado = new System.Windows.Forms.Label();
             this.txtCaractere = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txt_code = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nmb_Frequency = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.txt_code = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gpbEntrada.SuspendLayout();
             this.gpbControle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tkbIntervaloPassos)).BeginInit();
@@ -177,6 +177,7 @@
             // 
             // btnProximoPasso
             // 
+            this.btnProximoPasso.Enabled = false;
             this.btnProximoPasso.Location = new System.Drawing.Point(209, 19);
             this.btnProximoPasso.Name = "btnProximoPasso";
             this.btnProximoPasso.Size = new System.Drawing.Size(94, 23);
@@ -187,6 +188,7 @@
             // 
             // btnPausarContinuar
             // 
+            this.btnPausarContinuar.Enabled = false;
             this.btnPausarContinuar.Location = new System.Drawing.Point(109, 19);
             this.btnPausarContinuar.Name = "btnPausarContinuar";
             this.btnPausarContinuar.Size = new System.Drawing.Size(94, 23);
@@ -253,24 +255,24 @@
             // 
             this.dgvCaracteres.AllowUserToAddRows = false;
             this.dgvCaracteres.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-            this.dgvCaracteres.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
+            this.dgvCaracteres.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvCaracteres.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvCaracteres.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCaracteres.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCaracteres.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             this.dgvCaracteres.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCaracteres.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.txtCaractere,
-            this.txt_code,
-            this.nmb_Frequency});
+            this.nmb_Frequency,
+            this.txt_code});
             this.dgvCaracteres.Location = new System.Drawing.Point(9, 22);
             this.dgvCaracteres.MultiSelect = false;
             this.dgvCaracteres.Name = "dgvCaracteres";
@@ -294,15 +296,15 @@
             this.trvArvore.Indent = 40;
             this.trvArvore.Location = new System.Drawing.Point(243, 22);
             this.trvArvore.Name = "trvArvore";
-            treeNode1.Name = "Nó0";
-            treeNode1.Text = "Nó0";
-            treeNode2.Name = "Node0";
-            treeNode2.Text = "Node0";
-            treeNode3.Name = "Node1";
-            treeNode3.Text = "Node1";
+            treeNode4.Name = "Nó0";
+            treeNode4.Text = "Nó0";
+            treeNode5.Name = "Node0";
+            treeNode5.Text = "Node0";
+            treeNode6.Name = "Node1";
+            treeNode6.Text = "Node1";
             this.trvArvore.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode2,
-            treeNode3});
+            treeNode5,
+            treeNode6});
             this.trvArvore.Size = new System.Drawing.Size(285, 346);
             this.trvArvore.TabIndex = 0;
             // 
@@ -438,9 +440,9 @@
             // 
             // txtCaractere
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
-            this.txtCaractere.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
+            this.txtCaractere.DefaultCellStyle = dataGridViewCellStyle8;
             this.txtCaractere.FillWeight = 80F;
             this.txtCaractere.HeaderText = "Caractere";
             this.txtCaractere.MinimumWidth = 20;
@@ -449,29 +451,29 @@
             this.txtCaractere.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             this.txtCaractere.ToolTipText = "Os caracteres distintos presentes na entrada";
             // 
-            // txt_code
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
-            this.txt_code.DefaultCellStyle = dataGridViewCellStyle4;
-            this.txt_code.FillWeight = 90F;
-            this.txt_code.HeaderText = "Unicode";
-            this.txt_code.MinimumWidth = 20;
-            this.txt_code.Name = "txt_code";
-            this.txt_code.ReadOnly = true;
-            this.txt_code.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
             // nmb_Frequency
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
-            this.nmb_Frequency.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
+            this.nmb_Frequency.DefaultCellStyle = dataGridViewCellStyle9;
             this.nmb_Frequency.FillWeight = 80F;
             this.nmb_Frequency.HeaderText = "Frequência";
             this.nmb_Frequency.MinimumWidth = 20;
             this.nmb_Frequency.Name = "nmb_Frequency";
             this.nmb_Frequency.ReadOnly = true;
             this.nmb_Frequency.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // txt_code
+            // 
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
+            this.txt_code.DefaultCellStyle = dataGridViewCellStyle10;
+            this.txt_code.FillWeight = 90F;
+            this.txt_code.HeaderText = "Código";
+            this.txt_code.MinimumWidth = 20;
+            this.txt_code.Name = "txt_code";
+            this.txt_code.ReadOnly = true;
+            this.txt_code.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // FormVisualizador
             // 
@@ -534,7 +536,7 @@
         private System.Windows.Forms.ToolTip ttpAvisoANSI;
         private System.Windows.Forms.Label lblEstado;
         private System.Windows.Forms.DataGridViewTextBoxColumn txtCaractere;
-        private System.Windows.Forms.DataGridViewTextBoxColumn txt_code;
         private System.Windows.Forms.DataGridViewTextBoxColumn nmb_Frequency;
+        private System.Windows.Forms.DataGridViewTextBoxColumn txt_code;
     }
 }
