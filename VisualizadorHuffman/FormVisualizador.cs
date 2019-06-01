@@ -21,7 +21,7 @@ namespace VisualizadorHuffman
         public FormVisualizador()
         {
             InitializeComponent();
-            this.ActiveControl = rtbEntrada;
+            ActiveControl = rtbEntrada;
         }
 
 
@@ -35,8 +35,8 @@ namespace VisualizadorHuffman
                 txtCaminhoArquivo.ForeColor = SystemColors.ControlText;
                 txtCaminhoArquivo.Text = ofdArquivoEntrada.FileName;
                 rtbEntrada.ForeColor = SystemColors.ControlText;
-                rtbEntrada.Text = File.ReadAllText(ofdArquivoEntrada.FileName);
-                lblInfoEntrada.Text = $"Entrada: {rtbEntrada.Text.Length} bytes, {rtbEntrada.Text.Length * 8} bits";
+                rtbEntrada.Text = File.ReadAllText(ofdArquivoEntrada.FileName, Encoding.GetEncoding(1252));
+                SubstituirWindows1252InvalidosDaEntrada();
             }
         }
 
@@ -46,14 +46,24 @@ namespace VisualizadorHuffman
             {
                 try
                 {
-                    rtbEntrada.Text = File.ReadAllText(txtCaminhoArquivo.Text);
+                    rtbEntrada.Text = File.ReadAllText(txtCaminhoArquivo.Text, Encoding.GetEncoding(1252));
+                    SubstituirWindows1252InvalidosDaEntrada();
+                    ofdArquivoEntrada.FileName = txtCaminhoArquivo.Text; // Permite abrir outro arquivo se o txtCaminhoArquivo.Text for modificado novamente
                     txtCaminhoArquivo.ForeColor = SystemColors.ControlText;
-                    lblInfoEntrada.Text = $"Entrada: {rtbEntrada.Text.Length} bytes, {rtbEntrada.Text.Length * 8} bits";
                 }
                 catch
                 {
                     txtCaminhoArquivo.ForeColor = Color.Red;
                 }
+            }
+        }
+
+        private void rtbEntrada_TextChanged(object sender, EventArgs e)
+        {
+            if (rtbEntrada.ForeColor != SystemColors.GrayText)
+            {
+                int bytes = Encoding.GetEncoding(1252).GetByteCount(rtbEntrada.Text);
+                lblInfoEntrada.Text = $"Entrada: {bytes} bytes, {bytes * 8} bits";
             }
         }
 
@@ -99,8 +109,10 @@ namespace VisualizadorHuffman
                 rtbEntrada.ReadOnly = true;
                 rtbEntrada.SelectionStart = 0;
                 rtbEntrada.SelectionLength = 0;
+                SubstituirWindows1252InvalidosDaEntrada();
 
                 // Iniciar passos
+                timerPasso_Tick(null, null);
                 timerPasso.Start();
             }
             else                                    // Parar
@@ -159,8 +171,8 @@ namespace VisualizadorHuffman
         {
             if (rtbEntrada.ForeColor == SystemColors.GrayText && rtbEntrada.Text == "Digite alguma coisa...")
             {
-                rtbEntrada.Clear();
                 rtbEntrada.ForeColor = SystemColors.WindowText;
+                rtbEntrada.Clear();
             }
         }
 
@@ -168,8 +180,8 @@ namespace VisualizadorHuffman
         {
             if (string.IsNullOrEmpty(rtbEntrada.Text))
             {
-                rtbEntrada.Text = "Digite alguma coisa...";
                 rtbEntrada.ForeColor = SystemColors.GrayText;
+                rtbEntrada.Text = "Digite alguma coisa...";
             }
         }
 
@@ -267,13 +279,13 @@ namespace VisualizadorHuffman
                 char caractere = rtbEntrada.Text[caractereAtual];
                 int i;
 
-//                TreeNode treeNode = new TreeNode();
-//                treeNode.Tag = new Folha(caractere, /*frequencia*/);
+                //                TreeNode treeNode = new TreeNode();
+                //                treeNode.Tag = new Folha(caractere, /*frequencia*/);
 
+                // Aumenta o valor da coluna frequência se o caractere já existe em uma linha
                 for (i = 0; i < dgvCaracteres.RowCount; i++)
-                {
-                    // Aumenta o valor da coluna frequência se o caractere já existe em uma linha
-                    if (caractere == (int)dgvCaracteres.Rows[i].Cells[0].Tag)
+                {                    
+                    if (caractere == Convert.ToInt16(dgvCaracteres.Rows[i].Cells[0].Tag))
                     {
                         dgvCaracteres.Rows[i].Cells[1].Value = (int)dgvCaracteres.Rows[i].Cells[1].Value + 1;
                         dgvCaracteres.Rows[i].Selected = true;
@@ -281,10 +293,14 @@ namespace VisualizadorHuffman
                     }
                 }
 
-                if (i == dgvCaracteres.RowCount) // Caractere ainda não existe no dgvCaracteres
+                // Cria uma nova linha se o caractere ainda não existe no dgvCaracteres
+                if (i == dgvCaracteres.RowCount)
                 {
-                    dgvCaracteres.Rows.Add(rtbEntrada.Text[caractereAtual], 1); // Caractere, Frequência
+                    dgvCaracteres.Rows.Add(null, 1); // Coluna de frequência
+
                     dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Tag = (int)caractere;
+
+                    // Coluna de Caractere
                     if (caractere == '\n')
                     {
                         dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = "Nova Linha";
@@ -299,13 +315,19 @@ namespace VisualizadorHuffman
                     }
                     else
                     {
-                        dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = rtbEntrada.Text[caractereAtual];
+                        dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = caractere;
                     }
+
+
+
                     dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Selected = true;
 
-                    // Adiciona as folhas no trvArvore
+                    // DEBUG: Mostra o código Windows-1252 do caractere
+                    byte codigoWindows1252DoCaractereUnicode = Encoding.Convert(Encoding.Unicode, Encoding.GetEncoding(1252), Encoding.Unicode.GetBytes(caractere.ToString()))[0];
+                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[2].Value = codigoWindows1252DoCaractereUnicode;
                 }
 
+                // Ordena as linhas dos dgvCaracteres baseado na coluna de Frequência
                 DataGridViewColumn frequencias = dgvCaracteres.Columns[1];
                 dgvCaracteres.Sort(frequencias, ListSortDirection.Descending);
 
@@ -333,6 +355,13 @@ namespace VisualizadorHuffman
         // Impede a maior parte do flickering no rtbEntrada
         [System.Runtime.InteropServices.DllImport("user32.dll")]
         public static extern bool LockWindowUpdate(IntPtr windowLock);
+
+        private void SubstituirWindows1252InvalidosDaEntrada()
+        {
+            // Substitui qualquer caractere inserido que não pode ser representado pelo Windows-1252 por '?'
+            byte[] bytesEntradaEmWindows1252 = Encoding.Convert(Encoding.Unicode, Encoding.GetEncoding(1252), Encoding.Unicode.GetBytes(rtbEntrada.Text));
+            rtbEntrada.Text = Encoding.GetEncoding(1252).GetString(bytesEntradaEmWindows1252);
+        }
 
         #endregion
     }

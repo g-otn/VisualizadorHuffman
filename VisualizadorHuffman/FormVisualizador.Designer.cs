@@ -60,11 +60,10 @@
             this.lblCreditos = new System.Windows.Forms.Label();
             this.lnkGitHubLink = new System.Windows.Forms.LinkLabel();
             this.timerPasso = new System.Windows.Forms.Timer(this.components);
-            this.ttpAvisoANSI = new System.Windows.Forms.ToolTip(this.components);
             this.lblEstado = new System.Windows.Forms.Label();
-            this.txtCaractere = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.nmb_Frequency = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.txt_code = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCaractere = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colFrequencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.colCodigo1252 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gpbEntrada.SuspendLayout();
             this.gpbControle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tkbIntervaloPassos)).BeginInit();
@@ -101,8 +100,7 @@
             this.rtbEntrada.Size = new System.Drawing.Size(415, 114);
             this.rtbEntrada.TabIndex = 7;
             this.rtbEntrada.Text = "Digite alguma coisa...";
-            this.ttpAvisoANSI.SetToolTip(this.rtbEntrada, "É recomendado inserir caracteres codificados \r\nem ANSI / Windows-1252. Caracteres" +
-        " não \r\nreconhecidos serão substituidos por \'?\'.");
+            this.rtbEntrada.TextChanged += new System.EventHandler(this.rtbEntrada_TextChanged);
             this.rtbEntrada.Enter += new System.EventHandler(this.rtbEntrada_Enter);
             this.rtbEntrada.Leave += new System.EventHandler(this.rtbEntrada_Leave);
             // 
@@ -113,8 +111,6 @@
             this.btnAbrirArquivo.Size = new System.Drawing.Size(113, 23);
             this.btnAbrirArquivo.TabIndex = 5;
             this.btnAbrirArquivo.Text = "Abrir Arquivo";
-            this.ttpAvisoANSI.SetToolTip(this.btnAbrirArquivo, "É recomendado selecionar arquivos codificados \r\nem ANSI / Windows-1252. Caractere" +
-        "s não \r\nreconhecidos serão substituidos por \'?\'.\r\n");
             this.btnAbrirArquivo.UseVisualStyleBackColor = true;
             this.btnAbrirArquivo.Click += new System.EventHandler(this.btnAbrirArquivo_Click);
             // 
@@ -126,8 +122,6 @@
             this.txtCaminhoArquivo.Name = "txtCaminhoArquivo";
             this.txtCaminhoArquivo.Size = new System.Drawing.Size(296, 20);
             this.txtCaminhoArquivo.TabIndex = 4;
-            this.ttpAvisoANSI.SetToolTip(this.txtCaminhoArquivo, "É recomendado selecionar arquivos codificados \r\nem ANSI / Windows-1252. Caractere" +
-        "s não \r\nreconhecidos serão substituidos por \'?\'.");
             this.txtCaminhoArquivo.Leave += new System.EventHandler(this.txtCaminhoArquivo_Leave);
             // 
             // gpbControle
@@ -141,7 +135,7 @@
             this.gpbControle.Controls.Add(this.btnIniciarParar);
             this.gpbControle.Location = new System.Drawing.Point(451, 12);
             this.gpbControle.Name = "gpbControle";
-            this.gpbControle.Size = new System.Drawing.Size(537, 57);
+            this.gpbControle.Size = new System.Drawing.Size(585, 57);
             this.gpbControle.TabIndex = 3;
             this.gpbControle.TabStop = false;
             this.gpbControle.Text = "Controle";
@@ -164,11 +158,11 @@
             this.tkbIntervaloPassos.Location = new System.Drawing.Point(418, 19);
             this.tkbIntervaloPassos.Maximum = 1975;
             this.tkbIntervaloPassos.Name = "tkbIntervaloPassos";
-            this.tkbIntervaloPassos.Size = new System.Drawing.Size(113, 26);
+            this.tkbIntervaloPassos.Size = new System.Drawing.Size(161, 26);
             this.tkbIntervaloPassos.SmallChange = 25;
             this.tkbIntervaloPassos.TabIndex = 11;
             this.tkbIntervaloPassos.TickFrequency = 500;
-            this.tkbIntervaloPassos.Value = 1250;
+            this.tkbIntervaloPassos.Value = 1750;
             this.tkbIntervaloPassos.Scroll += new System.EventHandler(this.tkbIntervaloPassos_Scroll);
             // 
             // btnProximoPasso
@@ -242,7 +236,7 @@
             this.gpbPassos.Location = new System.Drawing.Point(451, 75);
             this.gpbPassos.Name = "gpbPassos";
             this.gpbPassos.Padding = new System.Windows.Forms.Padding(6);
-            this.gpbPassos.Size = new System.Drawing.Size(537, 377);
+            this.gpbPassos.Size = new System.Drawing.Size(585, 377);
             this.gpbPassos.TabIndex = 9;
             this.gpbPassos.TabStop = false;
             this.gpbPassos.Text = "Passos Da Compressão";
@@ -266,9 +260,9 @@
             this.dgvCaracteres.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCaracteres.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCaracteres.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.txtCaractere,
-            this.nmb_Frequency,
-            this.txt_code});
+            this.colCaractere,
+            this.colFrequencia,
+            this.colCodigo1252});
             this.dgvCaracteres.Location = new System.Drawing.Point(9, 22);
             this.dgvCaracteres.MultiSelect = false;
             this.dgvCaracteres.Name = "dgvCaracteres";
@@ -281,7 +275,7 @@
             this.dgvCaracteres.ShowCellToolTips = false;
             this.dgvCaracteres.ShowEditingIcon = false;
             this.dgvCaracteres.ShowRowErrors = false;
-            this.dgvCaracteres.Size = new System.Drawing.Size(228, 346);
+            this.dgvCaracteres.Size = new System.Drawing.Size(253, 346);
             this.dgvCaracteres.TabIndex = 10;
             // 
             // trvArvore
@@ -290,9 +284,9 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trvArvore.Indent = 40;
-            this.trvArvore.Location = new System.Drawing.Point(243, 22);
+            this.trvArvore.Location = new System.Drawing.Point(268, 22);
             this.trvArvore.Name = "trvArvore";
-            this.trvArvore.Size = new System.Drawing.Size(285, 346);
+            this.trvArvore.Size = new System.Drawing.Size(308, 346);
             this.trvArvore.TabIndex = 0;
             // 
             // gpbSaida
@@ -384,7 +378,7 @@
             // lblCreditos
             // 
             this.lblCreditos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCreditos.Location = new System.Drawing.Point(257, 455);
+            this.lblCreditos.Location = new System.Drawing.Point(305, 455);
             this.lblCreditos.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.lblCreditos.Name = "lblCreditos";
             this.lblCreditos.Size = new System.Drawing.Size(685, 13);
@@ -397,7 +391,7 @@
             // 
             this.lnkGitHubLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lnkGitHubLink.AutoSize = true;
-            this.lnkGitHubLink.Location = new System.Drawing.Point(948, 455);
+            this.lnkGitHubLink.Location = new System.Drawing.Point(996, 455);
             this.lnkGitHubLink.Name = "lnkGitHubLink";
             this.lnkGitHubLink.Size = new System.Drawing.Size(40, 13);
             this.lnkGitHubLink.TabIndex = 13;
@@ -410,12 +404,6 @@
             this.timerPasso.Interval = 1000;
             this.timerPasso.Tick += new System.EventHandler(this.timerPasso_Tick);
             // 
-            // ttpAvisoANSI
-            // 
-            this.ttpAvisoANSI.AutomaticDelay = 1000;
-            this.ttpAvisoANSI.ToolTipTitle = "Aviso de Codificação de Caracteres";
-            this.ttpAvisoANSI.UseFading = false;
-            // 
             // lblEstado
             // 
             this.lblEstado.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -425,48 +413,48 @@
             this.lblEstado.TabIndex = 14;
             this.lblEstado.Text = "Estado: Parado";
             // 
-            // txtCaractere
+            // colCaractere
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
-            this.txtCaractere.DefaultCellStyle = dataGridViewCellStyle3;
-            this.txtCaractere.FillWeight = 80F;
-            this.txtCaractere.HeaderText = "Caractere";
-            this.txtCaractere.MinimumWidth = 20;
-            this.txtCaractere.Name = "txtCaractere";
-            this.txtCaractere.ReadOnly = true;
-            this.txtCaractere.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.txtCaractere.ToolTipText = "Os caracteres distintos presentes na entrada";
+            this.colCaractere.DefaultCellStyle = dataGridViewCellStyle3;
+            this.colCaractere.HeaderText = "Caractere";
+            this.colCaractere.MinimumWidth = 20;
+            this.colCaractere.Name = "colCaractere";
+            this.colCaractere.ReadOnly = true;
+            this.colCaractere.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCaractere.ToolTipText = "Os caracteres distintos presentes na entrada";
             // 
-            // nmb_Frequency
+            // colFrequencia
             // 
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
-            this.nmb_Frequency.DefaultCellStyle = dataGridViewCellStyle4;
-            this.nmb_Frequency.FillWeight = 80F;
-            this.nmb_Frequency.HeaderText = "Frequência";
-            this.nmb_Frequency.MinimumWidth = 20;
-            this.nmb_Frequency.Name = "nmb_Frequency";
-            this.nmb_Frequency.ReadOnly = true;
-            this.nmb_Frequency.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colFrequencia.DefaultCellStyle = dataGridViewCellStyle4;
+            this.colFrequencia.FillWeight = 80F;
+            this.colFrequencia.HeaderText = "Frequência";
+            this.colFrequencia.MinimumWidth = 20;
+            this.colFrequencia.Name = "colFrequencia";
+            this.colFrequencia.ReadOnly = true;
+            this.colFrequencia.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
-            // txt_code
+            // colCodigo1252
             // 
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
-            this.txt_code.DefaultCellStyle = dataGridViewCellStyle5;
-            this.txt_code.FillWeight = 90F;
-            this.txt_code.HeaderText = "Código";
-            this.txt_code.MinimumWidth = 20;
-            this.txt_code.Name = "txt_code";
-            this.txt_code.ReadOnly = true;
-            this.txt_code.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.colCodigo1252.DefaultCellStyle = dataGridViewCellStyle5;
+            this.colCodigo1252.FillWeight = 80F;
+            this.colCodigo1252.HeaderText = "Código";
+            this.colCodigo1252.MinimumWidth = 20;
+            this.colCodigo1252.Name = "colCodigo1252";
+            this.colCodigo1252.ReadOnly = true;
+            this.colCodigo1252.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // FormVisualizador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1000, 477);
+            this.ClientSize = new System.Drawing.Size(1048, 477);
             this.Controls.Add(this.lblEstado);
             this.Controls.Add(this.lnkGitHubLink);
             this.Controls.Add(this.lblCreditos);
@@ -520,10 +508,9 @@
         private System.Windows.Forms.LinkLabel lnkGitHubLink;
         private System.Windows.Forms.Timer timerPasso;
         private System.Windows.Forms.RichTextBox rtbEntrada;
-        private System.Windows.Forms.ToolTip ttpAvisoANSI;
         private System.Windows.Forms.Label lblEstado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn txtCaractere;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nmb_Frequency;
-        private System.Windows.Forms.DataGridViewTextBoxColumn txt_code;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCaractere;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colFrequencia;
+        private System.Windows.Forms.DataGridViewTextBoxColumn colCodigo1252;
     }
 }

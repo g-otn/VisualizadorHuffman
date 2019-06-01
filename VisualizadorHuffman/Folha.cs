@@ -11,7 +11,7 @@ namespace VisualizadorHuffman
         /// <summary>
         /// O caractere guardado na <see cref="Folha"/> da árvore.
         /// </summary>
-        public char Caractere { get; set; }
+        public byte Caractere { get; set; }
 
         /// <summary>
         /// A frequência que o caractere aparece no texto.
@@ -25,7 +25,7 @@ namespace VisualizadorHuffman
         /// <param name="frequencia">A frequencia do caractere da Folha</param>
         public Folha(char caractere, int frequencia)
         {
-            Caractere = caractere;
+            Caractere = (byte)caractere;
             Frequencia = frequencia;
         }
     }
