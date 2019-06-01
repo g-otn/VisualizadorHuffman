@@ -117,6 +117,10 @@ namespace VisualizadorHuffman
             }
             else                                    // Parar
             {
+                // Reiniciar variáveis
+                estadoAtual = EstadoAlgoritmo.Parado;
+                lblEstado.Text = "Estado: Parado";
+
                 // Reiniciar controles
                 timerPasso.Stop();
 
@@ -162,6 +166,7 @@ namespace VisualizadorHuffman
                 return;
             }
 
+            btnPausarContinuar.Text = "Continuar";
             timerPasso.Stop();           // Pausar passos
             timerPasso_Tick(null, null); // Realizar próximo passo
 
@@ -247,6 +252,7 @@ namespace VisualizadorHuffman
                 dgvCaracteres.ClearSelection();
 
                 // Passa ao algoritmo para o próximo estado
+                avancarEstadoDoAlgoritmo();
 
                 return; // Todos os caracteres já foram analizados
             }
@@ -285,7 +291,7 @@ namespace VisualizadorHuffman
                 // Aumenta o valor da coluna frequência se o caractere já existe em uma linha
                 for (i = 0; i < dgvCaracteres.RowCount; i++)
                 {                    
-                    if (caractere == Convert.ToInt16(dgvCaracteres.Rows[i].Cells[0].Tag))
+                    if (caractere == Convert.ToInt32(dgvCaracteres.Rows[i].Cells[0].Tag))
                     {
                         dgvCaracteres.Rows[i].Cells[1].Value = (int)dgvCaracteres.Rows[i].Cells[1].Value + 1;
                         dgvCaracteres.Rows[i].Selected = true;
@@ -338,7 +344,23 @@ namespace VisualizadorHuffman
 
         private void ConstruirArvore()
         {
-
+            if (trvArvore.GetNodeCount(false) == 0) // Não tem nem as folhas "soltas" nem a árvore sendo montada
+            {
+                // Insere todas as folhas
+                TreeNode raiz = new TreeNode("Não montados");
+                foreach (DataGridViewRow linha in dgvCaracteres.Rows)
+                {
+                    string nomeCaractere = linha.Cells[0].Value.ToString();
+                    int valorCaractere = Convert.ToInt32(linha.Cells[0].Tag);
+                    int frequencia = Convert.ToInt32(linha.Cells[1].Value);
+                    TreeNode no = new TreeNode();
+                    no.Text = $"'{nomeCaractere}' ({frequencia})";
+                    no.ToolTipText = $"Lado: 0/1 Caractere: {nomeCaractere} Frequência: {frequencia}";
+                    no.Name = valorCaractere.ToString();
+                    raiz.Nodes.Add(no);
+                }
+                trvArvore.Nodes.Add(raiz);
+            }
         }
 
         #endregion
