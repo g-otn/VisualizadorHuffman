@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace VisualizadorHuffman
 {
-    class Folha : No
+    class Folha
     {
         /// <summary>
         /// O caractere guardado na <see cref="Folha"/> da árvore.
         /// </summary>
-        public byte Caractere { get; set; }
+        public char Caractere { get; set; }
 
         /// <summary>
         /// A frequência que o caractere aparece no texto.
@@ -25,7 +25,7 @@ namespace VisualizadorHuffman
         /// <param name="frequencia">A frequencia do caractere da Folha</param>
         public Folha(char caractere, int frequencia)
         {
-            Caractere = (byte)caractere;
+            Caractere = caractere;
             Frequencia = frequencia;
         }
     }

@@ -1,29 +1,25 @@
-﻿namespace VisualizadorHuffman
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace VisualizadorHuffman
 {
-    class NoPai : No
+    class NoPai
     {
-        public No Esquerdo { get; }      // bit: 0
+        /// <summary>
+        /// A soma das frequências e/ou pesos dos <see cref="NoPai"/>s e/ou <see cref="Folha"/>s filho(a)s.
+        /// </summary>
+        public int Peso { get; set; }
 
-        public No Direito { get; }     // bit: 1
-        
-        public int Peso { get; }
-
-        public NoPai(No esquerdo, No direito) 
+        /// <summary>
+        /// Cria um <see cref="NoPai"/> com um peso.
+        /// </summary>
+        /// <param name="peso">A soma das frequências e/ou pesos dos <see cref="NoPai"/>s e/ou <see cref="Folha"/>s filho(a)s.</param>
+        public NoPai(int peso)
         {
-            // Armazena a soma da frequência/peso dos Nós filhos
-            if (esquerdo is Folha)
-                Peso = ((Folha)esquerdo).Frequencia;
-            else
-                Peso = ((NoPai)esquerdo).Peso;
-
-            if (direito is Folha)
-                Peso += ((Folha)direito).Frequencia;
-            else
-                Peso += ((NoPai)direito).Peso;
-
-            // Stores child Nodes
-            Esquerdo = esquerdo;
-            Direito = direito;
+            Peso = peso;
         }
     }
 }
