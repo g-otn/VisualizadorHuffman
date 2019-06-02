@@ -15,11 +15,12 @@ namespace VisualizadorHuffman
     public partial class FormVisualizador : Form
     {
         private int caractereAtual; // Guarda o progresso de leitura do rtbEntrada
-        private enum EstadoAlgoritmo { Parado, LendoEntrada, ConstruindoArvore, GerandoSaida };
+        private enum EstadoAlgoritmo { Parado, LendoEntrada, ConstruindoArvore, GerandoCodigo, GerandoSaida };
         private EstadoAlgoritmo estadoAtual = EstadoAlgoritmo.Parado;
         // Usado para guardar a cor dos nós que foram reposicionados no trvArvore
         TreeNode primeiro = new TreeNode();
         TreeNode segundo = new TreeNode();
+        bool ladosIdentificados = false;
 
         public FormVisualizador()
         {
@@ -91,6 +92,7 @@ namespace VisualizadorHuffman
                 caractereAtual = 0;
                 estadoAtual = EstadoAlgoritmo.Parado;
                 avancarEstadoDoAlgoritmo();
+                ladosIdentificados = false;
 
                 // Reiniciar controles
                 btnIniciarParar.Text = "Parar";
@@ -109,7 +111,7 @@ namespace VisualizadorHuffman
 
                 // Preparar controles
                 btnAbrirArquivo.Enabled = false;
-                txtCaminhoArquivo.ReadOnly = true;
+                txtCaminhoArquivo.Enabled = false;
                 rtbEntrada.ReadOnly = true;
                 rtbEntrada.SelectionStart = 0;
                 rtbEntrada.SelectionLength = 0;
@@ -129,7 +131,7 @@ namespace VisualizadorHuffman
                 timerPasso.Stop();
 
                 btnAbrirArquivo.Enabled = true;
-                txtCaminhoArquivo.ReadOnly = false;
+                txtCaminhoArquivo.Enabled = true;
                 rtbEntrada.ReadOnly = false;
                 rtbEntrada.SelectAll();
                 rtbEntrada.SelectionBackColor = SystemColors.Window;
@@ -216,6 +218,9 @@ namespace VisualizadorHuffman
                 case EstadoAlgoritmo.ConstruindoArvore:
                     ConstruirArvore();
                     break;
+                case EstadoAlgoritmo.GerandoCodigo:
+                    GerarCodigo();
+                    break;
                 case EstadoAlgoritmo.GerandoSaida:
                     GerarSaida();
                     break;
@@ -235,8 +240,12 @@ namespace VisualizadorHuffman
                     lblEstado.Text = "Estado: Construindo árvore";
                     break;
                 case EstadoAlgoritmo.ConstruindoArvore:
+                    estadoAtual = EstadoAlgoritmo.GerandoCodigo;
+                    lblEstado.Text = "Estado: Gerando o código de cada caractere";
+                    break;
+                case EstadoAlgoritmo.GerandoCodigo:
                     estadoAtual = EstadoAlgoritmo.GerandoSaida;
-                    lblEstado.Text = "Estado: Percorrendo árvore e gerando saída";
+                    lblEstado.Text = "Estado: Gerando saída";
                     break;
                 case EstadoAlgoritmo.GerandoSaida:
                     estadoAtual = EstadoAlgoritmo.Parado;
@@ -247,6 +256,8 @@ namespace VisualizadorHuffman
 
         private void LerEntrada()
         {
+            dgvCaracteres.ClearSelection();
+
             // Termina o estado atual (EstadoAlgoritmo.LendoEntrada) do algoritmo
             if (caractereAtual == rtbEntrada.Text.Length)
             {
@@ -254,7 +265,6 @@ namespace VisualizadorHuffman
                 rtbEntrada.Select(caractereAtual - 1, 1);
                 rtbEntrada.SelectionColor = SystemColors.ControlText;
                 rtbEntrada.SelectionBackColor = SystemColors.Window;
-                dgvCaracteres.ClearSelection();
 
                 // Passa ao algoritmo para o próximo estado
                 avancarEstadoDoAlgoritmo();
@@ -288,16 +298,13 @@ namespace VisualizadorHuffman
                 LockWindowUpdate(IntPtr.Zero);
 
                 // Adiciona a linha do caractere ou incrementa a frequência
+
                 char caractere = rtbEntrada.Text[caractereAtual];
                 int i;
-
-                //                TreeNode treeNode = new TreeNode();
-                //                treeNode.Tag = new Folha(caractere, /*frequencia*/);
-
                 // Aumenta o valor da coluna frequência se o caractere já existe em uma linha
                 for (i = 0; i < dgvCaracteres.RowCount; i++)
                 {
-                    if (caractere == Convert.ToInt32(dgvCaracteres.Rows[i].Cells[0].Tag))
+                    if (caractere == Convert.ToInt32(dgvCaracteres.Rows[i].Tag))
                     {
                         dgvCaracteres.Rows[i].Cells[1].Value = (int)dgvCaracteres.Rows[i].Cells[1].Value + 1;
                         dgvCaracteres.Rows[i].Selected = true;
@@ -309,7 +316,7 @@ namespace VisualizadorHuffman
                 if (i == dgvCaracteres.RowCount)
                 {
                     dgvCaracteres.Rows.Add(null, 1); // Coluna de frequência
-                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Tag = (int)caractere;
+                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Tag = (int)caractere; // Usado para identificação de caracter já existente (inserido)
 
                     // Coluna de Caractere
                     if (caractere == '\n')
@@ -329,24 +336,23 @@ namespace VisualizadorHuffman
                         dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[0].Value = caractere;
                     }
 
-
+                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Selected = true; // Visualização
 
                     // DEBUG: Mostra o código Windows-1252 do caractere
-                    //byte codigoWindows1252DoCaractereUnicode = Encoding.Convert(Encoding.Unicode, Encoding.GetEncoding(1252), Encoding.Unicode.GetBytes(caractere.ToString()))[0];
-                    //dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[2].Value = codigoWindows1252DoCaractereUnicode;
+                    /*byte codigoWindows1252DoCaractereUnicode = Encoding.Convert(Encoding.Unicode, Encoding.GetEncoding(1252), Encoding.Unicode.GetBytes(caractere.ToString()))[0];
+                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[2].Value = codigoWindows1252DoCaractereUnicode;*/
                 }
 
-                // Design e visualização
+                // Visualização
                 Random random = new Random();
                 Color corAleatoria = Color.FromArgb(25 + random.Next(150), 25 + random.Next(150), 25 + random.Next(150));
                 dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].DefaultCellStyle.ForeColor = corAleatoria;
-                dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Selected = true;
-                dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[2].Value = $"{corAleatoria.R}, {corAleatoria.G}, {corAleatoria.B}";
+                // DEBUG: Mostra os valores RGB da cor gerada
+                //dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[2].Value = $"{corAleatoria.R}, {corAleatoria.G}, {corAleatoria.B}";
 
                 // Ordena as linhas dos dgvCaracteres baseado na coluna de Frequência
                 DataGridViewColumn frequencias = dgvCaracteres.Columns[1];
                 dgvCaracteres.Sort(frequencias, ListSortDirection.Descending);
-
 
                 caractereAtual++;
             }
@@ -387,10 +393,10 @@ namespace VisualizadorHuffman
                 primeiro = trvArvore.Nodes[0];
                 segundo = trvArvore.Nodes[1];
 
-                primeiro.ToolTipText = "Lado: 0 " + primeiro.ToolTipText;
+                /*primeiro.ToolTipText = "Lado: 0 " + primeiro.ToolTipText;
                 segundo.ToolTipText = "Lado: 1 " + segundo.ToolTipText;
                 primeiro.Text = "[0] " + primeiro.Text;
-                segundo.Text = "[1] " + segundo.Text;
+                segundo.Text = "[1] " + segundo.Text;*/
                 primeiro.BackColor = Color.LightSeaGreen;
                 segundo.BackColor = Color.LightSeaGreen;
 
@@ -435,9 +441,51 @@ namespace VisualizadorHuffman
             //trvArvore.Nodes[0].EnsureVisible();
         }
 
+        private void GerarCodigo()
+        {
+            if (!ladosIdentificados) // Os nós em trvArvores não receberam o texto indicando os lados "0: " ou "1: "
+            {
+                if (trvArvore.Nodes[0].GetNodeCount(false) == 0) // Não há filhos, só há um nó
+                {
+                    trvArvore.Nodes[0].Text = "0: " + trvArvore.Nodes[0].Text;
+                    dgvCaracteres.Rows[0].Cells[2].Value = "0";
+                } else
+                {
+                    CaminharNos("0", trvArvore.Nodes[0].Nodes[0]);
+                    CaminharNos("1", trvArvore.Nodes[0].Nodes[1]);
+                }
+                ladosIdentificados = true;
+            }
+        }
+
+        private void CaminharNos(string caminhoNo, TreeNode No)
+        {
+            No.Text = caminhoNo[caminhoNo.Length - 1] + ": " + No.Text;
+            No.ToolTipText = "Lado: " + caminhoNo[caminhoNo.Length - 1] + " " + No.ToolTipText;
+
+            if (No.Tag is Folha)
+            {
+                foreach (DataGridViewRow linha in dgvCaracteres.Rows)
+                {
+                    if ((int)linha.Tag == ((Folha)No.Tag).Peso)
+                    {
+                        linha.Cells[2].Value = caminhoNo;
+                        break;
+                    }
+                }
+            } else // Se No não é Folha, ele é um nó com filhos, e todos nós pais tem 2 e somente 2 filhos
+            {
+                CaminharNos(caminhoNo + "0", No.Nodes[0]);
+                CaminharNos(caminhoNo + "1", No.Nodes[1]);
+            }
+        }
+
         private void GerarSaida()
         {
+            // Definir lados (0 e 1) dos nós
+            if (string.IsNullOrEmpty(dgvCaracteres.Rows[0].Cells[2].Value.ToString())) { // Se o primeiro caractere não possui um código, nenhum possui
 
+            }
         }
 
         #endregion
@@ -471,8 +519,13 @@ namespace VisualizadorHuffman
                 int valorX = ((No)((TreeNode)noX).Tag).Peso;
                 int valorY = ((No)((TreeNode)noY).Tag).Peso;
 
-                return valorX.CompareTo(valorY - 1);
+                return valorX.CompareTo(valorY - 1); // -1: Deixa a ordenação estável (impede de trocar de ordem nós com o mesmo peso)
             }
+        }
+
+        private void lblInfoDiferenca_Click(object sender, EventArgs e)
+        {
+            dgvCaracteres.ClearSelection();
         }
     }
 }
