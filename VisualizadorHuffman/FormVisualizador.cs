@@ -17,7 +17,9 @@ namespace VisualizadorHuffman
         private int caractereAtual; // Guarda o progresso de leitura do rtbEntrada
         private enum EstadoAlgoritmo { Parado, LendoEntrada, ConstruindoArvore, GerandoSaida };
         private EstadoAlgoritmo estadoAtual = EstadoAlgoritmo.Parado;
-
+        // Usado para guardar a cor dos nós que foram reposicionados no trvArvore
+        TreeNode primeiro = new TreeNode();
+        TreeNode segundo = new TreeNode();
 
         public FormVisualizador()
         {
@@ -215,6 +217,7 @@ namespace VisualizadorHuffman
                     ConstruirArvore();
                     break;
                 case EstadoAlgoritmo.GerandoSaida:
+                    GerarSaida();
                     break;
             }
         }
@@ -255,6 +258,7 @@ namespace VisualizadorHuffman
 
                 // Passa ao algoritmo para o próximo estado
                 avancarEstadoDoAlgoritmo();
+                timerPasso_Tick(null, null); // Realiza o primeiro passo do ConstruirArvore() (criar e inserir as Folhas "soltas")
 
                 return; // Todos os caracteres já foram analizados
             }
@@ -327,12 +331,17 @@ namespace VisualizadorHuffman
 
 
 
-                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Selected = true;
-
                     // DEBUG: Mostra o código Windows-1252 do caractere
-                    byte codigoWindows1252DoCaractereUnicode = Encoding.Convert(Encoding.Unicode, Encoding.GetEncoding(1252), Encoding.Unicode.GetBytes(caractere.ToString()))[0];
-                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[2].Value = codigoWindows1252DoCaractereUnicode;
+                    //byte codigoWindows1252DoCaractereUnicode = Encoding.Convert(Encoding.Unicode, Encoding.GetEncoding(1252), Encoding.Unicode.GetBytes(caractere.ToString()))[0];
+                    //dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[2].Value = codigoWindows1252DoCaractereUnicode;
                 }
+
+                // Design e visualização
+                Random random = new Random();
+                Color corAleatoria = Color.FromArgb(25 + random.Next(150), 25 + random.Next(150), 25 + random.Next(150));
+                dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].DefaultCellStyle.ForeColor = corAleatoria;
+                dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Selected = true;
+                dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[2].Value = $"{corAleatoria.R}, {corAleatoria.G}, {corAleatoria.B}";
 
                 // Ordena as linhas dos dgvCaracteres baseado na coluna de Frequência
                 DataGridViewColumn frequencias = dgvCaracteres.Columns[1];
@@ -347,7 +356,7 @@ namespace VisualizadorHuffman
         {
             if (trvArvore.GetNodeCount(false) == 0) // trvArvore.Nodes está vazio (as folhas não foram adicionadas)
             {
-                // Insere todas as folhas ordenadas por sequência pelo dgvCaracteres
+                // Insere todas as folhas ordenadas por frêquencia pelo dgvCaracteres no trvArvore
                 foreach (DataGridViewRow linha in dgvCaracteres.Rows)
                 {
                     string nomeCaractere = linha.Cells[0].Value.ToString();
@@ -356,37 +365,79 @@ namespace VisualizadorHuffman
                     TreeNode no = new TreeNode();
                     no.Tag = new Folha((char)valorCaractere, frequencia);
                     no.Text = $"({frequencia}) {(nomeCaractere.Length == 1 ? $"'{nomeCaractere}'" : nomeCaractere)}";
-                    no.ToolTipText = $"Caractere: {(nomeCaractere.Length == 1 ? $"'{nomeCaractere}'" : nomeCaractere)} Frequência: {frequencia}";
+                    no.ToolTipText = $"Frequência: {frequencia} Caractere: {(nomeCaractere.Length == 1 ? $"'{nomeCaractere}'" : nomeCaractere)}";
+                    no.ForeColor = linha.DefaultCellStyle.ForeColor;
+                    no.NodeFont = new Font("Consolas", 10, System.Drawing.FontStyle.Bold);
                     trvArvore.Nodes.Add(no);
+                }
+
+                if (trvArvore.GetNodeCount(false) > 1)
+                {
+                    trvArvore.Nodes[0].BackColor = SystemColors.ControlLight;
+                    trvArvore.Nodes[1].BackColor = SystemColors.ControlLight;
                 }
             }
             else if (trvArvore.GetNodeCount(false) > 1) // Raiz do trvArvore.Nodes contém mais de um TreeNode (ainda há dois ou mais nós a serem combinados)
             {
-                // Recupera os primeiros dois nós de trvArvore (os nós com menor peso/frequência)
-                TreeNode primeiro = trvArvore.Nodes[0];
-                TreeNode segundo = trvArvore.Nodes[1];
+                // Remove o destaque dos nós reposicionados
+                primeiro.BackColor = SystemColors.Window;
+                segundo.BackColor = SystemColors.Window;
+
+                // Recupera os primeiros dois nós de trvArvore (os nós com menor peso)
+                primeiro = trvArvore.Nodes[0];
+                segundo = trvArvore.Nodes[1];
+
+                primeiro.ToolTipText = "Lado: 0 " + primeiro.ToolTipText;
+                segundo.ToolTipText = "Lado: 1 " + segundo.ToolTipText;
+                primeiro.Text = "[0] " + primeiro.Text;
+                segundo.Text = "[1] " + segundo.Text;
+                primeiro.BackColor = Color.LightSeaGreen;
+                segundo.BackColor = Color.LightSeaGreen;
+
 
                 // Remove os últimos dois nós do trvArvore
                 trvArvore.Nodes.RemoveAt(0);
                 trvArvore.Nodes.RemoveAt(0);
 
-                // Recupera a soma dos pesos ou frequências dos dois nós
-                int pesoDoPrimeiroNo = primeiro.Tag is NoPai ? ((NoPai)primeiro.Tag).Peso : ((Folha)primeiro.Tag).Frequencia;
-                int pesoDoSegundoNo = segundo.Tag is NoPai ? ((NoPai)segundo.Tag).Peso : ((Folha)segundo.Tag).Frequencia;
+                // Recupera a soma dos pesos dos dois nós
+                int pesoDoPrimeiroNo = ((No)primeiro.Tag).Peso;
+                int pesoDoSegundoNo = ((No)segundo.Tag).Peso;
                 int somaPesosFrequencias = pesoDoPrimeiroNo + pesoDoSegundoNo;
 
                 // Cria um TreeNode como NóPai que tem os dois nós como filhos
                 TreeNode treeNodePai = new TreeNode($"({somaPesosFrequencias})");
                 treeNodePai.ToolTipText = $"Peso: {somaPesosFrequencias}";
-                treeNodePai.Tag = new NoPai(somaPesosFrequencias);
+                treeNodePai.Tag = new No(somaPesosFrequencias);
                 treeNodePai.Nodes.AddRange(new TreeNode[] { primeiro, segundo });
 
-                // Insere o novo NoPai
-                trvArvore.Nodes.Add(treeNodePai);
+                trvArvore.Nodes.Add(treeNodePai); // Insere o novo NoPai
 
-                trvArvore.Sort(); // Ordena em ordem decrescente de Peso/Frequencia
+                trvArvore.SelectedNode = trvArvore.Nodes[trvArvore.GetNodeCount(false) - 1];
+                trvArvore.Sort(); // Ordena em ordem decrescente de Peso
+
+
+                // Destaca quais nós serão reposicionados no próximo passo
+                if (trvArvore.GetNodeCount(false) > 1)
+                {
+                    trvArvore.Nodes[0].BackColor = SystemColors.ControlLight;
+                    trvArvore.Nodes[1].BackColor = SystemColors.ControlLight;
+                }
             }
+            else // Sobrou só um nó na raiz do trvArvore.Nodes (árvore completa, sem nós soltos)
+            {
+                primeiro.BackColor = SystemColors.Window;
+                segundo.BackColor = SystemColors.Window;
+
+                avancarEstadoDoAlgoritmo();
+            }
+
             trvArvore.ExpandAll();
+            //trvArvore.Nodes[0].EnsureVisible();
+        }
+
+        private void GerarSaida()
+        {
+
         }
 
         #endregion
@@ -416,11 +467,11 @@ namespace VisualizadorHuffman
         {
             public int Compare(object noX, object noY)
             {
-                // Verifica se é NoPai ou Folha, recupera a Frequencia se for Folha e o Peso se for NoPai
-                int valorX = ((TreeNode)noX).Tag is NoPai ? ((NoPai)((TreeNode)noX).Tag).Peso : ((Folha)((TreeNode)noX).Tag).Frequencia;
-                int valorY = ((TreeNode)noY).Tag is NoPai ? ((NoPai)((TreeNode)noY).Tag).Peso : ((Folha)((TreeNode)noY).Tag).Frequencia;
+                // Recupera os Pesos dos Nos
+                int valorX = ((No)((TreeNode)noX).Tag).Peso;
+                int valorY = ((No)((TreeNode)noY).Tag).Peso;
 
-                return valorX.CompareTo(valorY);
+                return valorX.CompareTo(valorY - 1);
             }
         }
     }

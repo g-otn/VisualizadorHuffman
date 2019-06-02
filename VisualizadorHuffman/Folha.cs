@@ -6,27 +6,22 @@ using System.Threading.Tasks;
 
 namespace VisualizadorHuffman
 {
-    class Folha
+    class Folha : No
     {
         /// <summary>
-        /// O caractere guardado na <see cref="Folha"/> da árvore.
+        /// O caractere guardado em uma <see cref="Folha"/> da árvore.
         /// </summary>
         public char Caractere { get; set; }
 
         /// <summary>
-        /// A frequência que o caractere aparece no texto.
-        /// </summary>
-        public int Frequencia { get; set; }
-
-        /// <summary>
-        /// Cria uma Folha que contém um caractere e sua frequência.
+        /// Cria uma Folha que contém um caractere e seu frequência.
         /// </summary>
         /// <param name="caractere">O caractere que a Folha da árvore armazena.</param>
         /// <param name="frequencia">A frequencia do caractere da Folha</param>
-        public Folha(char caractere, int frequencia)
+        public Folha(char caractere, int frequencia) : base(frequencia)
         {
             Caractere = caractere;
-            Frequencia = frequencia;
+            Peso = frequencia;
         }
     }
 }

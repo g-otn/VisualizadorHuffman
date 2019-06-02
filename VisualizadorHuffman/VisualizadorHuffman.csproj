@@ -70,7 +70,7 @@
       <DependentUpon>FormVisualizador.cs</DependentUpon>
     </Compile>
     <Compile Include="Folha.cs" />
-    <Compile Include="NoPai.cs" />
+    <Compile Include="No.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="FormVisualizador.resx">

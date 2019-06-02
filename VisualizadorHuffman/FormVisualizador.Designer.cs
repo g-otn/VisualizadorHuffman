@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle19 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle20 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gpbEntrada = new System.Windows.Forms.GroupBox();
             this.rtbEntrada = new System.Windows.Forms.RichTextBox();
             this.btnAbrirArquivo = new System.Windows.Forms.Button();
@@ -57,13 +57,13 @@
             this.lblBinarioParaByte = new System.Windows.Forms.Label();
             this.rtbSaidaBytes = new System.Windows.Forms.RichTextBox();
             this.panInformacoes = new System.Windows.Forms.Panel();
+            this.lblEstado = new System.Windows.Forms.Label();
             this.lblInfoSaida = new System.Windows.Forms.Label();
             this.lblInfoDiferenca = new System.Windows.Forms.Label();
             this.lblInfoEntrada = new System.Windows.Forms.Label();
             this.lblCreditos = new System.Windows.Forms.Label();
             this.lnkGitHubLink = new System.Windows.Forms.LinkLabel();
             this.timerPasso = new System.Windows.Forms.Timer(this.components);
-            this.lblEstado = new System.Windows.Forms.Label();
             this.gpbEntrada.SuspendLayout();
             this.gpbControle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tkbIntervaloPassos)).BeginInit();
@@ -136,7 +136,7 @@
             this.gpbControle.Controls.Add(this.btnIniciarParar);
             this.gpbControle.Location = new System.Drawing.Point(451, 12);
             this.gpbControle.Name = "gpbControle";
-            this.gpbControle.Size = new System.Drawing.Size(637, 57);
+            this.gpbControle.Size = new System.Drawing.Size(727, 57);
             this.gpbControle.TabIndex = 3;
             this.gpbControle.TabStop = false;
             this.gpbControle.Text = "Controle";
@@ -148,7 +148,7 @@
             this.lblVelocidade.Name = "lblVelocidade";
             this.lblVelocidade.Size = new System.Drawing.Size(105, 26);
             this.lblVelocidade.TabIndex = 8;
-            this.lblVelocidade.Text = "Velocidade:\r\n750ms por passo\r\n";
+            this.lblVelocidade.Text = "Velocidade:\r\n250ms por passo\r\n";
             // 
             // tkbIntervaloPassos
             // 
@@ -159,7 +159,7 @@
             this.tkbIntervaloPassos.Location = new System.Drawing.Point(418, 19);
             this.tkbIntervaloPassos.Maximum = 1975;
             this.tkbIntervaloPassos.Name = "tkbIntervaloPassos";
-            this.tkbIntervaloPassos.Size = new System.Drawing.Size(213, 26);
+            this.tkbIntervaloPassos.Size = new System.Drawing.Size(303, 26);
             this.tkbIntervaloPassos.SmallChange = 25;
             this.tkbIntervaloPassos.TabIndex = 11;
             this.tkbIntervaloPassos.TickFrequency = 500;
@@ -237,7 +237,7 @@
             this.gpbPassos.Location = new System.Drawing.Point(451, 75);
             this.gpbPassos.Name = "gpbPassos";
             this.gpbPassos.Padding = new System.Windows.Forms.Padding(6);
-            this.gpbPassos.Size = new System.Drawing.Size(637, 420);
+            this.gpbPassos.Size = new System.Drawing.Size(727, 420);
             this.gpbPassos.TabIndex = 9;
             this.gpbPassos.TabStop = false;
             this.gpbPassos.Text = "Passos Da Compressão";
@@ -246,19 +246,19 @@
             // 
             this.dgvCaracteres.AllowUserToAddRows = false;
             this.dgvCaracteres.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-            this.dgvCaracteres.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle16;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
+            this.dgvCaracteres.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCaracteres.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvCaracteres.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle17.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle17.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle17.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle17.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle17.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCaracteres.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle17;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCaracteres.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCaracteres.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCaracteres.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colCaractere,
@@ -281,10 +281,10 @@
             // 
             // colCaractere
             // 
-            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle18.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
-            this.colCaractere.DefaultCellStyle = dataGridViewCellStyle18;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
+            this.colCaractere.DefaultCellStyle = dataGridViewCellStyle3;
             this.colCaractere.HeaderText = "Caractere";
             this.colCaractere.MinimumWidth = 20;
             this.colCaractere.Name = "colCaractere";
@@ -294,9 +294,9 @@
             // 
             // colFrequencia
             // 
-            dataGridViewCellStyle19.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle19.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
-            this.colFrequencia.DefaultCellStyle = dataGridViewCellStyle19;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
+            this.colFrequencia.DefaultCellStyle = dataGridViewCellStyle4;
             this.colFrequencia.FillWeight = 80F;
             this.colFrequencia.HeaderText = "Frequência";
             this.colFrequencia.MinimumWidth = 20;
@@ -306,9 +306,9 @@
             // 
             // colCodigo1252
             // 
-            dataGridViewCellStyle20.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle20.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
-            this.colCodigo1252.DefaultCellStyle = dataGridViewCellStyle20;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
+            this.colCodigo1252.DefaultCellStyle = dataGridViewCellStyle5;
             this.colCodigo1252.FillWeight = 80F;
             this.colCodigo1252.HeaderText = "Código";
             this.colCodigo1252.MinimumWidth = 20;
@@ -322,11 +322,11 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.trvArvore.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.trvArvore.Indent = 40;
+            this.trvArvore.Indent = 30;
             this.trvArvore.Location = new System.Drawing.Point(268, 22);
             this.trvArvore.Name = "trvArvore";
             this.trvArvore.ShowNodeToolTips = true;
-            this.trvArvore.Size = new System.Drawing.Size(360, 389);
+            this.trvArvore.Size = new System.Drawing.Size(450, 389);
             this.trvArvore.TabIndex = 0;
             // 
             // gpbSaida
@@ -382,6 +382,18 @@
             this.panInformacoes.Size = new System.Drawing.Size(432, 58);
             this.panInformacoes.TabIndex = 10;
             // 
+            // lblEstado
+            // 
+            this.lblEstado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.lblEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEstado.Location = new System.Drawing.Point(-1, 0);
+            this.lblEstado.Name = "lblEstado";
+            this.lblEstado.Padding = new System.Windows.Forms.Padding(3, 6, 6, 6);
+            this.lblEstado.Size = new System.Drawing.Size(433, 31);
+            this.lblEstado.TabIndex = 14;
+            this.lblEstado.Text = "Estado: Parado";
+            // 
             // lblInfoSaida
             // 
             this.lblInfoSaida.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -420,7 +432,7 @@
             // lblCreditos
             // 
             this.lblCreditos.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblCreditos.Location = new System.Drawing.Point(451, 498);
+            this.lblCreditos.Location = new System.Drawing.Point(541, 498);
             this.lblCreditos.Margin = new System.Windows.Forms.Padding(3, 0, 0, 0);
             this.lblCreditos.Name = "lblCreditos";
             this.lblCreditos.Size = new System.Drawing.Size(591, 13);
@@ -433,7 +445,7 @@
             // 
             this.lnkGitHubLink.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lnkGitHubLink.AutoSize = true;
-            this.lnkGitHubLink.Location = new System.Drawing.Point(1048, 498);
+            this.lnkGitHubLink.Location = new System.Drawing.Point(1138, 498);
             this.lnkGitHubLink.Name = "lnkGitHubLink";
             this.lnkGitHubLink.Size = new System.Drawing.Size(40, 13);
             this.lnkGitHubLink.TabIndex = 13;
@@ -446,23 +458,11 @@
             this.timerPasso.Interval = 1000;
             this.timerPasso.Tick += new System.EventHandler(this.timerPasso_Tick);
             // 
-            // lblEstado
-            // 
-            this.lblEstado.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblEstado.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEstado.Location = new System.Drawing.Point(-1, 0);
-            this.lblEstado.Name = "lblEstado";
-            this.lblEstado.Padding = new System.Windows.Forms.Padding(3, 6, 6, 6);
-            this.lblEstado.Size = new System.Drawing.Size(433, 31);
-            this.lblEstado.TabIndex = 14;
-            this.lblEstado.Text = "Estado: Parado";
-            // 
             // FormVisualizador
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1100, 520);
+            this.ClientSize = new System.Drawing.Size(1190, 520);
             this.Controls.Add(this.lnkGitHubLink);
             this.Controls.Add(this.panInformacoes);
             this.Controls.Add(this.lblCreditos);
