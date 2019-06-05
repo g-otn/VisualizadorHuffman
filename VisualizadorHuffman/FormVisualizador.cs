@@ -25,7 +25,7 @@ namespace VisualizadorHuffman
         public FormVisualizador()
         {
             InitializeComponent();
-            trvArvore.TreeViewNodeSorter = new OrganizarPorFrequenciaOuPeso();
+            trvArvore.TreeViewNodeSorter = new OrganizarNoPorFrequenciaOuPeso();
             ActiveControl = rtbEntrada;
         }
 
@@ -366,7 +366,7 @@ namespace VisualizadorHuffman
                 foreach (DataGridViewRow linha in dgvCaracteres.Rows)
                 {
                     string nomeCaractere = linha.Cells[0].Value.ToString();
-                    int valorCaractere = Convert.ToInt32(linha.Cells[0].Tag);
+                    int valorCaractere = Convert.ToInt32(linha.Tag);
                     int frequencia = Convert.ToInt32(linha.Cells[1].Value);
                     TreeNode no = new TreeNode();
                     no.Tag = new Folha((char)valorCaractere, frequencia);
@@ -397,8 +397,9 @@ namespace VisualizadorHuffman
                 segundo.ToolTipText = "Lado: 1 " + segundo.ToolTipText;
                 primeiro.Text = "[0] " + primeiro.Text;
                 segundo.Text = "[1] " + segundo.Text;*/
-                primeiro.BackColor = Color.LightSeaGreen;
-                segundo.BackColor = Color.LightSeaGreen;
+                // Destaca quais nós foram reposicionados no passo anterior
+                primeiro.BackColor = SystemColors.ControlLight;
+                segundo.BackColor = SystemColors.ControlLight;
 
 
                 // Remove os últimos dois nós do trvArvore
@@ -425,8 +426,8 @@ namespace VisualizadorHuffman
                 // Destaca quais nós serão reposicionados no próximo passo
                 if (trvArvore.GetNodeCount(false) > 1)
                 {
-                    trvArvore.Nodes[0].BackColor = SystemColors.ControlLight;
-                    trvArvore.Nodes[1].BackColor = SystemColors.ControlLight;
+                    trvArvore.Nodes[0].BackColor = Color.LightSeaGreen;
+                    trvArvore.Nodes[1].BackColor = Color.LightSeaGreen;
                 }
             }
             else // Sobrou só um nó na raiz do trvArvore.Nodes (árvore completa, sem nós soltos)
@@ -465,9 +466,11 @@ namespace VisualizadorHuffman
 
             if (No.Tag is Folha)
             {
+                rtbSaidaBinario.Text += "{" + caminhoNo + " " + ((Folha)No.Tag).Caractere + "}" + Environment.NewLine;
+
                 foreach (DataGridViewRow linha in dgvCaracteres.Rows)
                 {
-                    if ((int)linha.Tag == ((Folha)No.Tag).Peso)
+                    if ((int)linha.Tag == ((Folha)No.Tag).Caractere)
                     {
                         linha.Cells[2].Value = caminhoNo;
                         break;
@@ -482,10 +485,7 @@ namespace VisualizadorHuffman
 
         private void GerarSaida()
         {
-            // Definir lados (0 e 1) dos nós
-            if (string.IsNullOrEmpty(dgvCaracteres.Rows[0].Cells[2].Value.ToString())) { // Se o primeiro caractere não possui um código, nenhum possui
 
-            }
         }
 
         #endregion
@@ -511,7 +511,7 @@ namespace VisualizadorHuffman
 
         #endregion
 
-        public class OrganizarPorFrequenciaOuPeso : IComparer
+        public class OrganizarNoPorFrequenciaOuPeso : IComparer
         {
             public int Compare(object noX, object noY)
             {
