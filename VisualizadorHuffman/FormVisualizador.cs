@@ -20,11 +20,10 @@ namespace VisualizadorHuffman
         private int caractereAtual; // Guarda o progresso de leitura do rtbEntrada
 
         // Usado para guardar a cor dos nós que foram reposicionados no trvArvore
-        TreeNode primeiro = new TreeNode();
-        TreeNode segundo = new TreeNode();
+        private TreeNode primeiro = new TreeNode();
+        private TreeNode segundo = new TreeNode();
 
-        bool ladosIdentificados = false;
-
+        private string ultimoCaminho = "";
 
 
         public FormVisualizador()
@@ -97,7 +96,6 @@ namespace VisualizadorHuffman
                 caractereAtual = 0;
                 estadoAtual = EstadoAlgoritmo.Parado;
                 avancarEstadoDoAlgoritmo();
-                ladosIdentificados = false;
 
                 // Reiniciar controles
                 btnIniciarParar.Text = "Parar";
@@ -118,8 +116,6 @@ namespace VisualizadorHuffman
                 btnAbrirArquivo.Enabled = false;
                 txtCaminhoArquivo.Enabled = false;
                 rtbEntrada.ReadOnly = true;
-                rtbEntrada.SelectionStart = 0;
-                rtbEntrada.SelectionLength = 0;
                 SubstituirWindows1252InvalidosDaEntrada();
 
                 // Iniciar passos
@@ -229,6 +225,9 @@ namespace VisualizadorHuffman
                 case EstadoAlgoritmo.GerandoSaida:
                     GerarSaida();
                     break;
+                case EstadoAlgoritmo.Parado:
+                    btnIniciarParar_Click(null, null);
+                    break;
             }
         }
 
@@ -251,6 +250,7 @@ namespace VisualizadorHuffman
                 case EstadoAlgoritmo.GerandoCodigo:
                     estadoAtual = EstadoAlgoritmo.GerandoSaida;
                     lblEstado.Text = "Estado: Gerando saída";
+                    caractereAtual = 0;
                     break;
                 case EstadoAlgoritmo.GerandoSaida:
                     estadoAtual = EstadoAlgoritmo.Parado;
@@ -455,20 +455,17 @@ namespace VisualizadorHuffman
 
         private void GerarCodigo()
         {
-            if (!ladosIdentificados) // Os nós em trvArvores não receberam o texto indicando os lados "0: " ou "1: "
+            if (trvArvore.Nodes[0].GetNodeCount(false) == 0) // Não há filhos, só há um nó
             {
-                if (trvArvore.Nodes[0].GetNodeCount(false) == 0) // Não há filhos, só há um nó
-                {
-                    trvArvore.Nodes[0].Text = "0: " + trvArvore.Nodes[0].Text;
-                    dgvCaracteres.Rows[0].Cells[2].Value = "0";
-                }
-                else
-                {
-                    CaminharNos("0", trvArvore.Nodes[0].Nodes[0]);
-                    CaminharNos("1", trvArvore.Nodes[0].Nodes[1]);
-                }
-                ladosIdentificados = true;
+                trvArvore.Nodes[0].Text = "0: " + trvArvore.Nodes[0].Text;
+                dgvCaracteres.Rows[0].Cells[2].Value = "0";
             }
+            else
+            {
+                CaminharNos("0", trvArvore.Nodes[0].Nodes[0]);
+                CaminharNos("1", trvArvore.Nodes[0].Nodes[1]);
+            }
+            avancarEstadoDoAlgoritmo();
         }
 
         private void CaminharNos(string caminhoNo, TreeNode No)
@@ -478,8 +475,6 @@ namespace VisualizadorHuffman
 
             if (No.Tag is Folha)
             {
-                rtbSaidaBinario.Text += "{" + caminhoNo + " " + ((Folha)No.Tag).Caractere + "}" + Environment.NewLine;
-
                 foreach (DataGridViewRow linha in dgvCaracteres.Rows)
                 {
                     if ((int)linha.Tag == ((Folha)No.Tag).Caractere)
@@ -541,26 +536,33 @@ namespace VisualizadorHuffman
             {
                 LockWindowUpdate(IntPtr.Zero);
 
+                // Limpa o caminho do trvArvore.Nodes do último passo
+                PintarCaminho(ultimoCaminho, trvArvore.Nodes[0], true);
+
+                // Encontra a linha em dgvCaracteres que corresponde ao caractere selecionado
                 char caractere = rtbEntrada.Text[caractereAtual];
                 foreach (DataGridViewRow linha in dgvCaracteres.Rows)
                 {
                     if (caractere == Convert.ToInt32(linha.Tag))
                     {
-                        linha.Cells[1].Value = (int)linha.Cells[1].Value + 1;
+                        string codigo = linha.Cells[2].Value.ToString();
+
+                        // Escreve em rtbSaidaBinario o código do caractere
+                        rtbSaidaBinario.AppendText(codigo);
+
+                        // Colore o código escrito com a cor do caractere
+                        int posicaoInicioDoCodigo = rtbSaidaBinario.Text.Length - codigo.Length;
+                        rtbSaidaBinario.Select(posicaoInicioDoCodigo, codigo.Length);
+                        rtbSaidaBinario.SelectionColor = linha.DefaultCellStyle.ForeColor;
+
+                        // Destaca o caractere na trvArvore
+                        PintarCaminho(codigo, trvArvore.Nodes[0], false);
+                        ultimoCaminho = codigo; // Guarda o caminho do trvArvore.Nodes a ser limpado no próximo passo
+
+                        // Destaca a linha do caractere em dgvArvore
                         linha.Selected = true;
                         break;
                     }
-                }
-
-                // Cria uma nova linha se o caractere ainda não existe no dgvCaracteres
-                if (i == dgvCaracteres.RowCount)
-                {
-
-                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Selected = true; // Visualização
-
-                    // DEBUG: Mostra o código Windows-1252 do caractere
-                    /*byte codigoWindows1252DoCaractereUnicode = Encoding.Convert(Encoding.Unicode, Encoding.GetEncoding(1252), Encoding.Unicode.GetBytes(caractere.ToString()))[0];
-                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[2].Value = codigoWindows1252DoCaractereUnicode;*/
                 }
 
                 caractereAtual++;
@@ -569,7 +571,8 @@ namespace VisualizadorHuffman
 
         private void PintarCaminho(string caminhoNo, TreeNode No, bool limpando)
         {
-            if (caminhoNo.Length == 1) // Fim do caminho (último dígito)
+            // Fim do caminho (último dígito)
+            if (caminhoNo.Length == 0) 
             {
                 if (!limpando)
                 {
@@ -579,19 +582,19 @@ namespace VisualizadorHuffman
                 {
                     No.BackColor = Color.Empty;
                 }
+                return;
             }
-            else                       // Ainda há nós a percorrer
+           
+            // Ainda há nós a percorrer
+            if (!limpando)
             {
-                if (!limpando)
-                {
-                    No.BackColor = SystemColors.ControlLight;
-                }
-                else
-                {
-                    No.BackColor = Color.Empty;
-                }
-                PintarCaminho(caminhoNo.Substring(1), No.Nodes[caminhoNo[0]], limpando);
+                No.BackColor = SystemColors.ControlLight;
             }
+            else
+            {
+                No.BackColor = Color.Empty;
+            }
+            PintarCaminho(caminhoNo.Substring(1), No.Nodes[int.Parse(caminhoNo[0].ToString())], limpando);
         }
 
         #endregion
