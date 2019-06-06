@@ -14,13 +14,18 @@ namespace VisualizadorHuffman
 {
     public partial class FormVisualizador : Form
     {
-        private int caractereAtual; // Guarda o progresso de leitura do rtbEntrada
         private enum EstadoAlgoritmo { Parado, LendoEntrada, ConstruindoArvore, GerandoCodigo, GerandoSaida };
         private EstadoAlgoritmo estadoAtual = EstadoAlgoritmo.Parado;
+
+        private int caractereAtual; // Guarda o progresso de leitura do rtbEntrada
+
         // Usado para guardar a cor dos nós que foram reposicionados no trvArvore
         TreeNode primeiro = new TreeNode();
         TreeNode segundo = new TreeNode();
+
         bool ladosIdentificados = false;
+
+
 
         public FormVisualizador()
         {
@@ -254,6 +259,8 @@ namespace VisualizadorHuffman
             }
         }
 
+
+
         private void LerEntrada()
         {
             dgvCaracteres.ClearSelection();
@@ -358,6 +365,8 @@ namespace VisualizadorHuffman
             }
         }
 
+
+
         private void ConstruirArvore()
         {
             if (trvArvore.GetNodeCount(false) == 0) // trvArvore.Nodes está vazio (as folhas não foram adicionadas)
@@ -442,6 +451,8 @@ namespace VisualizadorHuffman
             //trvArvore.Nodes[0].EnsureVisible();
         }
 
+
+
         private void GerarCodigo()
         {
             if (!ladosIdentificados) // Os nós em trvArvores não receberam o texto indicando os lados "0: " ou "1: "
@@ -450,7 +461,8 @@ namespace VisualizadorHuffman
                 {
                     trvArvore.Nodes[0].Text = "0: " + trvArvore.Nodes[0].Text;
                     dgvCaracteres.Rows[0].Cells[2].Value = "0";
-                } else
+                }
+                else
                 {
                     CaminharNos("0", trvArvore.Nodes[0].Nodes[0]);
                     CaminharNos("1", trvArvore.Nodes[0].Nodes[1]);
@@ -476,16 +488,110 @@ namespace VisualizadorHuffman
                         break;
                     }
                 }
-            } else // Se No não é Folha, ele é um nó com filhos, e todos nós pais tem 2 e somente 2 filhos
+            }
+            else // Se No não é Folha, ele é um nó com filhos, e todos nós pais tem 2 e somente 2 filhos
             {
                 CaminharNos(caminhoNo + "0", No.Nodes[0]);
                 CaminharNos(caminhoNo + "1", No.Nodes[1]);
             }
         }
 
+
+
         private void GerarSaida()
         {
+            dgvCaracteres.ClearSelection();
 
+            // Termina o estado atual (EstadoAlgoritmo.LendoEntrada) do algoritmo
+            if (caractereAtual == rtbEntrada.Text.Length)
+            {
+                // Limpa seleção do última caractere
+                rtbEntrada.Select(caractereAtual - 1, 1);
+                rtbEntrada.SelectionColor = SystemColors.ControlText;
+                rtbEntrada.SelectionBackColor = SystemColors.Window;
+
+                // Passa ao algoritmo para o próximo estado
+                avancarEstadoDoAlgoritmo();
+                timerPasso_Tick(null, null); // Realiza o primeiro passo do ConstruirArvore() (criar e inserir as Folhas "soltas")
+
+                return; // Todos os caracteres já foram analizados
+            }
+
+            try
+            {
+                LockWindowUpdate(rtbEntrada.Handle);
+                LockWindowUpdate(trvArvore.Handle);
+
+                // Remove o destaque do caractere anterior
+                if (caractereAtual != 0)
+                {
+                    rtbEntrada.Select(caractereAtual - 1, 1);
+                    rtbEntrada.SelectionColor = SystemColors.ControlText;
+                    rtbEntrada.SelectionBackColor = SystemColors.Window;
+                }
+
+                // Destaca o caractere atual no rtbEntrada
+                rtbEntrada.Select(caractereAtual, 1);
+                rtbEntrada.SelectionColor = SystemColors.HighlightText;
+                rtbEntrada.SelectionBackColor = Color.LightSeaGreen;
+
+                rtbEntrada.ScrollToCaret();
+            }
+            finally
+            {
+                LockWindowUpdate(IntPtr.Zero);
+
+                char caractere = rtbEntrada.Text[caractereAtual];
+                foreach (DataGridViewRow linha in dgvCaracteres.Rows)
+                {
+                    if (caractere == Convert.ToInt32(linha.Tag))
+                    {
+                        linha.Cells[1].Value = (int)linha.Cells[1].Value + 1;
+                        linha.Selected = true;
+                        break;
+                    }
+                }
+
+                // Cria uma nova linha se o caractere ainda não existe no dgvCaracteres
+                if (i == dgvCaracteres.RowCount)
+                {
+
+                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Selected = true; // Visualização
+
+                    // DEBUG: Mostra o código Windows-1252 do caractere
+                    /*byte codigoWindows1252DoCaractereUnicode = Encoding.Convert(Encoding.Unicode, Encoding.GetEncoding(1252), Encoding.Unicode.GetBytes(caractere.ToString()))[0];
+                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[2].Value = codigoWindows1252DoCaractereUnicode;*/
+                }
+
+                caractereAtual++;
+            }
+        }
+
+        private void PintarCaminho(string caminhoNo, TreeNode No, bool limpando)
+        {
+            if (caminhoNo.Length == 1) // Fim do caminho (último dígito)
+            {
+                if (!limpando)
+                {
+                    No.BackColor = Color.LightSeaGreen;
+                }
+                else
+                {
+                    No.BackColor = Color.Empty;
+                }
+            }
+            else                       // Ainda há nós a percorrer
+            {
+                if (!limpando)
+                {
+                    No.BackColor = SystemColors.ControlLight;
+                }
+                else
+                {
+                    No.BackColor = Color.Empty;
+                }
+                PintarCaminho(caminhoNo.Substring(1), No.Nodes[caminhoNo[0]], limpando);
+            }
         }
 
         #endregion
