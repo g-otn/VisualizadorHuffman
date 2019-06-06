@@ -71,6 +71,7 @@ namespace VisualizadorHuffman
         {
             if (rtbEntrada.ForeColor != SystemColors.GrayText)
             {
+                // Troca o tamanho da fonte baseado no tamanho do texto
                 int larguraTexto = 1 + TextRenderer.MeasureText(rtbEntrada.Text, new Font("Consolas", 20)).Width;
                 if (larguraTexto < rtbEntrada.Width * 2.7)
                 {
@@ -118,7 +119,7 @@ namespace VisualizadorHuffman
                 dgvCaracteres.Rows.Clear();
 
                 rtbSaidaBinario.Clear();
-                rtbSaidaBytes.Clear();
+                rtbSaidaBytes1252.Clear();
                 lblInfoDiferenca.Text = "";
                 lblInfoSaida.Text = "Saída: ";
 
@@ -126,6 +127,7 @@ namespace VisualizadorHuffman
                 btnAbrirArquivo.Enabled = false;
                 txtCaminhoArquivo.Enabled = false;
                 rtbEntrada.ReadOnly = true;
+                trocarTamanhoFonteSaida();
                 SubstituirWindows1252InvalidosDaEntrada();
 
                 // Iniciar passos
@@ -560,6 +562,14 @@ namespace VisualizadorHuffman
                         // Escreve em rtbSaidaBinario o código do caractere
                         rtbSaidaBinario.AppendText(codigo);
 
+                        // Atualiza a contagem de tamanho da saída
+                        lblInfoSaida.Text = "Saída: " + Math.Ceiling(rtbSaidaBinario.Text.Length / 8d) + " bytes " + rtbSaidaBinario.Text.Length + " bits";
+
+                        // Atualiza a diferença de tamanho entre a entrada e a saída
+                        Console.WriteLine("s: " + rtbSaidaBinario.Text.Length + " e: " + (rtbEntrada.Text.Length * 8) + " (" + rtbEntrada.Text.Length + ")");
+                        int porcentagemDiminuicao = (int)((1 - (rtbSaidaBinario.Text.Length / (rtbEntrada.Text.Length * 8d))) * -100);
+                        lblInfoDiferenca.Text = "(" + porcentagemDiminuicao + "%)";
+
                         // Colore o código escrito com a cor do caractere
                         int posicaoInicioDoCodigo = rtbSaidaBinario.Text.Length - codigo.Length;
                         rtbSaidaBinario.Select(posicaoInicioDoCodigo, codigo.Length);
@@ -642,9 +652,49 @@ namespace VisualizadorHuffman
             }
         }
 
-        private void lblInfoDiferenca_Click(object sender, EventArgs e)
+        private void trocarTamanhoFonteSaida()
         {
-            dgvCaracteres.ClearSelection();
+            // Troca o tamanho da fonte do rtbSaidaBinario baseado no tamanho do texto do rtbEntrada
+            int larguraTexto = 1 + TextRenderer.MeasureText(rtbEntrada.Text, new Font("Consolas", 20)).Width;
+            if (larguraTexto < rtbEntrada.Width * 2.3)
+            {
+                rtbSaidaBinario.Font = new Font("Consolas", 16);
+            }
+            else
+            {
+                rtbSaidaBinario.Font = new Font("Consolas", 10);
+            }
+        }
+
+        private void rtbSaidaBinario_TextChanged(object sender, EventArgs e)
+        {
+            string binarios = rtbSaidaBinario.Text;
+
+            if (binarios.Length < 8)
+            {
+                return;
+            }
+
+            // Adiciona binários necessários para binarios.Length % 8 = 0
+            while (binarios.Length % 8 != 0)
+            {
+                binarios += "0";
+            }
+
+            // Tranforma a string de binários em uma List de bytes
+            List<byte> bytes = new List<byte>();
+            for (int i = 0; i < binarios.Length; i += 8)
+            {
+                string byteString = binarios.Substring(i, Math.Max(8, Math.Min(8, binarios.Length - i)));
+
+                bytes.Add(Convert.ToByte(byteString, 2));
+            }
+
+            // Permite visualizar os bytes convertidos em caracteres
+            rtbSaidaBytes1252.Text = Encoding.GetEncoding(1252).GetString(bytes.ToArray());
+            rtbSaidaBytes1252.ScrollToCaret();
+            rtbSaidaBytesUTF8.Text = Encoding.UTF8.GetString(bytes.ToArray()); ;
+            rtbSaidaBytes1252.ScrollToCaret();
         }
     }
 }

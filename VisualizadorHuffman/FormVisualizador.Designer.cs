@@ -54,8 +54,7 @@
             this.colCodigo1252 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.trvArvore = new System.Windows.Forms.TreeView();
             this.gpbSaida = new System.Windows.Forms.GroupBox();
-            this.lblBinarioParaByte = new System.Windows.Forms.Label();
-            this.rtbSaidaBytes = new System.Windows.Forms.RichTextBox();
+            this.lblBinarioParaByte1252 = new System.Windows.Forms.Label();
             this.panInformacoes = new System.Windows.Forms.Panel();
             this.lblEstado = new System.Windows.Forms.Label();
             this.lblInfoSaida = new System.Windows.Forms.Label();
@@ -64,6 +63,9 @@
             this.lblCreditos = new System.Windows.Forms.Label();
             this.lnkGitHubLink = new System.Windows.Forms.LinkLabel();
             this.timerPasso = new System.Windows.Forms.Timer(this.components);
+            this.rtbSaidaBytes1252 = new System.Windows.Forms.RichTextBox();
+            this.rtbSaidaBytesUTF8 = new System.Windows.Forms.RichTextBox();
+            this.lblBinarioParaByteUTF8 = new System.Windows.Forms.Label();
             this.gpbEntrada.SuspendLayout();
             this.gpbControle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tkbIntervaloPassos)).BeginInit();
@@ -222,6 +224,7 @@
             this.rtbSaidaBinario.TabIndex = 5;
             this.rtbSaidaBinario.TabStop = false;
             this.rtbSaidaBinario.Text = "";
+            this.rtbSaidaBinario.TextChanged += new System.EventHandler(this.rtbSaidaBinario_TextChanged);
             // 
             // ofdArquivoEntrada
             // 
@@ -333,8 +336,10 @@
             // 
             this.gpbSaida.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
-            this.gpbSaida.Controls.Add(this.lblBinarioParaByte);
-            this.gpbSaida.Controls.Add(this.rtbSaidaBytes);
+            this.gpbSaida.Controls.Add(this.lblBinarioParaByteUTF8);
+            this.gpbSaida.Controls.Add(this.rtbSaidaBytesUTF8);
+            this.gpbSaida.Controls.Add(this.lblBinarioParaByte1252);
+            this.gpbSaida.Controls.Add(this.rtbSaidaBytes1252);
             this.gpbSaida.Controls.Add(this.rtbSaidaBinario);
             this.gpbSaida.Controls.Add(this.lblBinarioGerado);
             this.gpbSaida.Location = new System.Drawing.Point(12, 256);
@@ -346,30 +351,15 @@
             this.gpbSaida.TabStop = false;
             this.gpbSaida.Text = "Saída";
             // 
-            // lblBinarioParaByte
+            // lblBinarioParaByte1252
             // 
-            this.lblBinarioParaByte.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.lblBinarioParaByte.AutoSize = true;
-            this.lblBinarioParaByte.Location = new System.Drawing.Point(9, 169);
-            this.lblBinarioParaByte.Name = "lblBinarioParaByte";
-            this.lblBinarioParaByte.Size = new System.Drawing.Size(85, 13);
-            this.lblBinarioParaByte.TabIndex = 8;
-            this.lblBinarioParaByte.Text = "Binário em Bytes";
-            // 
-            // rtbSaidaBytes
-            // 
-            this.rtbSaidaBytes.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.rtbSaidaBytes.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbSaidaBytes.Location = new System.Drawing.Point(9, 185);
-            this.rtbSaidaBytes.Name = "rtbSaidaBytes";
-            this.rtbSaidaBytes.ReadOnly = true;
-            this.rtbSaidaBytes.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
-            this.rtbSaidaBytes.ShowSelectionMargin = true;
-            this.rtbSaidaBytes.Size = new System.Drawing.Size(415, 45);
-            this.rtbSaidaBytes.TabIndex = 9;
-            this.rtbSaidaBytes.TabStop = false;
-            this.rtbSaidaBytes.Text = "";
+            this.lblBinarioParaByte1252.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblBinarioParaByte1252.AutoSize = true;
+            this.lblBinarioParaByte1252.Location = new System.Drawing.Point(9, 169);
+            this.lblBinarioParaByte1252.Name = "lblBinarioParaByte1252";
+            this.lblBinarioParaByte1252.Size = new System.Drawing.Size(165, 13);
+            this.lblBinarioParaByte1252.TabIndex = 8;
+            this.lblBinarioParaByte1252.Text = "Binário em Bytes (Windows-1252)";
             // 
             // panInformacoes
             // 
@@ -415,9 +405,7 @@
             this.lblInfoDiferenca.Name = "lblInfoDiferenca";
             this.lblInfoDiferenca.Size = new System.Drawing.Size(47, 13);
             this.lblInfoDiferenca.TabIndex = 1;
-            this.lblInfoDiferenca.Text = "(-0%)";
             this.lblInfoDiferenca.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.lblInfoDiferenca.Click += new System.EventHandler(this.lblInfoDiferenca_Click);
             // 
             // lblInfoEntrada
             // 
@@ -458,6 +446,46 @@
             // 
             this.timerPasso.Interval = 1000;
             this.timerPasso.Tick += new System.EventHandler(this.timerPasso_Tick);
+            // 
+            // rtbSaidaBytes1252
+            // 
+            this.rtbSaidaBytes1252.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtbSaidaBytes1252.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSaidaBytes1252.Location = new System.Drawing.Point(9, 185);
+            this.rtbSaidaBytes1252.Name = "rtbSaidaBytes1252";
+            this.rtbSaidaBytes1252.ReadOnly = true;
+            this.rtbSaidaBytes1252.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.rtbSaidaBytes1252.ShowSelectionMargin = true;
+            this.rtbSaidaBytes1252.Size = new System.Drawing.Size(207, 45);
+            this.rtbSaidaBytes1252.TabIndex = 9;
+            this.rtbSaidaBytes1252.TabStop = false;
+            this.rtbSaidaBytes1252.Text = "";
+            // 
+            // rtbSaidaBytesUTF8
+            // 
+            this.rtbSaidaBytesUTF8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtbSaidaBytesUTF8.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbSaidaBytesUTF8.Location = new System.Drawing.Point(222, 185);
+            this.rtbSaidaBytesUTF8.Name = "rtbSaidaBytesUTF8";
+            this.rtbSaidaBytesUTF8.ReadOnly = true;
+            this.rtbSaidaBytesUTF8.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
+            this.rtbSaidaBytesUTF8.ShowSelectionMargin = true;
+            this.rtbSaidaBytesUTF8.Size = new System.Drawing.Size(202, 45);
+            this.rtbSaidaBytesUTF8.TabIndex = 10;
+            this.rtbSaidaBytesUTF8.TabStop = false;
+            this.rtbSaidaBytesUTF8.Text = "";
+            // 
+            // lblBinarioParaByteUTF8
+            // 
+            this.lblBinarioParaByteUTF8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lblBinarioParaByteUTF8.AutoSize = true;
+            this.lblBinarioParaByteUTF8.Location = new System.Drawing.Point(219, 169);
+            this.lblBinarioParaByteUTF8.Name = "lblBinarioParaByteUTF8";
+            this.lblBinarioParaByteUTF8.Size = new System.Drawing.Size(124, 13);
+            this.lblBinarioParaByteUTF8.TabIndex = 11;
+            this.lblBinarioParaByteUTF8.Text = "Binário em Bytes (UTF-8)";
             // 
             // FormVisualizador
             // 
@@ -507,8 +535,7 @@
         private System.Windows.Forms.TrackBar tkbIntervaloPassos;
         private System.Windows.Forms.GroupBox gpbSaida;
         private System.Windows.Forms.Label lblVelocidade;
-        private System.Windows.Forms.Label lblBinarioParaByte;
-        private System.Windows.Forms.RichTextBox rtbSaidaBytes;
+        private System.Windows.Forms.Label lblBinarioParaByte1252;
         private System.Windows.Forms.Panel panInformacoes;
         private System.Windows.Forms.Label lblInfoSaida;
         private System.Windows.Forms.Label lblInfoDiferenca;
@@ -521,5 +548,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn colCaractere;
         private System.Windows.Forms.DataGridViewTextBoxColumn colFrequencia;
         private System.Windows.Forms.DataGridViewTextBoxColumn colCodigo1252;
+        private System.Windows.Forms.RichTextBox rtbSaidaBytesUTF8;
+        private System.Windows.Forms.RichTextBox rtbSaidaBytes1252;
+        private System.Windows.Forms.Label lblBinarioParaByteUTF8;
     }
 }
