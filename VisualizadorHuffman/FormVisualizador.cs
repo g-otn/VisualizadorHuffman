@@ -71,6 +71,16 @@ namespace VisualizadorHuffman
         {
             if (rtbEntrada.ForeColor != SystemColors.GrayText)
             {
+                int larguraTexto = 1 + TextRenderer.MeasureText(rtbEntrada.Text, new Font("Consolas", 20)).Width;
+                if (larguraTexto < rtbEntrada.Width * 2.7)
+                {
+                    rtbEntrada.Font = new Font("Consolas", 20);
+                }
+                else
+                {
+                    rtbEntrada.Font = new Font("Consolas", 10);
+                }
+
                 int bytes = Encoding.GetEncoding(1252).GetByteCount(rtbEntrada.Text);
                 lblInfoEntrada.Text = $"Entrada: {bytes} bytes, {bytes * 8} bits";
             }
@@ -497,6 +507,9 @@ namespace VisualizadorHuffman
         {
             dgvCaracteres.ClearSelection();
 
+            // Limpa o caminho do trvArvore.Nodes do último passo
+            PintarCaminho(ultimoCaminho, trvArvore.Nodes[0], true);
+
             // Termina o estado atual (EstadoAlgoritmo.LendoEntrada) do algoritmo
             if (caractereAtual == rtbEntrada.Text.Length)
             {
@@ -536,9 +549,6 @@ namespace VisualizadorHuffman
             {
                 LockWindowUpdate(IntPtr.Zero);
 
-                // Limpa o caminho do trvArvore.Nodes do último passo
-                PintarCaminho(ultimoCaminho, trvArvore.Nodes[0], true);
-
                 // Encontra a linha em dgvCaracteres que corresponde ao caractere selecionado
                 char caractere = rtbEntrada.Text[caractereAtual];
                 foreach (DataGridViewRow linha in dgvCaracteres.Rows)
@@ -572,7 +582,7 @@ namespace VisualizadorHuffman
         private void PintarCaminho(string caminhoNo, TreeNode No, bool limpando)
         {
             // Fim do caminho (último dígito)
-            if (caminhoNo.Length == 0) 
+            if (caminhoNo.Length == 0)
             {
                 if (!limpando)
                 {
@@ -584,7 +594,7 @@ namespace VisualizadorHuffman
                 }
                 return;
             }
-           
+
             // Ainda há nós a percorrer
             if (!limpando)
             {
