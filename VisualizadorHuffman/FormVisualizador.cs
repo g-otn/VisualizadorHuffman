@@ -120,6 +120,7 @@ namespace VisualizadorHuffman
 
                 rtbSaidaBinario.Clear();
                 rtbSaidaBytes1252.Clear();
+                rtbSaidaBytesUTF8.Clear();
                 lblInfoDiferenca.Text = "";
                 lblInfoSaida.Text = "Saída: ";
 
@@ -510,7 +511,10 @@ namespace VisualizadorHuffman
             dgvCaracteres.ClearSelection();
 
             // Limpa o caminho do trvArvore.Nodes do último passo
-            PintarCaminho(ultimoCaminho, trvArvore.Nodes[0], true);
+            if (trvArvore.Nodes[0].GetNodeCount(false) != 0)
+                PintarCaminho(ultimoCaminho, trvArvore.Nodes[0], true); // Para árvores normais
+            else
+                PintarCaminho("", trvArvore.Nodes[0], true);     // Para árvores com somente um nó
 
             // Termina o estado atual (EstadoAlgoritmo.LendoEntrada) do algoritmo
             if (caractereAtual == rtbEntrada.Text.Length)
@@ -566,7 +570,6 @@ namespace VisualizadorHuffman
                         lblInfoSaida.Text = "Saída: " + Math.Ceiling(rtbSaidaBinario.Text.Length / 8d) + " bytes " + rtbSaidaBinario.Text.Length + " bits";
 
                         // Atualiza a diferença de tamanho entre a entrada e a saída
-                        Console.WriteLine("s: " + rtbSaidaBinario.Text.Length + " e: " + (rtbEntrada.Text.Length * 8) + " (" + rtbEntrada.Text.Length + ")");
                         int porcentagemDiminuicao = (int)((1 - (rtbSaidaBinario.Text.Length / (rtbEntrada.Text.Length * 8d))) * -100);
                         lblInfoDiferenca.Text = "(" + porcentagemDiminuicao + "%)";
 
@@ -576,7 +579,10 @@ namespace VisualizadorHuffman
                         rtbSaidaBinario.SelectionColor = linha.DefaultCellStyle.ForeColor;
 
                         // Destaca o caractere na trvArvore
-                        PintarCaminho(codigo, trvArvore.Nodes[0], false);
+                        if (trvArvore.Nodes[0].GetNodeCount(false) != 0)
+                            PintarCaminho(codigo, trvArvore.Nodes[0], false); // Para árvores normais
+                        else
+                            PintarCaminho("", trvArvore.Nodes[0], false);     // Para árvores com somente um nó
                         ultimoCaminho = codigo; // Guarda o caminho do trvArvore.Nodes a ser limpado no próximo passo
 
                         // Destaca a linha do caractere em dgvArvore
@@ -592,7 +598,7 @@ namespace VisualizadorHuffman
         private void PintarCaminho(string caminhoNo, TreeNode No, bool limpando)
         {
             // Fim do caminho (último dígito)
-            if (caminhoNo.Length == 0)
+            if (caminhoNo.Length == 0 || No.GetNodeCount(false) == 0 /* gambiarra */)
             {
                 if (!limpando)
                 {
@@ -637,8 +643,6 @@ namespace VisualizadorHuffman
             byte[] bytesEntradaEmWindows1252 = Encoding.Convert(Encoding.Unicode, Encoding.GetEncoding(1252), Encoding.Unicode.GetBytes(rtbEntrada.Text));
             rtbEntrada.Text = Encoding.GetEncoding(1252).GetString(bytesEntradaEmWindows1252);
         }
-
-        #endregion
 
         public class OrganizarNoPorFrequenciaOuPeso : IComparer
         {
@@ -696,5 +700,7 @@ namespace VisualizadorHuffman
             rtbSaidaBytesUTF8.Text = Encoding.UTF8.GetString(bytes.ToArray()); ;
             rtbSaidaBytes1252.ScrollToCaret();
         }
+
+        #endregion
     }
 }
