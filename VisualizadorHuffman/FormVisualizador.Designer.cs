@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle21 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle22 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle23 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle24 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gpbEntrada = new System.Windows.Forms.GroupBox();
             this.rtbEntrada = new System.Windows.Forms.RichTextBox();
             this.btnAbrirArquivo = new System.Windows.Forms.Button();
@@ -220,7 +220,7 @@
             this.rtbSaidaBinario.ReadOnly = true;
             this.rtbSaidaBinario.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
             this.rtbSaidaBinario.ShowSelectionMargin = true;
-            this.rtbSaidaBinario.Size = new System.Drawing.Size(415, 152);
+            this.rtbSaidaBinario.Size = new System.Drawing.Size(415, 140);
             this.rtbSaidaBinario.TabIndex = 5;
             this.rtbSaidaBinario.TabStop = false;
             this.rtbSaidaBinario.Text = "";
@@ -249,19 +249,19 @@
             // 
             this.dgvCaracteres.AllowUserToAddRows = false;
             this.dgvCaracteres.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-            this.dgvCaracteres.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
+            this.dgvCaracteres.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle21;
             this.dgvCaracteres.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvCaracteres.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCaracteres.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle22.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle22.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle22.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle22.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle22.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle22.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle22.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCaracteres.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle22;
             this.dgvCaracteres.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCaracteres.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colCaractere,
@@ -284,10 +284,10 @@
             // 
             // colCaractere
             // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
-            this.colCaractere.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle23.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle23.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle23.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
+            this.colCaractere.DefaultCellStyle = dataGridViewCellStyle23;
             this.colCaractere.HeaderText = "Caractere";
             this.colCaractere.MinimumWidth = 20;
             this.colCaractere.Name = "colCaractere";
@@ -297,9 +297,9 @@
             // 
             // colFrequencia
             // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
-            this.colFrequencia.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle24.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle24.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
+            this.colFrequencia.DefaultCellStyle = dataGridViewCellStyle24;
             this.colFrequencia.FillWeight = 80F;
             this.colFrequencia.HeaderText = "Frequência";
             this.colFrequencia.MinimumWidth = 20;
@@ -309,9 +309,9 @@
             // 
             // colCodigo1252
             // 
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
-            this.colCodigo1252.DefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle25.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle25.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
+            this.colCodigo1252.DefaultCellStyle = dataGridViewCellStyle25;
             this.colCodigo1252.FillWeight = 80F;
             this.colCodigo1252.HeaderText = "Código";
             this.colCodigo1252.MinimumWidth = 20;
@@ -355,7 +355,7 @@
             // 
             this.lblBinarioParaByteUTF8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblBinarioParaByteUTF8.AutoSize = true;
-            this.lblBinarioParaByteUTF8.Location = new System.Drawing.Point(219, 190);
+            this.lblBinarioParaByteUTF8.Location = new System.Drawing.Point(219, 178);
             this.lblBinarioParaByteUTF8.Name = "lblBinarioParaByteUTF8";
             this.lblBinarioParaByteUTF8.Size = new System.Drawing.Size(124, 13);
             this.lblBinarioParaByteUTF8.TabIndex = 11;
@@ -366,12 +366,12 @@
             this.rtbSaidaBytesUTF8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rtbSaidaBytesUTF8.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbSaidaBytesUTF8.Location = new System.Drawing.Point(222, 206);
+            this.rtbSaidaBytesUTF8.Location = new System.Drawing.Point(222, 194);
             this.rtbSaidaBytesUTF8.Name = "rtbSaidaBytesUTF8";
             this.rtbSaidaBytesUTF8.ReadOnly = true;
             this.rtbSaidaBytesUTF8.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
             this.rtbSaidaBytesUTF8.ShowSelectionMargin = true;
-            this.rtbSaidaBytesUTF8.Size = new System.Drawing.Size(202, 66);
+            this.rtbSaidaBytesUTF8.Size = new System.Drawing.Size(202, 78);
             this.rtbSaidaBytesUTF8.TabIndex = 10;
             this.rtbSaidaBytesUTF8.TabStop = false;
             this.rtbSaidaBytesUTF8.Text = "";
@@ -380,7 +380,7 @@
             // 
             this.lblBinarioParaByte1252.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.lblBinarioParaByte1252.AutoSize = true;
-            this.lblBinarioParaByte1252.Location = new System.Drawing.Point(9, 190);
+            this.lblBinarioParaByte1252.Location = new System.Drawing.Point(9, 178);
             this.lblBinarioParaByte1252.Name = "lblBinarioParaByte1252";
             this.lblBinarioParaByte1252.Size = new System.Drawing.Size(165, 13);
             this.lblBinarioParaByte1252.TabIndex = 8;
@@ -391,12 +391,12 @@
             this.rtbSaidaBytes1252.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.rtbSaidaBytes1252.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbSaidaBytes1252.Location = new System.Drawing.Point(9, 206);
+            this.rtbSaidaBytes1252.Location = new System.Drawing.Point(9, 194);
             this.rtbSaidaBytes1252.Name = "rtbSaidaBytes1252";
             this.rtbSaidaBytes1252.ReadOnly = true;
             this.rtbSaidaBytes1252.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.ForcedVertical;
             this.rtbSaidaBytes1252.ShowSelectionMargin = true;
-            this.rtbSaidaBytes1252.Size = new System.Drawing.Size(207, 66);
+            this.rtbSaidaBytes1252.Size = new System.Drawing.Size(207, 78);
             this.rtbSaidaBytes1252.TabIndex = 9;
             this.rtbSaidaBytes1252.TabStop = false;
             this.rtbSaidaBytes1252.Text = "";

@@ -75,7 +75,6 @@ namespace VisualizadorHuffman
             {
                 // Troca o tamanho da fonte baseado no tamanho do texto
                 int larguraTexto = 1 + TextRenderer.MeasureText(rtbEntrada.Text.Replace("\n", string.Empty), new Font("Consolas", 20)).Width;
-                Console.WriteLine(rtbEntrada.Text.Length + " " + larguraTexto + " " + rtbEntrada.Width * 2.7);
                 if (larguraTexto < rtbEntrada.Width * 2.7)
                 {
                     rtbEntrada.Font = new Font("Consolas", 20);
@@ -209,8 +208,8 @@ namespace VisualizadorHuffman
         {
             if (string.IsNullOrEmpty(rtbEntrada.Text))
             {
-                rtbEntrada.ForeColor = SystemColors.GrayText;
                 rtbEntrada.Text = "Digite alguma coisa...";
+                rtbEntrada.ForeColor = SystemColors.GrayText;
             }
         }
 
@@ -315,7 +314,7 @@ namespace VisualizadorHuffman
                 rtbEntrada.SelectionColor = SystemColors.HighlightText;
                 rtbEntrada.SelectionBackColor = Color.LightSeaGreen;
 
-                rtbEntrada.ScrollToCaret();
+                //rtbEntrada.ScrollToCaret();
             }
             finally
             {
@@ -694,15 +693,14 @@ namespace VisualizadorHuffman
             for (int i = 0; i < binarios.Length; i += 8)
             {
                 string byteString = binarios.Substring(i, Math.Max(8, Math.Min(8, binarios.Length - i)));
-
                 bytes.Add(Convert.ToByte(byteString, 2));
             }
 
             // Permite visualizar os bytes convertidos em caracteres
             rtbSaidaBytes1252.Text = Encoding.GetEncoding(1252).GetString(bytes.ToArray());
             rtbSaidaBytes1252.ScrollToCaret();
-            rtbSaidaBytesUTF8.Text = Encoding.UTF8.GetString(bytes.ToArray()); ;
-            rtbSaidaBytes1252.ScrollToCaret();
+            rtbSaidaBytesUTF8.Text = Encoding.UTF8.GetString(bytes.ToArray());
+            rtbSaidaBytesUTF8.ScrollToCaret();
         }
 
         #endregion
