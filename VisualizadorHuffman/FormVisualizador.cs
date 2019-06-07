@@ -360,18 +360,12 @@ namespace VisualizadorHuffman
                     }
 
                     dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Selected = true; // Visualização
-
-                    // DEBUG: Mostra o código Windows-1252 do caractere
-                    /*byte codigoWindows1252DoCaractereUnicode = Encoding.Convert(Encoding.Unicode, Encoding.GetEncoding(1252), Encoding.Unicode.GetBytes(caractere.ToString()))[0];
-                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[2].Value = codigoWindows1252DoCaractereUnicode;*/
+                    
+                    // Visualização
+                    Random random = new Random();
+                    Color corAleatoria = Color.FromArgb(25 + random.Next(150), 25 + random.Next(150), 25 + random.Next(150));
+                    dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].DefaultCellStyle.ForeColor = corAleatoria;
                 }
-
-                // Visualização
-                Random random = new Random();
-                Color corAleatoria = Color.FromArgb(25 + random.Next(150), 25 + random.Next(150), 25 + random.Next(150));
-                dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].DefaultCellStyle.ForeColor = corAleatoria;
-                // DEBUG: Mostra os valores RGB da cor gerada
-                //dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].Cells[2].Value = $"{corAleatoria.R}, {corAleatoria.G}, {corAleatoria.B}";
 
                 // Ordena as linhas dos dgvCaracteres baseado na coluna de Frequência
                 DataGridViewColumn frequencias = dgvCaracteres.Columns[1];
