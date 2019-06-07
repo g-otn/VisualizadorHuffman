@@ -595,7 +595,7 @@ namespace VisualizadorHuffman
         private void PintarCaminho(string caminhoNo, TreeNode No, bool limpando)
         {
             // Fim do caminho (último dígito)
-            if (caminhoNo.Length == 0 || No.GetNodeCount(false) == 0 /* gambiarra */)
+            if (caminhoNo.Length == 0 || No.GetNodeCount(false) == 0)
             {
                 if (!limpando)
                 {
@@ -618,6 +618,36 @@ namespace VisualizadorHuffman
                 No.BackColor = Color.Empty;
             }
             PintarCaminho(caminhoNo.Substring(1), No.Nodes[int.Parse(caminhoNo[0].ToString())], limpando);
+        }
+
+        private void rtbSaidaBinario_TextChanged(object sender, EventArgs e)
+        {
+            string binarios = rtbSaidaBinario.Text;
+
+            if (binarios.Length < 8)
+            {
+                return;
+            }
+
+            // Adiciona binários necessários para binarios.Length % 8 = 0
+            while (binarios.Length % 8 != 0)
+            {
+                binarios += "0";
+            }
+
+            // Tranforma a string de binários em uma List de bytes
+            List<byte> bytes = new List<byte>();
+            for (int i = 0; i < binarios.Length; i += 8)
+            {
+                string byteString = binarios.Substring(i, Math.Max(8, Math.Min(8, binarios.Length - i)));
+                bytes.Add(Convert.ToByte(byteString, 2));
+            }
+
+            // Permite visualizar os bytes convertidos em caracteres
+            rtbSaidaBytes1252.Text = Encoding.GetEncoding(1252).GetString(bytes.ToArray());
+            rtbSaidaBytes1252.ScrollToCaret();
+            rtbSaidaBytesUTF8.Text = Encoding.UTF8.GetString(bytes.ToArray());
+            rtbSaidaBytesUTF8.ScrollToCaret();
         }
 
         #endregion
@@ -665,36 +695,6 @@ namespace VisualizadorHuffman
             {
                 rtbSaidaBinario.Font = new Font("Consolas", 10);
             }
-        }
-
-        private void rtbSaidaBinario_TextChanged(object sender, EventArgs e)
-        {
-            string binarios = rtbSaidaBinario.Text;
-
-            if (binarios.Length < 8)
-            {
-                return;
-            }
-
-            // Adiciona binários necessários para binarios.Length % 8 = 0
-            while (binarios.Length % 8 != 0)
-            {
-                binarios += "0";
-            }
-
-            // Tranforma a string de binários em uma List de bytes
-            List<byte> bytes = new List<byte>();
-            for (int i = 0; i < binarios.Length; i += 8)
-            {
-                string byteString = binarios.Substring(i, Math.Max(8, Math.Min(8, binarios.Length - i)));
-                bytes.Add(Convert.ToByte(byteString, 2));
-            }
-
-            // Permite visualizar os bytes convertidos em caracteres
-            rtbSaidaBytes1252.Text = Encoding.GetEncoding(1252).GetString(bytes.ToArray());
-            rtbSaidaBytes1252.ScrollToCaret();
-            rtbSaidaBytesUTF8.Text = Encoding.UTF8.GetString(bytes.ToArray());
-            rtbSaidaBytesUTF8.ScrollToCaret();
         }
 
         #endregion
