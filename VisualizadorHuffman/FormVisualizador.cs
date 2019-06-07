@@ -55,6 +55,7 @@ namespace VisualizadorHuffman
             {
                 try
                 {
+                    rtbEntrada.ForeColor = SystemColors.ControlText;
                     rtbEntrada.Text = File.ReadAllText(txtCaminhoArquivo.Text, Encoding.GetEncoding(1252));
                     SubstituirWindows1252InvalidosDaEntrada();
                     ofdArquivoEntrada.FileName = txtCaminhoArquivo.Text; // Permite abrir outro arquivo se o txtCaminhoArquivo.Text for modificado novamente
@@ -62,6 +63,7 @@ namespace VisualizadorHuffman
                 }
                 catch
                 {
+                    rtbEntrada.ForeColor = SystemColors.GrayText;
                     txtCaminhoArquivo.ForeColor = Color.Red;
                 }
             }
@@ -72,7 +74,8 @@ namespace VisualizadorHuffman
             if (rtbEntrada.ForeColor != SystemColors.GrayText)
             {
                 // Troca o tamanho da fonte baseado no tamanho do texto
-                int larguraTexto = 1 + TextRenderer.MeasureText(rtbEntrada.Text, new Font("Consolas", 20)).Width;
+                int larguraTexto = 1 + TextRenderer.MeasureText(rtbEntrada.Text.Replace("\n", string.Empty), new Font("Consolas", 20)).Width;
+                Console.WriteLine(rtbEntrada.Text.Length + " " + larguraTexto + " " + rtbEntrada.Width * 2.7);
                 if (larguraTexto < rtbEntrada.Width * 2.7)
                 {
                     rtbEntrada.Font = new Font("Consolas", 20);
@@ -82,6 +85,7 @@ namespace VisualizadorHuffman
                     rtbEntrada.Font = new Font("Consolas", 10);
                 }
 
+                // Atualiza contagem de bytes da entrada
                 int bytes = Encoding.GetEncoding(1252).GetByteCount(rtbEntrada.Text);
                 lblInfoEntrada.Text = $"Entrada: {bytes} bytes, {bytes * 8} bits";
             }
