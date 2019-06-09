@@ -314,7 +314,7 @@ namespace VisualizadorHuffman
                 rtbEntrada.SelectionColor = SystemColors.HighlightText;
                 rtbEntrada.SelectionBackColor = Color.LightSeaGreen;
 
-                //rtbEntrada.ScrollToCaret();
+                rtbEntrada.ScrollToCaret();
             }
             finally
             {
