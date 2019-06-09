@@ -365,6 +365,7 @@
             // 
             this.rtbSaidaBytesUTF8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtbSaidaBytesUTF8.DetectUrls = false;
             this.rtbSaidaBytesUTF8.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbSaidaBytesUTF8.Location = new System.Drawing.Point(222, 194);
             this.rtbSaidaBytesUTF8.Name = "rtbSaidaBytesUTF8";
@@ -390,6 +391,7 @@
             // 
             this.rtbSaidaBytes1252.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.rtbSaidaBytes1252.DetectUrls = false;
             this.rtbSaidaBytes1252.Font = new System.Drawing.Font("Consolas", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbSaidaBytes1252.Location = new System.Drawing.Point(9, 194);
             this.rtbSaidaBytes1252.Name = "rtbSaidaBytes1252";

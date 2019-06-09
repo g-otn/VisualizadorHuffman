@@ -458,7 +458,7 @@ namespace VisualizadorHuffman
             }
 
             trvArvore.ExpandAll();
-            //trvArvore.Nodes[0].EnsureVisible();
+            trvArvore.Nodes[0].EnsureVisible();
         }
 
 
@@ -645,8 +645,10 @@ namespace VisualizadorHuffman
 
             // Permite visualizar os bytes convertidos em caracteres
             rtbSaidaBytes1252.Text = Encoding.GetEncoding(1252).GetString(bytes.ToArray());
+            rtbSaidaBytes1252.SelectionStart = rtbSaidaBytes1252.Text.Length;
             rtbSaidaBytes1252.ScrollToCaret();
             rtbSaidaBytesUTF8.Text = Encoding.UTF8.GetString(bytes.ToArray());
+            rtbSaidaBytesUTF8.SelectionStart = rtbSaidaBytesUTF8.Text.Length;
             rtbSaidaBytesUTF8.ScrollToCaret();
         }
 
