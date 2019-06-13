@@ -29,11 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle37 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle38 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle39 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle40 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.gpbEntrada = new System.Windows.Forms.GroupBox();
             this.rtbEntrada = new System.Windows.Forms.RichTextBox();
             this.btnAbrirArquivo = new System.Windows.Forms.Button();
@@ -48,6 +48,8 @@
             this.rtbSaidaBinario = new System.Windows.Forms.RichTextBox();
             this.ofdArquivoEntrada = new System.Windows.Forms.OpenFileDialog();
             this.gpbPassos = new System.Windows.Forms.GroupBox();
+            this.lblArvoreHuffman = new System.Windows.Forms.Label();
+            this.lblTabelaCaracteres = new System.Windows.Forms.Label();
             this.dgvCaracteres = new System.Windows.Forms.DataGridView();
             this.colCaractere = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colFrequencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -66,8 +68,6 @@
             this.lblCreditos = new System.Windows.Forms.Label();
             this.lnkGitHubLink = new System.Windows.Forms.LinkLabel();
             this.timerPasso = new System.Windows.Forms.Timer(this.components);
-            this.lblTabelaCaracteres = new System.Windows.Forms.Label();
-            this.lblArvoreHuffman = new System.Windows.Forms.Label();
             this.gpbEntrada.SuspendLayout();
             this.gpbControle.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tkbIntervaloPassos)).BeginInit();
@@ -249,23 +249,41 @@
             this.gpbPassos.TabStop = false;
             this.gpbPassos.Text = "Passos Da Compressão";
             // 
+            // lblArvoreHuffman
+            // 
+            this.lblArvoreHuffman.AutoSize = true;
+            this.lblArvoreHuffman.Location = new System.Drawing.Point(265, 19);
+            this.lblArvoreHuffman.Name = "lblArvoreHuffman";
+            this.lblArvoreHuffman.Size = new System.Drawing.Size(96, 13);
+            this.lblArvoreHuffman.TabIndex = 13;
+            this.lblArvoreHuffman.Text = "Árvore de Huffman";
+            // 
+            // lblTabelaCaracteres
+            // 
+            this.lblTabelaCaracteres.AutoSize = true;
+            this.lblTabelaCaracteres.Location = new System.Drawing.Point(9, 19);
+            this.lblTabelaCaracteres.Name = "lblTabelaCaracteres";
+            this.lblTabelaCaracteres.Size = new System.Drawing.Size(109, 13);
+            this.lblTabelaCaracteres.TabIndex = 12;
+            this.lblTabelaCaracteres.Text = "Tabela de Caracteres";
+            // 
             // dgvCaracteres
             // 
             this.dgvCaracteres.AllowUserToAddRows = false;
             this.dgvCaracteres.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle36.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
-            this.dgvCaracteres.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle36;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(244)))), ((int)(((byte)(244)))), ((int)(((byte)(244)))));
+            this.dgvCaracteres.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvCaracteres.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.dgvCaracteres.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle37.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle37.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle37.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle37.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle37.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle37.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle37.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvCaracteres.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle37;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvCaracteres.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.dgvCaracteres.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCaracteres.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.colCaractere,
@@ -288,10 +306,10 @@
             // 
             // colCaractere
             // 
-            dataGridViewCellStyle38.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle38.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle38.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
-            this.colCaractere.DefaultCellStyle = dataGridViewCellStyle38;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("Consolas", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
+            this.colCaractere.DefaultCellStyle = dataGridViewCellStyle3;
             this.colCaractere.HeaderText = "Caractere";
             this.colCaractere.MinimumWidth = 20;
             this.colCaractere.Name = "colCaractere";
@@ -301,9 +319,9 @@
             // 
             // colFrequencia
             // 
-            dataGridViewCellStyle39.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
-            dataGridViewCellStyle39.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
-            this.colFrequencia.DefaultCellStyle = dataGridViewCellStyle39;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.TopCenter;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
+            this.colFrequencia.DefaultCellStyle = dataGridViewCellStyle4;
             this.colFrequencia.FillWeight = 80F;
             this.colFrequencia.HeaderText = "Frequência";
             this.colFrequencia.MinimumWidth = 20;
@@ -313,9 +331,9 @@
             // 
             // colCodigo1252
             // 
-            dataGridViewCellStyle40.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle40.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
-            this.colCodigo1252.DefaultCellStyle = dataGridViewCellStyle40;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.LightSeaGreen;
+            this.colCodigo1252.DefaultCellStyle = dataGridViewCellStyle5;
             this.colCodigo1252.FillWeight = 80F;
             this.colCodigo1252.HeaderText = "Código";
             this.colCodigo1252.MinimumWidth = 20;
@@ -492,24 +510,6 @@
             // 
             this.timerPasso.Interval = 1000;
             this.timerPasso.Tick += new System.EventHandler(this.timerPasso_Tick);
-            // 
-            // lblTabelaCaracteres
-            // 
-            this.lblTabelaCaracteres.AutoSize = true;
-            this.lblTabelaCaracteres.Location = new System.Drawing.Point(9, 19);
-            this.lblTabelaCaracteres.Name = "lblTabelaCaracteres";
-            this.lblTabelaCaracteres.Size = new System.Drawing.Size(109, 13);
-            this.lblTabelaCaracteres.TabIndex = 12;
-            this.lblTabelaCaracteres.Text = "Tabela de Caracteres";
-            // 
-            // lblArvoreHuffman
-            // 
-            this.lblArvoreHuffman.AutoSize = true;
-            this.lblArvoreHuffman.Location = new System.Drawing.Point(265, 19);
-            this.lblArvoreHuffman.Name = "lblArvoreHuffman";
-            this.lblArvoreHuffman.Size = new System.Drawing.Size(96, 13);
-            this.lblArvoreHuffman.TabIndex = 13;
-            this.lblArvoreHuffman.Text = "Árvore de Huffman";
             // 
             // FormVisualizador
             // 

@@ -16,7 +16,7 @@ namespace VisualizadorHuffman
     {
         private enum EstadoAlgoritmo { Parado, LendoEntrada, ConstruindoArvore, GerandoCodigo, GerandoSaida };
         private EstadoAlgoritmo estadoAtual = EstadoAlgoritmo.Parado;
-
+        
         private int caractereAtual; // Guarda o progresso de leitura do rtbEntrada
 
         // Usado para guardar a cor dos nós que foram reposicionados no trvArvore
@@ -305,7 +305,6 @@ namespace VisualizadorHuffman
                 if (caractereAtual != 0)
                 {
                     rtbEntrada.Select(caractereAtual - 1, 1);
-                    rtbEntrada.SelectionColor = SystemColors.ControlText;
                     rtbEntrada.SelectionBackColor = SystemColors.Window;
                 }
 
@@ -330,7 +329,10 @@ namespace VisualizadorHuffman
                     if (caractere == Convert.ToInt32(dgvCaracteres.Rows[i].Tag))
                     {
                         dgvCaracteres.Rows[i].Cells[1].Value = (int)dgvCaracteres.Rows[i].Cells[1].Value + 1;
+
+                        // Visualização
                         dgvCaracteres.Rows[i].Selected = true;
+                        rtbEntrada.SelectionColor = dgvCaracteres.Rows[i].DefaultCellStyle.ForeColor;
                         break;
                     }
                 }
@@ -365,6 +367,7 @@ namespace VisualizadorHuffman
                     Random random = new Random();
                     Color corAleatoria = Color.FromArgb(25 + random.Next(150), 25 + random.Next(150), 25 + random.Next(150));
                     dgvCaracteres.Rows[dgvCaracteres.RowCount - 1].DefaultCellStyle.ForeColor = corAleatoria;
+                    rtbEntrada.SelectionColor = corAleatoria;
                 }
 
                 // Ordena as linhas dos dgvCaracteres baseado na coluna de Frequência
@@ -518,7 +521,6 @@ namespace VisualizadorHuffman
             {
                 // Limpa seleção do última caractere
                 rtbEntrada.Select(caractereAtual - 1, 1);
-                rtbEntrada.SelectionColor = SystemColors.ControlText;
                 rtbEntrada.SelectionBackColor = SystemColors.Window;
 
                 // Passa ao algoritmo para o próximo estado
@@ -537,13 +539,11 @@ namespace VisualizadorHuffman
                 if (caractereAtual != 0)
                 {
                     rtbEntrada.Select(caractereAtual - 1, 1);
-                    rtbEntrada.SelectionColor = SystemColors.ControlText;
                     rtbEntrada.SelectionBackColor = SystemColors.Window;
                 }
 
                 // Destaca o caractere atual no rtbEntrada
                 rtbEntrada.Select(caractereAtual, 1);
-                rtbEntrada.SelectionColor = SystemColors.HighlightText;
                 rtbEntrada.SelectionBackColor = Color.LightSeaGreen;
 
                 rtbEntrada.ScrollToCaret();
