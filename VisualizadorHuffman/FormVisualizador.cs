@@ -685,6 +685,12 @@ namespace VisualizadorHuffman
             }
         }
 
+        #endregion
+
+
+
+        #region Métodos de Visualização
+
         private void trocarTamanhoFonteSaida()
         {
             // Troca o tamanho da fonte do rtbSaidaBinario baseado no tamanho do texto do rtbEntrada
@@ -699,6 +705,15 @@ namespace VisualizadorHuffman
             }
         }
 
+        private void dgvCaracteres_RowStateChanged(object sender, DataGridViewRowStateChangedEventArgs e)
+        {
+            if (e.StateChanged != DataGridViewElementStates.Selected)
+                return;
+
+            // TODO: Caminhar árvore até o caractere de linhas que já possuem código
+        }
+
         #endregion
+
     }
 }

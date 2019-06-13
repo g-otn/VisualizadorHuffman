@@ -303,6 +303,7 @@
             this.dgvCaracteres.ShowRowErrors = false;
             this.dgvCaracteres.Size = new System.Drawing.Size(253, 434);
             this.dgvCaracteres.TabIndex = 10;
+            this.dgvCaracteres.RowStateChanged += new System.Windows.Forms.DataGridViewRowStateChangedEventHandler(this.dgvCaracteres_RowStateChanged);
             // 
             // colCaractere
             // 
