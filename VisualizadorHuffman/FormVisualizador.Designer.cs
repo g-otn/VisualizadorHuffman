@@ -491,8 +491,8 @@
             this.lblCreditos.Name = "lblCreditos";
             this.lblCreditos.Size = new System.Drawing.Size(591, 13);
             this.lblCreditos.TabIndex = 11;
-            this.lblCreditos.Text = "Visualizador Huffman  -  2019  - Gabriel Otani Pereira e Christopher Marques Corr" +
-    "êa";
+            this.lblCreditos.Text = "Visualizador Huffman  -  2019  -  Gabriel Otani Pereira e Christopher Marques Cor" +
+    "rêa";
             this.lblCreditos.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // lnkGitHubLink
